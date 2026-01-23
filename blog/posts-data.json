@@ -1,14 +1,5 @@
 {
     "posts": [
-        {
-            "id": "test",
-            "title": "test",
-            "description": "lklk",
-            "category": "web-hosting",
-            "author": "NutroCloud Team",
-            "date": "2026-01-24 00:42:53",
-            "cover": "sadad",
-            "url": "posts\/test.html"
-        }
+  
     ]
 }
