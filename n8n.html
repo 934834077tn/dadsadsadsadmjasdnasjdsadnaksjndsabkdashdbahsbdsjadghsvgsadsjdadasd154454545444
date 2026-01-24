@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n Workflow Automation Hosting - Starting at $2.99/mo</title>
+    <meta name="description" content="Host your n8n workflows with Nutro Cloud. Powerful automation hosting with 24/7 support, automatic backups, and optimized performance.">
+    <link rel="icon" href="assets/images/fav.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/plugins.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="main.js"></script>
+    
+    <style>
+        :root {
+            --n8n-orange: #FF6D5A;
+            --n8n-dark: #1A1A1A;
+            --n8n-darker: #0D0D0D;
+            --n8n-light-orange: #FF8A7A;
+        }
+        
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background: var(--n8n-darker);
+        }
+        
+        .rts-hosting-banner {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rts-hosting-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 109, 90, 0.1) 0%, transparent 50%);
+        }
+        
+        .offer-badge {
+            background: linear-gradient(135deg, var(--n8n-orange), var(--n8n-light-orange));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .banner-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin: 20px 0 30px 0;
+        }
+        
+        .hero-description {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin: 16px 0 24px 0;
+        }
+        
+        .price-container {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+        
+        .currency {
+            font-size: 32px;
+            color: var(--n8n-orange);
+            font-weight: 600;
+        }
+        
+        .price {
+            font-size: 72px;
+            color: var(--n8n-orange);
+            font-weight: 800;
+            line-height: 1;
+        }
+        
+        .cents {
+            font-size: 32px;
+            color: var(--n8n-orange);
+            font-weight: 600;
+        }
+        
+        .period {
+            font-size: 24px;
+            color: white;
+            font-weight: 500;
+            margin-left: 5px;
+        }
+        
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 15px;
+            margin: 25px auto;
+            max-width: 400px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .checkmark {
+            color: var(--n8n-orange);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .btn-claim {
+            background: linear-gradient(135deg, var(--n8n-orange), var(--n8n-light-orange));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-block;
+            transition: all 0.4s;
+            box-shadow: 0 4px 14px rgba(255, 109, 90, 0.3);
+        }
+        
+        .btn-claim:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 109, 90, 0.5);
+            color: white;
+        }
+        
+        .guarantee {
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+        }
+        
+        .n8n-demo-box {
+            background: rgba(255, 109, 90, 0.1);
+            border: 2px solid rgba(255, 109, 90, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .n8n-gif {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .n8n-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .n8n-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--n8n-orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 109, 90, 0.7); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 10px rgba(255, 109, 90, 0); }
+            100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 109, 90, 0); }
+        }
+        
+        .section__padding {
+            padding: 80px 0;
+        }
+        
+        .bg-dark-section {
+            background: var(--n8n-dark);
+        }
+        
+        .bg-darker-section {
+            background: var(--n8n-darker);
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .section-desc {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+        }
+        
+        .n8n-feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 109, 90, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .n8n-feature-card:hover {
+            border-color: var(--n8n-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 109, 90, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--n8n-orange), var(--n8n-light-orange));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 28px;
+            color: white;
+        }
+        
+        .n8n-feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .n8n-feature-card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        
+        .n8n-badge {
+            background: linear-gradient(135deg, var(--n8n-orange), var(--n8n-light-orange));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .integration-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 109, 90, 0.2);
+            border-radius: 12px;
+            padding: 20px 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .integration-box:hover {
+            border-color: var(--n8n-orange);
+            transform: translateY(-5px);
+            background: rgba(255, 109, 90, 0.1);
+        }
+        
+
+        
+        .integration-box p {
+            color: rgba(255,255,255,0.8);
+            font-size: 13px;
+            margin: 0;
+            font-weight: 500;
+        }
+        
+        .card-plan {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 109, 90, 0.2);
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .card-plan:hover {
+            border-color: var(--n8n-orange);
+            transform: translateY(-5px);
+        }
+        
+        .card-plan.active {
+            border: 2px solid var(--n8n-orange);
+            box-shadow: 0 8px 25px rgba(255, 109, 90, 0.3);
+        }
+        
+        .popular-tag {
+            background: var(--n8n-orange);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .package__name {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .package__tagline {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+        
+        .card-plan__price {
+            font-size: 36px;
+            font-weight: bold;
+            color: var(--n8n-orange);
+        }
+        
+        .card-plan__cartbtn a {
+            background: var(--n8n-orange);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .card-plan__cartbtn a:hover {
+            background: var(--n8n-light-orange);
+            transform: scale(1.05);
+        }
+        
+        .card-plan__feature--list-item {
+            color: rgba(255,255,255,0.8);
+            padding: 8px 0;
+        }
+        
+        .card-plan__feature--list-item i {
+            color: var(--n8n-orange);
+            margin-right: 8px;
+        }
+        
+        .trustpilot-section {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 109, 90, 0.1);
+        }
+        
+        .trustpilot-stars {
+            color: var(--n8n-orange);
+        }
+        
+        .trustpilot-text {
+            color: rgba(255,255,255,0.8);
+        }
+        
+        @media (max-width: 768px) {
+            .banner-title {
+                font-size: 32px;
+            }
+            .price {
+                font-size: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <!-- n8n hosting banner -->
+    <div class="rts-hosting-banner banner-default-height">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="rts-hosting-banner__content">
+                        <div class="hero-offer text-center text-lg-start">
+                            <span class="offer-badge">Up to 70% off n8n Workflow Hosting</span>
+                        </div>
+                        <h1 class="banner-title">
+                            Automate Everything with n8n Hosting
+                        </h1>
+                        <p class="hero-description">
+                            Host your n8n workflows on powerful infrastructure. Connect 400+ apps, automate tasks, and build custom workflows with zero limits. Fully managed hosting with automatic updates and 24/7 support.
+                        </p>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>Pre-installed n8n</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>400+ Integrations</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>Unlimited Workflows</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>24/7 Expert Support</span>
+                            </div>
+                        </div>
+                        <div class="hero-cta text-center text-lg-start">
+                            <a href="#plans" class="btn-claim">Get Started Now</a>
+                            <div class="guarantee">
+                                <span>30-day money-back guarantee</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="rts-hosting-banner__image">
+                        <div class="n8n-demo-box">
+                            <img src="https://i.postimg.cc/TwWnzDjN/N-(5).png" alt="n8n Workflow Automation" class="n8n-gif">
+                            <div class="n8n-status">
+                                <span class="n8n-indicator"></span>
+                                <span>n8n Instance Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- n8n FEATURES SECTION -->
+    <section class="section__padding bg-dark-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Why Choose n8n Hosting with Nutro Cloud?</h2>
+                    <p class="section-desc">Powerful workflow automation made simple with managed hosting</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="n8n-feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Lightning Fast Performance</h3>
+                        <p>Run complex workflows with optimized servers and SSD storage. Execute thousands of operations without slowdowns.</p>
+                        <span class="n8n-badge">High Performance</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="n8n-feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Secure & Private</h3>
+                        <p>Your workflows and data stay private. SSL encryption, firewall protection, and daily backups included.</p>
+                        <span class="n8n-badge">Enterprise Security</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="n8n-feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <h3>400+ Integrations</h3>
+                        <p>Connect with Google, Slack, GitHub, Notion, Airtable, and 400+ other apps. Build any automation you need.</p>
+                        <span class="n8n-badge">Unlimited Connections</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- USE CASES SECTION -->
+    <section class="section__padding bg-darker-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">What You Can Build with n8n</h2>
+                    <p class="section-desc">Automate any workflow you can imagine</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="n8n-feature-card">
+                        <h3>🔄 Data Synchronization</h3>
+                        <p>Sync data between CRM, databases, spreadsheets, and apps automatically. Keep everything up-to-date in real-time.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="n8n-feature-card">
+                        <h3>📧 Email Automation</h3>
+                        <p>Send personalized emails, create follow-up sequences, and manage campaigns based on user behavior.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="n8n-feature-card">
+                        <h3>📊 Report Generation</h3>
+                        <p>Automatically generate reports from multiple sources, format data, and send to stakeholders on schedule.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="n8n-feature-card">
+                        <h3>🤖 Social Media Management</h3>
+                        <p>Schedule posts, monitor mentions, respond to messages, and track engagement across all platforms.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="n8n-feature-card">
+                        <h3>💰 E-commerce Automation</h3>
+                        <p>Process orders, update inventory, send notifications, and manage customer data automatically.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="n8n-feature-card">
+                        <h3>🔔 Alert Systems</h3>
+                        <p>Monitor systems, track metrics, and get instant notifications via Slack, Discord, or email when issues occur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INTEGRATIONS SHOWCASE -->
+    <section class="section__padding bg-dark-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Connect Your Favorite Apps</h2>
+                    <p class="section-desc">400+ pre-built integrations ready to use</p>
+                </div>
+            </div>
+            <div class="row g-3 justify-content-center">
+                <div class="col-4 col-md-2">
+                    <div class="integration-box">
+                        <i class="fab fa-google" style="font-size: 32px; color: var(--n8n-orange);"></i>
+                        <p>Gmail</p>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="integration-box">
+                        <i class="fab fa-slack" style="font-size: 32px; color: var(--n8n-orange);"></i>
+                        <p>Slack</p>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="integration-box">
+                        <i class="fab fa-github" style="font-size: 32px; color: var(--n8n-orange);"></i>
+                        <p>GitHub</p>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="integration-box">
+                        <i class="fab fa-trello" style="font-size: 32px; color: var(--n8n-orange);"></i>
+                        <p>Trello</p>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="integration-box">
+                        <i class="fab fa-shopify" style="font-size: 32px; color: var(--n8n-orange);"></i>
+                        <p>Shopify</p>
+                    </div>
+                </div>
+                <div class="col-4 col-md-2">
+                    <div class="integration-box">
+                        <i class="fab fa-discord" style="font-size: 32px; color: var(--n8n-orange);"></i>
+                        <p>Discord</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-5">
+                <p style="color: rgba(255,255,255,0.7); font-size: 18px;">+ 394 more integrations available</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING PLANS -->
+    <section class="section__padding bg-darker-section" id="plans">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Choose Your n8n Hosting Plan</h2>
+                    <p class="section-desc">Flexible plans for every automation need</p>
+                </div>
+            </div>
+            <div class="row g-4" id="plans-container">
+                <div id="plans-loading" style="width: 100%; text-align: center; padding: 40px;">
+                    <img src="assets/1.gif" alt="Loading..." style="width:48px;height:48px;">
+                    <div style="margin-top:10px; color: white;">Loading Plans...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section__padding bg-darker-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        <p class="section-desc">Everything you need to know about n8n hosting</p>
+                    </div>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    What is n8n?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    n8n is a powerful workflow automation tool that lets you connect apps and automate tasks. It's like Zapier but self-hosted, giving you full control over your data and workflows.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    Do I need technical knowledge to use n8n?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    No! n8n has a visual interface that makes it easy to build workflows without coding. However, if you know JavaScript, you can create even more powerful automations.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    Is n8n pre-installed on my hosting?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Yes! We pre-install and configure n8n for you. Your instance is ready to use immediately after purchase.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    Can I upgrade my plan later?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Absolutely! You can upgrade or downgrade your plan anytime. Your workflows and data will be preserved during the migration.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    Do you provide backups?
+                                </button>
+                            </h2>
+                            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Yes! We perform daily automatic backups of your n8n instance and workflows. You can restore anytime from your control panel.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="section__padding bg-dark-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="section-title">Ready to Automate Your Workflows?</h3>
+                    <p class="section-desc">Start building powerful automations with n8n today</p>
+                    <a href="#plans" class="btn-claim">Get Started Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- PRELOADER -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <div class="progress-wrap" style="position: fixed; right: 30px; bottom: 30px; height: 46px; width: 46px; cursor: pointer; display: block; border-radius: 50px; box-shadow: inset 0 0 0 2px rgba(255,109,90,0.2); z-index: 10000; opacity: 0; visibility: hidden; transform: translateY(15px); transition: all 200ms linear; background: var(--n8n-orange);">
+        <i class="fas fa-arrow-up" style="color: white; font-size: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="assets/js/plugins.min.js"></script>
+    <script defer src="assets/js/main.js"></script>
+    <script defer src="main.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    fetch("https://user.7tteam.com/admin/nutrocloud/wpplan.php")
+                        .then(res => res.json())
+                        .then(plansData => {
+                            const container = document.getElementById("plans-container");
+                            container.innerHTML = '';
+                            
+                            plansData.forEach(plan => {
+                                let features = plan.features.map(f =>
+                                    `<li class="card-plan__feature--list-item"><i class="fas fa-check"></i> ${f}</li>`
+                                ).join('');
+                                
+                                let popularTag = plan.popular ? `<div class="popular-tag">Most Popular</div>` : '';
+                                let cardClass = plan.popular ? "card-plan active" : "card-plan";
+                                
+                                const planHTML = `
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="${cardClass}" style="position: relative;">
+                                            ${popularTag}
+                                            <div class="card-plan__package text-center" style="margin: 20px 0 30px 0;">
+                                                <h4 class="package__name">${plan.name}</h4>
+                                                <p class="package__tagline">${plan.tagline}</p>
+                                            </div>
+                                            <div class="card-plan__pricing text-center" style="margin: 25px 0; padding: 20px 0; border-top: 1px solid rgba(255,109,90,0.2); border-bottom: 1px solid rgba(255,109,90,0.2);">
+                                                <h5 class="card-plan__price">
+                                                    <sup>$</sup> ${plan.price} <sub>${plan.period}</sub>
+                                                </h5>
+                                            </div>
+                                            <div class="card-plan__cartbtn text-center" style="margin: 25px 0;">
+                                                <a href="${plan.link}" target="_blank">Get Started</a>
+                                            </div>
+                                            <div class="card-plan__feature">
+                                                <ul class="card-plan__feature--list" style="list-style: none; padding: 0;">
+                                                    ${features}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = planHTML;
+                                container.appendChild(tempDiv.firstElementChild);
+                            });
+                        })
+                        .catch(err => {
+                            console.error("Error loading plans:", err);
+                            document.getElementById("plans-container").innerHTML = "<p style='color:red'>Failed to load plans</p>";
+                        });
+                }, 1200);
+            });
+        });
+        
+        async function loadFooter() {
+            try {
+                const response = await fetch('footer.html');
+                const data = await response.text();
+                document.getElementById('footer').innerHTML = data;
+            } catch (error) {
+                console.error('Error loading footer:', error);
+            }
+        }
+        loadFooter();
+        
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
