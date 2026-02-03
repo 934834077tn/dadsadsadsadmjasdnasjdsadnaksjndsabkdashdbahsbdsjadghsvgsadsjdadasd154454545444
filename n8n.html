@@ -734,7 +734,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             window.addEventListener("load", function () {
                 setTimeout(function () {
-                    fetch("https://user.7tteam.com/admin/nutrocloud/plans.php")
+                    fetch("https://user.7tteam.com/admin/nutrocloud/plan.php")
                         .then(res => res.json())
                         .then(plansData => {
                             const container = document.getElementById("plans-container");
