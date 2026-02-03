@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>n8n Workflow Automation Hosting - Starting at $2.99/mo</title>
+    <title>n8n Workflow Automation Hosting - Starting at $5.99/mo</title>
     <meta name="description" content="Host your n8n workflows with Nutro Cloud. Powerful automation hosting with 24/7 support, automatic backups, and optimized performance.">
     <link rel="icon" href="assets/images/fav.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -734,7 +734,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             window.addEventListener("load", function () {
                 setTimeout(function () {
-                    fetch("https://user.7tteam.com/admin/nutrocloud/wpplan.php")
+                    fetch("https://user.7tteam.com/admin/nutrocloud/plans.php")
                         .then(res => res.json())
                         .then(plansData => {
                             const container = document.getElementById("plans-container");
