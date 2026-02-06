@@ -659,14 +659,28 @@
                             const container = document.getElementById("plans-container");
                             container.innerHTML = '';
                             
-                            plansData.forEach(plan => {
+                            plansData.forEach((plan, index) => {
                                 // Replace VPS with OpenClaw
                                 let planName = plan.name.replace(/VPS/gi, 'OpenClaw');
                                 let planTagline = plan.tagline.replace(/VPS/gi, 'OpenClaw');
                                 
-                                let features = plan.features.map(f =>
-                                    `<li class="card-plan__feature--list-item"><i class="fas fa-check"></i> ${f.replace(/VPS/gi, 'OpenClaw')}</li>`
-                                ).join('');
+                                // Replace 4 GB DDR4 RAM with 8GB DDR4 RAM
+                                let features = plan.features.map(f => {
+                                    let feature = f.replace(/VPS/gi, 'OpenClaw');
+                                    feature = feature.replace(/4 GB  DDR4 RAM/g, '8GB DDR4 RAM');
+                                    return `<li class="card-plan__feature--list-item"><i class="fas fa-check"></i> ${feature}</li>`;
+                                }).join('');
+                                
+                                // Apply discount to first plan
+                                let displayPrice = plan.price;
+                                let originalPrice = null;
+                                let discountBadge = '';
+                                
+                                if (index === 0 && plan.price == '6.00') {
+                                    displayPrice = '4.99';
+                                    originalPrice = '6.00';
+                                    discountBadge = '<div style="background: #28a745; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 700; display: inline-block; margin-top: 8px;">Save 28% - 12 Month Plan</div>';
+                                }
                                 
                                 let popularTag = plan.popular ? `<div class="popular-tag">Most Popular</div>` : '';
                                 let cardClass = plan.popular ? "card-plan active" : "card-plan";
@@ -680,11 +694,13 @@
                                                 <p class="package__tagline">${planTagline}</p>
                                             </div>
                                             <div class="card-plan__pricing text-center" style="margin: 25px 0; padding: 25px 0; background: rgba(255, 109, 90, 0.05); border-radius: 15px;">
+                                                ${originalPrice ? `<div style="text-decoration: line-through; color: rgba(255,255,255,0.5); font-size: 18px; margin-bottom: 5px;">$${originalPrice}</div>` : ''}
                                                 <div style="display: flex; align-items: baseline; justify-content: center; gap: 5px;">
                                                     <span style="font-size: 24px; color: var(--openclaw-orange); font-weight: 700;">$</span>
-                                                    <span style="font-size: 48px; color: var(--openclaw-orange); font-weight: 900; line-height: 1;">${plan.price}</span>
+                                                    <span style="font-size: 48px; color: var(--openclaw-orange); font-weight: 900; line-height: 1;">${displayPrice}</span>
                                                     <span style="font-size: 18px; color: rgba(255,255,255,0.7); font-weight: 600;">${plan.period}</span>
                                                 </div>
+                                                ${discountBadge}
                                             </div>
                                             <div class="card-plan__cartbtn text-center" style="margin: 25px 0;">
                                                 <a href="${plan.link}&os=openclaw" target="_blank">Get Started</a>
