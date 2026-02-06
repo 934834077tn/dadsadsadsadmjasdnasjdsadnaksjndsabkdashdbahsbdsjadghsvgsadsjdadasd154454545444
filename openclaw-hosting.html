@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenClaw AI Assistant Hosting - Starting at $2.99/mo</title>
+    <title>OpenClaw AI Assistant Hosting - Starting at $4.99/mo</title>
     <meta name="description" content="Host your OpenClaw AI assistant with Nutro Cloud. 24/7 autonomous AI that manages emails, calendar, and tasks from any chat app.">
     <link rel="icon" href="assets/images/fav.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
@@ -444,7 +444,7 @@
                             <i class="fas fa-dollar-sign"></i>
                         </div>
                         <h3>Affordable Pricing</h3>
-                        <p>Starting at just $2.99/mo - 70% cheaper than competitors. Premium AI hosting accessible to everyone.</p>
+                        <p>Starting at just $4.99/mo - 70% cheaper than competitors. Premium AI hosting accessible to everyone.</p>
                         <span class="openclaw-badge">Best Value</span>
                     </div>
                 </div>
@@ -569,7 +569,7 @@
                             </h2>
                             <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
                                 <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
-                                    Nutro Cloud offers the best performance and pricing for OpenClaw AI hosting. With NVMe SSD storage, powerful CPUs, and plans starting at just $2.99/mo, you get premium infrastructure at affordable prices. Plus, our 24/7 expert support team helps with setup and troubleshooting.
+                                    Nutro Cloud offers the best performance and pricing for OpenClaw AI hosting. With NVMe SSD storage, powerful CPUs, and plans starting at just $4.99/mo, you get premium infrastructure at affordable prices. Plus, our 24/7 expert support team helps with setup and troubleshooting.
                                 </div>
                             </div>
                         </div>
@@ -667,7 +667,8 @@
                                 // Replace 4 GB DDR4 RAM with 8GB DDR4 RAM
                                 let features = plan.features.map(f => {
                                     let feature = f.replace(/VPS/gi, 'OpenClaw');
-                                    feature = feature.replace(/4 GB  DDR4 RAM/g, '8GB DDR4 RAM');
+                                    feature = feature.replace(/4 GB  DDR4 RAM/gi, '8GB DDR4 RAM');
+                                    feature = feature.replace(/4 GB DDR4 RAM/gi, '8GB DDR4 RAM');
                                     return `<li class="card-plan__feature--list-item"><i class="fas fa-check"></i> ${feature}</li>`;
                                 }).join('');
                                 
@@ -676,9 +677,9 @@
                                 let originalPrice = null;
                                 let discountBadge = '';
                                 
-                                if (index === 0 && plan.price == '6.00') {
+                                if (index === 0 && plan.price == '6.99') {
                                     displayPrice = '4.99';
-                                    originalPrice = '6.00';
+                                    originalPrice = '6.99';
                                     discountBadge = '<div style="background: #28a745; color: white; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 700; display: inline-block; margin-top: 8px;">Save 28% - 12 Month Plan</div>';
                                 }
                                 
