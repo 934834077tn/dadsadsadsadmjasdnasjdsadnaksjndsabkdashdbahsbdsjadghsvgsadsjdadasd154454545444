@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw AI Assistant Hosting - Starting at $2.99/mo</title>
+    <meta name="description" content="Host your OpenClaw AI assistant with Nutro Cloud. 24/7 autonomous AI that manages emails, calendar, and tasks from any chat app.">
+    <link rel="icon" href="assets/images/fav.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/plugins.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="main.js"></script>
+    
+    <style>
+        :root {
+            --openclaw-orange: #f70c0c;
+            --openclaw-dark: #1A1A1A;
+            --openclaw-darker: #0D0D0D;
+            --openclaw-light-orange: #eb3131;
+        }
+        
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background: var(--openclaw-darker);
+        }
+        
+        .rts-hosting-banner {
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rts-hosting-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(255, 109, 90, 0.1) 0%, transparent 50%);
+        }
+        
+        .offer-badge {
+            background: linear-gradient(135deg, var(--openclaw-orange), var(--openclaw-light-orange));
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+        }
+        
+        .banner-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin: 20px 0 30px 0;
+        }
+        
+        .hero-description {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+            margin: 16px 0 24px 0;
+        }
+        
+        .hero-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 15px;
+            margin: 25px auto;
+            max-width: 400px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .checkmark {
+            color: var(--openclaw-orange);
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .btn-claim {
+            background: linear-gradient(135deg, var(--openclaw-orange), var(--openclaw-light-orange));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-block;
+            transition: all 0.4s;
+            box-shadow: 0 4px 14px rgba(255, 109, 90, 0.3);
+        }
+        
+        .btn-claim:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 109, 90, 0.5);
+            color: white;
+        }
+        
+        .guarantee {
+            margin-top: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+        }
+        
+        .openclaw-demo-box {
+            background: rgba(255, 109, 90, 0.1);
+            border: 2px solid rgba(255, 109, 90, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .openclaw-gif {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .openclaw-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .openclaw-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--openclaw-orange);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 109, 90, 0.7); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 10px rgba(255, 109, 90, 0); }
+            100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255, 109, 90, 0); }
+        }
+        
+        .section__padding {
+            padding: 80px 0;
+        }
+        
+        .bg-dark-section {
+            background: var(--openclaw-dark);
+        }
+        
+        .bg-darker-section {
+            background: var(--openclaw-darker);
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .section-desc {
+            font-size: 18px;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 40px;
+        }
+        
+        .openclaw-feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 109, 90, 0.2);
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+        
+        .openclaw-feature-card:hover {
+            border-color: var(--openclaw-orange);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 109, 90, 0.2);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--openclaw-orange), var(--openclaw-light-orange));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .feature-icon i {
+            font-size: 28px;
+            color: white;
+        }
+        
+        .openclaw-feature-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .openclaw-feature-card p {
+            color: rgba(255,255,255,0.7);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        
+        .openclaw-badge {
+            background: linear-gradient(135deg, var(--openclaw-orange), var(--openclaw-light-orange));
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        
+        .card-plan {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border: 2px solid rgba(255, 109, 90, 0.3);
+            border-radius: 20px;
+            padding: 35px 25px;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+        
+        .card-plan:hover {
+            border-color: var(--openclaw-orange);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 109, 90, 0.3);
+        }
+        
+        .card-plan.active {
+            border: 3px solid var(--openclaw-orange);
+            box-shadow: 0 10px 35px rgba(255, 109, 90, 0.4);
+        }
+        
+        .popular-tag {
+            background: linear-gradient(135deg, var(--openclaw-orange), var(--openclaw-light-orange));
+            color: white;
+            padding: 10px 25px;
+            border-radius: 0 0 20px 20px;
+            position: absolute;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 109, 90, 0.4);
+        }
+        
+        .package__name {
+            font-size: 26px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .package__tagline {
+            color: rgba(255,255,255,0.7);
+            font-size: 15px;
+        }
+        
+        .card-plan__price {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--openclaw-orange);
+        }
+        
+        .card-plan__cartbtn a {
+            background: linear-gradient(135deg, var(--openclaw-orange), var(--openclaw-light-orange));
+            color: white;
+            padding: 14px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            display: block;
+            transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(255, 109, 90, 0.3);
+            text-align: center;
+        }
+        
+        .card-plan__cartbtn a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 109, 90, 0.5);
+        }
+        
+        .card-plan__feature--list-item {
+            color: rgba(255,255,255,0.85);
+            padding: 10px 0;
+            font-size: 15px;
+        }
+        
+        .card-plan__feature--list-item i {
+            color: var(--openclaw-orange);
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .banner-title {
+                font-size: 32px;
+            }
+            
+            .rts-hosting-banner__image {
+                left: 0 !important;
+                text-align: center;
+                margin-top: 30px;
+            }
+            
+            .rts-hosting-banner__image img {
+                width: 100% !important;
+                height: auto !important;
+                max-width: 400px !important;
+            }
+        }
+        
+        /* Footer Override */
+        .rts-footer {
+            background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%) !important;
+        }
+        
+        .rts-footer .widget-title {
+            color: #fff !important;
+            font-weight: 700 !important;
+        }
+        
+        .rts-footer a {
+            color: rgba(255,255,255,0.8) !important;
+        }
+        
+        .rts-footer a:hover {
+            color: var(--openclaw-orange) !important;
+        }
+        
+        .rts-footer p,
+        .rts-footer span {
+            color: rgba(255,255,255,0.7) !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header"></div>
+
+    <!-- OpenClaw hosting banner -->
+    <div class="rts-hosting-banner banner-default-height">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <div class="rts-hosting-banner__content">
+                        <div class="hero-offer text-center text-lg-start">
+                            <span class="offer-badge">Up to 30% off OpenClaw AI Hosting</span>
+                        </div>
+                        <h1 class="banner-title">
+                            OpenClaw: The AI That Actually Does Things
+                        </h1>
+                        <p class="hero-description">
+                            Clears your inbox, sends emails, manages your calendar, checks you in for flights. All from WhatsApp, Telegram, or any chat app you already use. Your 24/7 autonomous AI teammate that runs on your machine with true local sovereignty.
+                        </p>
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>24/7 Autonomous AI</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>Any Chat App</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>Local Privacy</span>
+                            </div>
+                            <div class="feature-item">
+                                <span class="checkmark">✓</span>
+                                <span>Proactive Tasks</span>
+                            </div>
+                        </div>
+                        <div class="hero-cta text-center text-lg-start">
+                            <a href="#plans" class="btn-claim">Get Started Now</a>
+                            <div class="guarantee">
+                                <span>30-day money-back guarantee</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="rts-hosting-banner__image" style="position: relative; left: -100px;">
+                        <img src="https://i.postimg.cc/9MDzjV7N/N.png" alt="OpenClaw AI Assistant" style="max-width: 1500px; height: 450px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- OpenClaw FEATURES SECTION -->
+    <section class="section__padding bg-dark-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Why Host OpenClaw AI with Nutro Cloud?</h2>
+                    <p class="section-desc">Lightning-fast performance with affordable pricing for everyone</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="openclaw-feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <h3>Lightning Fast Performance</h3>
+                        <p>Run OpenClaw AI on optimized NVMe SSD servers with powerful CPUs. Execute AI tasks instantly without lag or delays.</p>
+                        <span class="openclaw-badge">High Performance</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="openclaw-feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3>Affordable Pricing</h3>
+                        <p>Starting at just $2.99/mo - 70% cheaper than competitors. Premium AI hosting accessible to everyone.</p>
+                        <span class="openclaw-badge">Best Value</span>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="openclaw-feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h3>24/7 Expert Support</h3>
+                        <p>Our technical team is always ready to help with OpenClaw setup, configuration, and troubleshooting.</p>
+                        <span class="openclaw-badge">Always Here</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PANEL SECTION -->
+    <section class="section__padding bg-dark-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <img src="https://nutro.cloud/ar/assets/images/feature/panel1.png" alt="Nutro Cloud Control Panel" style="max-width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 40px rgba(255, 109, 90, 0.2);">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="section-title" style="text-align: left;">Easy Management Panel</h2>
+                    <p class="section-desc" style="text-align: left;">Control your OpenClaw AI hosting with our intuitive control panel. Monitor resources, manage settings, and access logs all in one place.</p>
+                    <div class="openclaw-feature-card" style="margin-top: 20px;">
+                        <h3>🎛️ Full Control</h3>
+                        <p>Start, stop, restart your OpenClaw instance with one click. Real-time monitoring and resource management.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="section__padding bg-darker-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">What OpenClaw Can Do For You</h2>
+                    <p class="section-desc">Your AI assistant with eyes and hands</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="openclaw-feature-card">
+                        <h3>📧 Email & Calendar Management</h3>
+                        <p>Clears your inbox, sends emails, manages your calendar, and checks you in for flights automatically. All through simple chat commands.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="openclaw-feature-card">
+                        <h3>💻 Code & Development Tasks</h3>
+                        <p>Manages Claude Code sessions, runs tests, captures errors via Sentry, and opens Pull Requests on GitHub autonomously.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="openclaw-feature-card">
+                        <h3>📁 File & System Access</h3>
+                        <p>Browses the web, reads and writes files, runs shell commands. Has 'eyes and hands' to interact with your entire system.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="openclaw-feature-card">
+                        <h3>🔄 Background Automation</h3>
+                        <p>Heartbeat system and cron jobs allow proactive task execution. Sends reminders and executes tasks without prompting.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="openclaw-feature-card">
+                        <h3>🧠 Custom Skills System</h3>
+                        <p>Build repeatable workflows using Markdown or TypeScript. Ask OpenClaw to build new skills for itself just by talking.</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="openclaw-feature-card">
+                        <h3>🤖 Multi-Model Support</h3>
+                        <p>Works with Claude 3.5 Sonnet, GPT-4o, DeepSeek, and local models via Ollama. Choose your preferred AI backend.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING PLANS -->
+    <section class="section__padding bg-dark-section" id="plans">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center mb-5">
+                    <h2 class="section-title">Choose Your OpenClaw AI Hosting Plan</h2>
+                    <p class="section-desc">Flexible plans for your autonomous AI assistant</p>
+                </div>
+            </div>
+            <div class="row g-4" id="plans-container">
+                <div id="plans-loading" style="width: 100%; text-align: center; padding: 40px;">
+                    <img src="assets/1.gif" alt="Loading..." style="width:48px;height:48px;">
+                    <div style="margin-top:10px; color: white;">Loading Plans...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="section__padding bg-darker-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="text-center mb-5">
+                        <h2 class="section-title">Frequently Asked Questions</h2>
+                        <p class="section-desc">Everything you need to know about the lobster AI</p>
+                    </div>
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    Why should I host OpenClaw with Nutro Cloud?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Nutro Cloud offers the best performance and pricing for OpenClaw AI hosting. With NVMe SSD storage, powerful CPUs, and plans starting at just $2.99/mo, you get premium infrastructure at affordable prices. Plus, our 24/7 expert support team helps with setup and troubleshooting.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    How fast is OpenClaw on Nutro Cloud servers?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Our servers use NVMe SSD storage (10x faster than regular SSDs) and high-performance CPUs. Your OpenClaw AI responds instantly to commands, processes tasks quickly, and runs background jobs smoothly without any lag.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    Is OpenClaw pre-installed on Nutro Cloud?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Yes! We pre-install and configure OpenClaw for you. Your AI assistant is ready to use immediately after purchase. Just connect your chat apps and start automating your tasks.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,109,90,0.2); margin-bottom: 15px; border-radius: 10px;">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4" style="background: transparent; color: white; border: none; font-weight: 600; font-size: 18px; padding: 20px;">
+                                    What support do you provide for OpenClaw hosting?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body" style="color: rgba(255,255,255,0.7); font-size: 16px; line-height: 1.8; padding: 20px;">
+                                    Our 24/7 support team assists with OpenClaw installation, configuration, chat app integration, and troubleshooting. We also provide regular updates, backups, and security patches to keep your AI running smoothly.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="section__padding bg-dark-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="section-title">Ready to Deploy Your AI Assistant?</h3>
+                    <p class="section-desc">Start automating your digital life with OpenClaw today</p>
+                    <a href="#plans" class="btn-claim">Get Started Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer"></div>
+
+    <!-- PRELOADER -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <div class="progress-wrap" style="position: fixed; right: 30px; bottom: 30px; height: 46px; width: 46px; cursor: pointer; display: block; border-radius: 50px; box-shadow: inset 0 0 0 2px rgba(255,109,90,0.2); z-index: 10000; opacity: 0; visibility: hidden; transform: translateY(15px); transition: all 200ms linear; background: var(--openclaw-orange);">
+        <i class="fas fa-arrow-up" style="color: white; font-size: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></i>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script defer src="assets/js/plugins.min.js"></script>
+    <script defer src="assets/js/main.js"></script>
+    <script defer src="main.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.addEventListener("load", function () {
+                setTimeout(function () {
+                    fetch("https://user.7tteam.com/admin/nutrocloud/plan.php")
+                        .then(res => res.json())
+                        .then(plansData => {
+                            const container = document.getElementById("plans-container");
+                            container.innerHTML = '';
+                            
+                            plansData.forEach(plan => {
+                                // Replace VPS with OpenClaw
+                                let planName = plan.name.replace(/VPS/gi, 'OpenClaw');
+                                let planTagline = plan.tagline.replace(/VPS/gi, 'OpenClaw');
+                                
+                                let features = plan.features.map(f =>
+                                    `<li class="card-plan__feature--list-item"><i class="fas fa-check"></i> ${f.replace(/VPS/gi, 'OpenClaw')}</li>`
+                                ).join('');
+                                
+                                let popularTag = plan.popular ? `<div class="popular-tag">Most Popular</div>` : '';
+                                let cardClass = plan.popular ? "card-plan active" : "card-plan";
+                                
+                                const planHTML = `
+                                    <div class="col-lg-3 col-md-6">
+                                        <div class="${cardClass}" style="position: relative;">
+                                            ${popularTag}
+                                            <div class="card-plan__package text-center" style="margin: 20px 0 30px 0;">
+                                                <h4 class="package__name">${planName}</h4>
+                                                <p class="package__tagline">${planTagline}</p>
+                                            </div>
+                                            <div class="card-plan__pricing text-center" style="margin: 25px 0; padding: 25px 0; background: rgba(255, 109, 90, 0.05); border-radius: 15px;">
+                                                <div style="display: flex; align-items: baseline; justify-content: center; gap: 5px;">
+                                                    <span style="font-size: 24px; color: var(--openclaw-orange); font-weight: 700;">$</span>
+                                                    <span style="font-size: 48px; color: var(--openclaw-orange); font-weight: 900; line-height: 1;">${plan.price}</span>
+                                                    <span style="font-size: 18px; color: rgba(255,255,255,0.7); font-weight: 600;">${plan.period}</span>
+                                                </div>
+                                            </div>
+                                            <div class="card-plan__cartbtn text-center" style="margin: 25px 0;">
+                                                <a href="${plan.link}&os=openclaw" target="_blank">Get Started</a>
+                                            </div>
+                                            <div class="card-plan__feature">
+                                                <ul class="card-plan__feature--list" style="list-style: none; padding: 0;">
+                                                    ${features}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                                
+                                const tempDiv = document.createElement('div');
+                                tempDiv.innerHTML = planHTML;
+                                container.appendChild(tempDiv.firstElementChild);
+                            });
+                        })
+                        .catch(err => {
+                            console.error("Error loading plans:", err);
+                            document.getElementById("plans-container").innerHTML = "<p style='color:red'>Failed to load plans</p>";
+                        });
+                }, 1200);
+            });
+        });
+        
+        async function loadFooter() {
+            try {
+                const response = await fetch('footer.html');
+                const data = await response.text();
+                document.getElementById('footer').innerHTML = data;
+            } catch (error) {
+                console.error('Error loading footer:', error);
+            }
+        }
+        loadFooter();
+        
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>', error);
+            }
+        }
+        loadFooter();
+        
+        document.addEventListener('contextmenu', function (event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
