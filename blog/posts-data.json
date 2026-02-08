@@ -1,6 +1,16 @@
 {
     "posts": [
         {
+            "id": "self-hosted-ai-moltbot-open-source",
+            "title": "self hosted ai moltbot open source",
+            "description": "Run your own private AI assistant with Moltbot. Learn how to deploy a self-hosted AI agent on VPS with full control, automation, and security.",
+            "category": "tutorials",
+            "author": "NutroCloud Team",
+            "date": "2026-02-08 13:36:41",
+            "cover": "https:\/\/i.postimg.cc\/9MDzjV7N\/N.png",
+            "url": "posts\/self-hosted-ai-moltbot-open-source.html"
+        },
+        {
             "id": "openclaw-explained-the-viral-ai-agent-its-power-and-the-risks-you-should-understand",
             "title": "OpenClaw Explained: The Viral AI Agent, Its Power, and the Risks You Should Understand",
             "description": "OpenClaw is a viral open-source AI agent with powerful automation capabilities. Learn how it works, why it went viral, and the security risks involved.",
