@@ -128,9 +128,34 @@ moltbot message send --to +1234567890 --message "Hello from Moltbot"
 # Talk to the assistant directly
 moltbot agent --message "Plan my week"
 </pre><p><br></p><p><br></p><p>The Gateway dashboard runs locally on:</p><p>http://127.0.0.1:18789</p><p><br></p><p><br></p><h2>Models &amp; AI Providers</h2><p>Moltbot supports multiple AI providers.</p><p><strong>Popular options</strong>:</p><ul><li>Anthropic (Claude Pro / Max)</li><li>OpenAI (ChatGPT / Codex)</li></ul><p>The system supports:</p><ul><li>Model switching</li><li>Automatic fallback</li><li>OAuth-based authentication (safer than API keys)</li></ul><p><br></p><h2>Security: What You Must Know</h2><p>Moltbot connects to real messaging apps. That means <strong>security matters</strong>.</p><h3>Safe Defaults</h3><ul><li>Unknown users must pair before chatting</li><li>Messages from strangers are ignored by default</li><li>Group access requires explicit permission</li></ul><h3>Best Practices</h3><ul><li>Never expose the Gateway directly to the internet</li><li>Use allowlists for messaging apps</li><li>Run non-main sessions in Docker sandbox mode</li><li>Regularly run:</li></ul><pre class="ql-syntax" spellcheck="false">moltbot doctor
+
 </pre><p><br></p><p>Moltbot is powerful — and power must be handled carefully.</p><p><br></p><h2>Local Machine or VPS?</h2><p>You <em>can</em> run Moltbot on your personal computer.</p><p>But many users prefer a <strong>dedicated Linux VPS</strong> because it:</p><ul><li>Stays online 24/7</li><li>Keeps personal data isolated</li><li>Is safer for experimentation</li><li>Scales better with automation</li></ul><p>The Gateway runs on the server, while your devices connect remotely when needed.</p><p><br></p><h2>Recommended Hosting for Moltbot (Limited-Time Offer)</h2><p>If you want a <strong>clean, stable, and secure environment</strong> for Moltbot, consider running it on a VPS designed for AI agents.</p><p>👉 <strong>nutro.cloud/openclaw-hosting</strong></p><p>For a <strong>limited time</strong>, NutroCloud offers <strong>discounted plans</strong> optimized for:</p><ul><li>Self-hosted AI assistants</li><li>Automation workloads</li><li>Secure isolation and uptime</li></ul><p>It’s a practical way to explore Moltbot without risking your personal machine.</p><p><br></p><h2>Final Thoughts</h2><p>Moltbot is not a toy chatbot. It’s a <strong>real AI assistant platform</strong>.</p><p>Used carefully, it can dramatically boost productivity. Used carelessly, it can expose systems and data.</p><p>Treat it as infrastructure — not an app — and run it in an environment you fully control.</p>
                     </div>
-
+ <style>
+                        .article-content pre { position: relative; background: #282c34; border-radius: 8px; padding: 20px; margin: 25px 0; overflow-x: auto; }
+                        .article-content code { font-family: 'Courier New', monospace; font-size: 14px; }
+                        .article-content pre code { color: #abb2bf; display: block; }
+                        .article-content p code { background: #f4f4f4; padding: 3px 8px; border-radius: 4px; color: #e74c3c; font-size: 16px; }
+                        .article-content blockquote { border-left: 4px solid #667eea; padding: 15px 25px; margin: 30px 0; background: #f8f9fa; font-style: italic; color: #555; }
+                        .article-content blockquote p { margin: 0; }
+                        .article-content hr { border: none; height: 2px; background: linear-gradient(to right, transparent, #667eea, transparent); margin: 40px 0; }
+                        .article-content img { max-width: 100%; height: auto; border-radius: 10px; margin: 30px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+                        .article-content h2 { font-size: 32px; font-weight: 700; margin: 40px 0 20px; color: #1a1a1a; }
+                        .article-content h3 { font-size: 26px; font-weight: 600; margin: 35px 0 18px; color: #333; }
+                        .article-content h4 { font-size: 22px; font-weight: 600; margin: 30px 0 15px; color: #444; }
+                        .article-content ul, .article-content ol { margin: 20px 0; padding-left: 30px; }
+                        .article-content li { margin: 10px 0; }
+                        .article-content a { color: #667eea; text-decoration: none; border-bottom: 1px solid transparent; transition: border 0.3s; }
+                        .article-content a:hover { border-bottom-color: #667eea; }
+                        .article-content table { width: 100%; border-collapse: collapse; margin: 30px 0; }
+                        .article-content table th, .article-content table td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+                        .article-content table th { background: #667eea; color: white; font-weight: 600; }
+                        .article-content table tr:nth-child(even) { background: #f9f9f9; }
+                        .copy-btn { position: absolute; top: 10px; right: 10px; background: #667eea; color: white; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; opacity: 0; transition: opacity 0.3s; }
+                        .article-content pre:hover .copy-btn { opacity: 1; }
+                        .copy-btn:hover { background: #5568d3; }
+                        .copy-btn.copied { background: #4caf50; }
+                    </style>
                     <!-- Article Footer -->
                     <footer class="article-footer" style="margin-top: 60px; padding-top: 40px; border-top: 2px solid #e0e0e0;">
                         <div class="share-section" style="text-align: center;">
