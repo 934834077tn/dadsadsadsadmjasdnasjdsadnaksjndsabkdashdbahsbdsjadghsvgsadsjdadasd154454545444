@@ -1,6 +1,17 @@
 {
     "posts": [
         {
+            "id": "beyond-hosting-how-astro-ai-is-solving-server-errors-and-security-vulnerabilities-before-they-happen",
+            "title": "Beyond Hosting: How Astro AI is Solving Server Errors and Security Vulnerabilities Before They Happen",
+            "description": "Tired of manual server fixes? Discover Astro AI, the upcoming intelligent layer from Nutro Cloud that auto-heals server errors and hunts for vulnerabilities 24\/7.",
+            "category": "news",
+            "author": "NutroCloud Team",
+            "date": "2026-04-29 22:12:10",
+            "cover": "https:\/\/i.postimg.cc\/Sxhx18nZ\/Messenger-creation-F5B45E24-9146-44BA-8C42-65952C6EA459.jpg",
+            "url": "posts\/beyond-hosting-how-astro-ai-is-solving-server-errors-and-security-vulnerabilities-before-they-happen.html",
+            "featured": true
+        },
+        {
             "id": "starting-a-new-website-here-s-why-you-don-t-need-an-expensive-vps-yet",
             "title": "Starting a New Website? Here’s Why You Don't Need an Expensive VPS (Yet)",
             "description": "Don't waste your startup budget on high-end servers. Learn why Shared Hosting is the smartest move for new websites and how Nutro Cloud helps you scale.",
