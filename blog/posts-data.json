@@ -1,6 +1,26 @@
 {
     "posts": [
         {
+            "id": "how-savvy-web-developers-are-doubling-their-revenue-with-passive-income-streams",
+            "title": "How Savvy Web Developers are Doubling Their Revenue with Passive Income Streams",
+            "description": "Stop trading time for money. Discover how web developers are leveraging the Nutro Cloud Affiliate Program to earn recurring commissions and double their income from every project.",
+            "category": "tips-tricks",
+            "author": "NutroCloud Team",
+            "date": "2026-04-29 21:34:23",
+            "cover": "https:\/\/i.postimg.cc\/gj9cPPBg\/1775063718127.jpg",
+            "url": "posts\/how-savvy-web-developers-are-doubling-their-revenue-with-passive-income-streams.html"
+        },
+        {
+            "id": "how-savvy-web-developers-are-doubling-their-revenue-with-passive-income-streams",
+            "title": "How Savvy Web Developers are Doubling Their Revenue with Passive Income Streams",
+            "description": "Stop trading time for money. Discover how web developers are leveraging the Nutro Cloud Affiliate Program to earn recurring commissions and double their income from every project.",
+            "category": "tips-tricks",
+            "author": "NutroCloud Team",
+            "date": "2026-04-29 21:13:17",
+            "cover": "https:\/\/i.postimg.cc\/gj9cPPBg\/1775063718127.jpg",
+            "url": "posts\/how-savvy-web-developers-are-doubling-their-revenue-with-passive-income-streams.html"
+        },
+        {
             "id": "self-hosted-ai-moltbot-open-source",
             "title": "self hosted ai moltbot open source",
             "description": "Run your own private AI assistant with Moltbot. Learn how to deploy a self-hosted AI agent on VPS with full control, automation, and security.",
