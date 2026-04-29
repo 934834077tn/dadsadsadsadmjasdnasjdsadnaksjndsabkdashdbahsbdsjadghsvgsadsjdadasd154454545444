@@ -7,6 +7,12 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://nutro.cloud/blog/posts/beyond-hosting-how-astro-ai-is-solving-server-errors-and-security-vulnerabilities-before-they-happen.html</loc>
+    <lastmod>2026-04-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://nutro.cloud/blog/posts/starting-a-new-website-here-s-why-you-don-t-need-an-expensive-vps-yet.html</loc>
     <lastmod>2026-04-29</lastmod>
     <changefreq>weekly</changefreq>
