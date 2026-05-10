@@ -1009,1522 +1009,2808 @@ if (document.readyState === 'loading') {
 </script>
 
       
+/* ===== HERO – Modern Redesign ===== */
+.hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;
+  background:radial-gradient(ellipse 120% 80% at 50% -10%,#0d2a5e 0%,#050d1f 55%,#020810 100%);
+}
+.hero-bg{position:absolute;inset:0;z-index:0;}
 
-    <!-- HERO BANNER ONE -->
-    <section class="rts-hero-four rts-hero__four" style="position: relative; overflow: hidden;">
-        <img src="https://i.postimg.cc/vmvjG764/N-(2).png" alt="Hero Image" class="hero-image" style="position: absolute; top: 0; right: 0; height: 100%; width: 50%; object-fit: contain; z-index: 1; opacity: 1; filter: brightness(1.1) contrast(1.05);">
-        <div class="container" style="position: relative; z-index: 2;">
-            <div class="row">
-                <div class="col-lg-8 col-xl-6 col-md-10">
-                    <div class="rts-hero-four__content sal-animate" data-sal="slide-down" data-sal-delay="100"
-                        data-sal-duration="800">
-<p class="offer" style="font-size:18px; color:#fbbf24; font-weight:700; margin-bottom:14px;">
-⚡ Nutro Pro Just Evolved
-</p>
+/* Glows – stronger, brand-aligned */
+.hero-glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;}
+.hero-glow-1{
+  width:700px;height:700px;
+  background:radial-gradient(circle,rgba(7,116,255,0.22) 0%,rgba(7,116,255,0.06) 60%,transparent 100%);
+  top:-20%;left:10%;
+  animation:hero-float-1 18s ease-in-out infinite alternate;
+}
+.hero-glow-2{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(45,60,88,0.35) 0%,rgba(7,116,255,0.08) 60%,transparent 100%);
+  bottom:-5%;right:5%;
+  animation:hero-float-2 14s ease-in-out infinite alternate;
+}
+@keyframes hero-float-1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(50px,35px) scale(1.05)}}
+@keyframes hero-float-2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-40px,-25px) scale(1.08)}}
 
-<h1 class="banner__title" style="font-size:4.5rem; line-height:1.2; font-weight:900; margin-bottom:20px;">
-Powerful Hosting, <span style="color:#fbbf24;">Simplified</span>
-</h1>
+/* Subtle dot grid */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
+  background-size:40px 40px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 10%,transparent 75%);
+}
 
-<p class="description" style="font-size:18px; line-height:1.6; font-weight:500; color:#e5e7eb; margin-bottom:18px;">
-Blazing fast NVMe speeds, built-in security, and a fully redesigned panel.
-<br>
-Everything you need — ready in seconds.
-</p>
-<p style="font-size:16px; color:#fbbf24; font-weight:700;">
-🧠 ASTRO AI is coming...
-</p>
-                        <div class="banner-buttons">
-                            <a href="https://nutro.cloud/#deal"
-                                class="rts-btn btn__long secondary__bg secondary__color" style="font-size: 18px;">
-                              Get the Deal Now <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-                            <div class="countdown-container" style="background: rgba(0,123,255,0.1); padding: 15px; border-radius: 10px; margin: 0; text-align: center; display: inline-block; min-width: 200px;">
-                                <div id="countdown" style="font-size: 24px; font-weight: bold; color: #ffffff; font-family: monospace;"></div>
-                            </div>
-                        </div>
+/* Top shimmer line */
+.hero-line{
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 10%,rgba(7,116,255,0.6) 50%,transparent 90%);
+  animation:hero-line-pulse 4s ease-in-out infinite;
+}
+@keyframes hero-line-pulse{0%,100%{opacity:0.5}50%{opacity:1}}
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- HERO BANNER ONE END -->
-    <script>
-        // Target date - October 15, 2025 at 23:59 GMT
-        const targetDate = new Date("2026-04-25T23:59:59Z").getTime();
+.hero-wrap{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:0 24px;}
 
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+/* Badge */
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(7,116,255,0.1);
+  border:1px solid rgba(7,116,255,0.28);
+  color:rgba(255,255,255,0.7);
+  font-size:13px;font-weight:500;
+  padding:7px 20px 7px 8px;
+  border-radius:100px;
+  text-decoration:none;
+  margin-bottom:32px;
+  transition:all .3s;
+  position:relative;overflow:hidden;
+  backdrop-filter:blur(8px);
+}
+.hero-badge::before{
+  content:'';
+  position:absolute;top:0;left:-100%;width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(7,116,255,0.15),transparent);
+  animation:hero-badge-shimmer 3s ease-in-out infinite;
+}
+@keyframes hero-badge-shimmer{0%{left:-100%}100%{left:200%}}
+.hero-badge:hover{border-color:rgba(7,116,255,0.55);background:rgba(7,116,255,0.16);color:rgba(255,255,255,0.9);transform:translateY(-1px);}
+.hero-badge-tag{
+  background:linear-gradient(135deg,#0774FF,#3b82f6);
+  color:#fff;font-size:10px;font-weight:700;
+  padding:3px 11px;border-radius:100px;letter-spacing:0.8px;
+  box-shadow:0 2px 8px rgba(7,116,255,0.4);
+}
 
-            // Check if time is up
-            if (distance <= 0) {
-                document.getElementById("countdown").innerHTML = "Offer Ended!";
-                clearInterval(timer);
-                return;
-            }
+/* Title */
+.hero-title{
+  font-size:clamp(2.5rem,5.8vw,4.8rem);
+  font-weight:800;color:#fff;
+  line-height:1.08;margin:0 0 22px;
+  letter-spacing:-2px;
+  text-shadow:0 2px 40px rgba(7,116,255,0.15);
+}
+.hero-title-grad{
+  display:inline-block;
+  background:linear-gradient(90deg,#60a5fa 0%,#93c5fd 30%,#0774FF 55%,#60a5fa 80%,#93c5fd 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:hero-grad 5s linear infinite;
+  filter:drop-shadow(0 0 20px rgba(7,116,255,0.3));
+}
+@keyframes hero-grad{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
-            // Calculate days, hours, minutes and seconds
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+/* Subtitle */
+.hero-sub{
+  font-size:clamp(1rem,1.7vw,1.15rem);
+  color:rgba(255,255,255,0.5);
+  max-width:520px;margin:0 auto 40px;
+  line-height:1.85;
+  font-weight:400;
+}
 
-            // Display result
+/* AI Input box */
+.hero-input{max-width:600px;margin:0 auto 32px;cursor:pointer;}
+.hero-input-box{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:16px;
+  padding:14px 16px;
+  display:flex;align-items:center;gap:12px;
+  transition:all .35s;
+  backdrop-filter:blur(16px);
+  box-shadow:0 4px 24px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.hero-input-box:hover{
+  border-color:rgba(7,116,255,0.5);
+  box-shadow:0 0 0 3px rgba(7,116,255,0.1),0 8px 40px rgba(7,116,255,0.15),inset 0 1px 0 rgba(255,255,255,0.08);
+  background:rgba(7,116,255,0.04);
+}
+.hero-input-icon{flex-shrink:0;color:rgba(7,116,255,0.5);font-size:16px;}
+.hero-input-text{flex:1;text-align:left;}
+.hero-input-label{color:rgba(255,255,255,0.25);font-size:10px;margin-bottom:2px;letter-spacing:0.8px;text-transform:uppercase;}
+.hero-input-typing{display:flex;align-items:center;min-height:20px;}
+#h-type{color:rgba(255,255,255,0.8);font-size:14px;font-family:ui-monospace,SFMono-Regular,monospace;}
+#h-cur{display:inline-block;width:2px;height:15px;background:#0774FF;border-radius:1px;margin-left:1px;animation:h-blink .85s step-end infinite;box-shadow:0 0 6px rgba(7,116,255,0.8);}
+@keyframes h-blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero-input-btn{
+  background:linear-gradient(135deg,#0774FF 0%,#3b82f6 100%);
+  border-radius:10px;color:#fff;
+  font-size:12px;font-weight:700;
+  padding:9px 20px;
+  flex-shrink:0;white-space:nowrap;
+  display:flex;align-items:center;gap:6px;
+  box-shadow:0 4px 16px rgba(7,116,255,0.35);
+  transition:all .25s;
+}
+.hero-input-box:hover .hero-input-btn{box-shadow:0 6px 24px rgba(7,116,255,0.5);transform:translateY(-1px);}
 
-            document.getElementById("countdown").innerHTML =
-                `${days.toString().padStart(2, '0')} : ${hours.toString().padStart(2, '0')} : ${minutes.toString().padStart(2, '0')} : ${seconds.toString().padStart(2, '0')}`;
-        }
+/* Buttons */
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
+.hero-btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#0774FF 0%,#3b82f6 100%);
+  color:#fff;padding:14px 30px;
+  border-radius:12px;font-size:14px;font-weight:700;
+  text-decoration:none;transition:all .3s;
+  box-shadow:0 4px 20px rgba(7,116,255,0.3);
+  position:relative;overflow:hidden;
+}
+.hero-btn-p::before{
+  content:'';
+  position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
+  transition:left .5s;
+}
+.hero-btn-p:hover::before{left:100%;}
+.hero-btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(7,116,255,0.45);color:#fff;}
+.hero-btn-s{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.05);
+  color:rgba(255,255,255,0.65);
+  padding:14px 30px;border-radius:12px;
+  font-size:14px;font-weight:500;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,0.12);
+  transition:all .3s;
+  backdrop-filter:blur(8px);
+}
+.hero-btn-s:hover{border-color:rgba(7,116,255,0.4);color:#fff;background:rgba(7,116,255,0.1);transform:translateY(-1px);}
 
-        // Update countdown every second
-        const timer = setInterval(updateCountdown, 1000);
+/* Trust bar */
+.hero-trust{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;margin-bottom:28px;}
+.hero-trust-item{
+  display:flex;align-items:center;gap:6px;
+  font-size:12px;color:rgba(255,255,255,0.4);
+  transition:color .2s;
+}
+.hero-trust-item:hover{color:rgba(255,255,255,0.65);}
+.hero-trust-item i{font-size:11px;}
+.hero-trust-sep{width:1px;height:14px;background:rgba(255,255,255,0.1);}
 
-        // Initial run on load
-        updateCountdown();
+/* Chips */
+.hero-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:580px;margin:0 auto;}
+.hero-chip{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.09);
+  color:rgba(255,255,255,0.45);
+  padding:6px 16px;border-radius:100px;
+  font-size:11.5px;text-decoration:none;
+  transition:all .3s;white-space:nowrap;
+  backdrop-filter:blur(4px);
+}
+.hero-chip:hover{
+  border-color:rgba(7,116,255,0.5);
+  color:#93c5fd;
+  background:rgba(7,116,255,0.1);
+  transform:translateY(-2px);
+  box-shadow:0 4px 16px rgba(7,116,255,0.12);
+}
 
-    </script>
+/* Scroll indicator */
+.hero-scroll{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  color:rgba(255,255,255,0.15);font-size:14px;
+  animation:hero-scroll-b 2.5s ease-in-out infinite;
+}
+@keyframes hero-scroll-b{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
-    <!-- BRAND AREA -->
-    <div class="rts-brand rts-brand__bg--section pt-100 pb-120">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="rts-brand__wrapper">
-                        <div class="rts-brand__wrapper--text">
-                            <h5 data-sal="slide-down" data-sal-delay="300" data-sal-duration="800">Used and trusted by <span id="number">thousands</span> of users.</h5>
-                            <div class="rts-brand__wrapper--text-review" data-sal="slide-down" data-sal-delay="400"
-                                data-sal-duration="800">
-                                <div class="review">
-                                    <div class="star">Excellent <img src="assets/images/brand/review-star.svg" alt="">
-                                    </div>
-                                </div>
-                                <div class="review__company">
-                                    4.8 Star reviews on <img src="assets/images/brand/trust-pilot.svg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+/* Entrance animations */
+@keyframes h-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes h-scale{from{opacity:0;transform:scale(.95) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.hero-badge-wrap{animation:h-up .5s ease both;}
+.hero-title{animation:h-up .65s .08s ease both;}
+.hero-sub{animation:h-up .65s .18s ease both;}
+.hero-input{animation:h-scale .65s .28s ease both;}
+.hero-btns{animation:h-up .65s .36s ease both;}
+.hero-trust{animation:h-up .55s .44s ease both;}
+.hero-chips{animation:h-up .55s .52s ease both;}
+
+@media(max-width:768px){
+  .hero{min-height:100svh;}
+  .hero-wrap{padding:90px 16px 56px;}
+  .hero-chip{font-size:11px;padding:5px 12px;}
+  .hero-trust{gap:12px;}
+  .hero-trust-sep{display:none;}
+  .hero-btns{flex-direction:column;align-items:center;}
+  .hero-title{letter-spacing:-1px;}
+}
+</style>
+
+<section class="hero" id="astro-hero">
+  <div class="hero-bg">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-line"></div>
+  </div>
+
+  <div class="hero-wrap">
+    <div class="hero-badge-wrap">
+      <a href="ai" class="hero-badge">
+        <span class="hero-badge-tag">NEW</span>
+        Trusted by 3M+ websites worldwide <i class="fas fa-arrow-right" style="opacity:0.4;font-size:11px;margin-left:4px;"></i>
+      </a>
     </div>
 
-    <!-- BRAND AREA END-->
+    <h1 class="hero-title">Where great ideas<br><span class="hero-title-grad">come to life.</span></h1>
 
-    <!-- HOSTING OPTION -->
-    <div class="rts-hosting-type">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="rts-hosting-type__section">
-                        <h3 class="title" data-sal="slide-down" data-sal-delay="300" data-sal-duration="800">From
-                            WordPress to VPS — We’ve Got You Covered</h3>
-                        <p data-sal="slide-down" data-sal-delay="400" data-sal-duration="800">Choose the speed, control,
-                            and flexibility you need. We’ll handle the rest.</p>
-                        <div class="rts-slider__btn hosting-slider">
-                            <div class="slide__btn rts-prev"><i class="fa-light fa-arrow-left"></i></div>
-                            <div class="slide__btn rts-next"><i class="fa-light fa-arrow-right"></i></div>
-                        </div>
+    <p class="hero-sub">Millions trust Nutro.cloud to power their online presence. AI-driven performance, enterprise security, and human support &mdash; all in one platform.</p>
 
-                    </div>
-                </div>
-            </div>
-            <!-- hosting option -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="rts-hosting-type__slider">
-                        <div class="swiper-wrapper">
-
-                            <!-- WordPress Hosting -->
-                            <div class="swiper-slide">
-                                <div class="rts-hosting-type__single">
-                                    <div class="hosting-icon">
-                                        <img src="assets/images/hosting/03.svg" alt="">
-                                    </div>
-                                    <a href="wordpress-hosting" class="title">WordPress Hosting</a>
-                                    <p class="excerpt">Launch your blog or store in 1 click. Super fast, ultra simple.
-                                    </p>
-
-                                    <ul class="featuresw">
-                                        <li data-tooltip="We provide optimized WordPress servers.">
-                                            <i class="fas fa-check-circle icon-check"></i>One-Click WordPress Install
-                                        </li>
-                                        <li data-tooltip="give you a free domain for the first year.">
-                                            <i class="fas fa-check-circle icon-check"></i>Free SSL + Daily Backups
-                                        </li>
-                                        <li data-tooltip="we offer scalable resources.">
-                                            <i class="fas fa-check-circle icon-check"></i>Auto Scaling & Caching
-                                        </li>
-                                    </ul>
-                                    <h6 class="price__start">From <strong>$1.95/mo</strong></h6>
-                                    <a href="wordpress-hosting" class="primary__btn border__btn">Start Blogging <i
-                                            class="fa-regular fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-
-                            <!-- Web Hosting -->
-                            <div class="swiper-slide">
-                                <div class="rts-hosting-type__single best">
-                                    <div class="hosting-icon">
-                                        <img src="assets/images/hosting/04.svg" alt="">
-                                    </div>
-                                    <a href="shared-hosting" class="title"> Web Hosting <span class="badge best-deal">
-                                            <li class="fa fa-star"></li>Best Deal
-                                        </span></a>
-                                    <p class="excerpt">Perfect for small sites, portfolios, and startups that want speed
-                                        + savings.</p>
-
-                                    <ul class="featuresw">
-                                        <li data-tooltip="with lightning-fast servers you get the best performance.">
-                                            <i class="fas fa-check-circle icon-check"></i>LiteSpeed Powered
-                                        </li>
-                                        <li data-tooltip="we give you a free domain for the first year.">
-                                            <i class="fas fa-check-circle icon-check"></i> Free Domain & SSL
-                                        </li>
-                                        <li data-tooltip="we offer 24/7 expert support.">
-                                            <i class="fas fa-check-circle icon-check"></i>24/7 Expert Support
-                                        </li>
-                                    </ul>
-                                    <h6 class="price__start">From <strong>$2.95/mo</strong></h6>
-                                    <a href="shared-hosting" class="primary__btn border__btn">Get Hosting <i
-                                            class="fa-regular fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-
-                            <!-- VPS Hosting -->
-                            <div class="swiper-slide">
-                                <div class="rts-hosting-type__single">
-                                    <div class="hosting-icon">
-                                        <img src="assets/images/hosting/02.svg" alt="">
-                                    </div>
-                                    <a href="vps-hosting" class="title"> VPS Hosting</a>
-                                    <p class="excerpt">Full control. Dedicated resources. No limits. Built for devs &
-                                        power users.</p>
-
-                                    <ul class="featuresw">
-                                        <li data-tooltip="We allocate full server power to you.">
-                                            <i class="fas fa-check-circle icon-check"></i> Full Root Access
-                                        </li>
-                                        <li data-tooltip="ai tools to optimize your server.">
-                                            <i class="fas fa-check-circle icon-check"></i> AI Resource Optimization
-                                        </li>
-                                        <li data-tooltip="Security used by big companies.">
-                                            <i class="fas fa-check-circle icon-check"></i> DDoS Protection & Isolation
-                                        </li>
-                                    </ul>
-                                    <h6 class="price__start">From <strong>$2.99/mo</strong></h6>
-                                    <a href="vps-hosting" class="primary__btn border__btn">Power Up VPS <i
-                                            class="fa-regular fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-
-                            <!-- Dedicated Server -->
-                            <div class="swiper-slide">
-                                <div class="rts-hosting-type__single">
-                                    <div class="hosting-icon">
-                                        <img src="assets/images/hosting/01.svg" alt="">
-                                    </div>
-                                    <a href="dedicated-hosting" class="title"> Dedicated Server</a>
-                                    <p class="excerpt">Absolute power and privacy. Perfect for high-traffic and
-                                        enterprise apps.</p>
-                                    <ul class="featuresw">
-                                        <li data-tooltip="We allocate full server power to you.">
-                                            <i class="fas fa-check-circle icon-check"></i> 100% Resource Allocation
-                                        </li>
-                                        <li data-tooltip="We set up the server based on your needs.">
-                                            <i class="fas fa-check-circle icon-check"></i> Custom Server Setup
-                                        </li>
-                                        <li data-tooltip="Security used by big companies.">
-                                            <i class="fas fa-check-circle icon-check"></i> Enterprise-Grade Security
-                                        </li>
-                                    </ul>
-
-                                    <h6 class="price__start">From <strong>$42.95/mo</strong></h6>
-                                    <a href="dedicated-hosting" class="primary__btn border__btn">Launch Dedicated <i
-                                            class="fa-regular fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+    <div class="hero-input" onclick="window.location.href='ai'">
+      <div class="hero-input-box">
+        <i class="fas fa-search hero-input-icon"></i>
+        <div class="hero-input-text">
+          <div class="hero-input-label">What will you build today?</div>
+          <div class="hero-input-typing">
+            <span id="h-type"></span><span id="h-cur"></span>
+          </div>
         </div>
-        <!-- HOSTING OPTION END -->
-        <style>
-            /* ستايل مميز فقط للمربع اللي عليه best */
-            .rts-hosting-type__single.best {
-                position: relative;
-                border: 2px solid #007bff;
-                /* لون أزرق مميز */
-                box-shadow: 0 0 20px rgba(0, 123, 255, 0.3);
-
-                z-index: 2;
-                overflow: hidden;
-            }
-
-            /* خلفية متدرجة خفيفة راقية */
-            .rts-hosting-type__single.best::before {
-                content: "";
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-
-                z-index: 1;
-            }
-
-            /* طبقة فوق التأثير */
-            .rts-hosting-type__single.best>* {
-                position: relative;
-                z-index: 2;
-            }
-
-            .featuresw {
-                list-style: none;
-                padding-left: 0;
-                margin-top: 10px;
-                color: #333;
-                font-size: 16px;
-            }
-
-            .featuresw li {
-                position: relative;
-                margin-bottom: 15px;
-                padding-left: 28px;
-                cursor: pointer;
-            }
-
-            .icon-check {
-                position: absolute;
-                left: 0;
-                top: 2px;
-                color: #00c853;
-                /* أخضر */
-                font-size: 18px;
-            }
-
-            /* Tooltip style */
-            .featuresw li::after {
-                content: attr(data-tooltip);
-                position: absolute;
-                left: 30px;
-                top: -5px;
-                background: #333;
-                color: #fff;
-                padding: 6px 10px;
-                border-radius: 5px;
-                white-space: nowrap;
-                font-size: 14px;
-                opacity: 0;
-                transition: 0.3s ease;
-                pointer-events: none;
-                transform: translateY(-10px);
-                z-index: 99;
-            }
-
-            /* Show tooltip on hover */
-            .featuresw li:hover::after {
-                opacity: 1;
-                transform: translateY(-25px);
-            }
-
-
-            .badge.best-deal {
-                background-color: gold;
-                color: black;
-                padding: 2px 8px;
-                font-size: 12px;
-                border-radius: 4px;
-                margin-left: 6px;
-            }
-
-            .custom-feature-section {
-                padding: 60px 20px;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-
-            .flex-container {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: center;
-                max-width: 1200px;
-                margin: 0 auto;
-                gap: 40px;
-            }
-
-            .image-side {
-                flex: 1 1 45%;
-                min-width: 300px;
-                text-align: center;
-                animation: fadeInLeft 1s ease forwards;
-            }
-
-            .image-side img {
-                max-width: 100%;
-                border-radius: 20px;
-                box-shadow: 0 15px 30px rgba(0, 86, 255, 0.15);
-                transition: transform 0.4s ease;
-            }
-
-            .image-side img:hover {
-                transform: scale(1.05);
-            }
-
-            .text-side {
-                flex: 1 1 45%;
-                min-width: 300px;
-                animation: fadeInRight 1s ease forwards;
-            }
-
-            .badge {
-                display: inline-block;
-                background-color: #0056ff;
-                color: white;
-                font-weight: 700;
-                padding: 6px 14px;
-                font-size: 14px;
-                border-radius: 8px;
-                letter-spacing: 1px;
-                margin-bottom: 20px;
-                text-transform: uppercase;
-            }
-
-            .text-side h2 {
-                font-size: 60px;
-                color: #414244;
-                margin-bottom: 20px;
-                font-weight: 800;
-            }
-
-            .text-side p {
-                font-size: 15px;
-                line-height: 1.6;
-                margin-bottom: 15px;
-                color: #333;
-            }
-
-
-
-            /* استجابة للشاشات الصغيرة */
-            @media (max-width: 768px) {
-                .flex-container {
-                    flex-direction: column;
-                }
-
-                .image-side,
-                .text-side {
-                    flex: 1 1 100%;
-                }
-
-                .text-side h2 {
-                    font-size: 2rem;
-                }
-            }
-        </style>
-        <!-- ABOUT US -->
-        <div class="rts-about position-relative section__padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-6 col-lg-6">
-                        <div class="rts-about__image">
-                            <img src="assets/images/about/about-big.png" alt="">
-                            <img src="assets/images/about/about-shape-01.svg" alt="" class="shape one right-left">
-                            <img src="assets/images/about/about-shape-02.svg" alt="" class="shape two">
-                        </div>
-                    </div>
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="rts-about__content">
-                            <h3 data-sal="slide-down" data-sal-delay="300" data-sal-duration="800">
-                                Your Success is What Drives Us.
-                            </h3>
-                            <p class="description" data-sal="slide-down" data-sal-delay="400" data-sal-duration="800">
-                                Whether you're just starting out or scaling fast, NutroCloud has your back. We’re here
-                                to make sure your site runs fast, smooth, and stress-free — always.
-                            </p>
-
-                            <div class="rts-about__content--single" data-sal="slide-down" data-sal-delay="500"
-                                data-sal-duration="800">
-                                <div class="image">
-                                    <img src="assets/images/about/01.svg" alt="">
-                                </div>
-                                <div class="description">
-                                    <h6>Web Hosting</h6>
-                                    <p>Our most loved plan — packed with speed, features, and unbeatable pricing.
-                                        Perfect for blogs, portfolios, and businesses.</p>
-                                </div>
-                            </div>
-
-                            <div class="rts-about__content--single" data-sal="slide-down" data-sal-delay="600"
-                                data-sal-duration="800">
-                                <div class="image bg-2">
-                                    <img src="assets/images/about/02.svg" alt="">
-                                </div>
-                                <div class="description">
-                                    <h6>Managed WordPress Hosting</h6>
-                                    <p>Built for WordPress lovers. Optimized speed, security, and zero maintenance —
-                                        just focus on your content, we handle the rest.</p>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-            <div class="rts-about-shape"></div>
-        </div>
-        <!-- ABOUT US END -->
-
-
-
-        <!-- OUR SERVICES -->
-        <section class="rts-service section__padding">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="rts-section text-center w-530">
-                        <h3 class="rts-section__title" data-sal="slide-down" data-sal-delay="300"
-                            data-sal-duration="800">
-                            Hosting that’s Fast, Secure & Built for You
-                        </h3>
-                        <p class="rts-section__description" data-sal="slide-down" data-sal-delay="400"
-                            data-sal-duration="800">
-                            Pick what you need — we’ll handle the tech. Blazing speed, rock-solid uptime, and zero
-                            stress. You focus on your dream, we’ve got your back.
-                        </p>
-
-                    </div>
-                </div>
-                <!-- service list -->
-                <div class="row">
-                    <div class="rts-service__wrapper">
-                        <div class="rts-service__column">
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon shared__hosting">
-                                    <img src="assets/images/service/shared__hosting.svg" alt="">
-                                </div>
-                                <a href="shared-hosting" class="rts-service__single--title">Shared Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Perfect for beginners—fast, secure, and ready to grow with you.
-                                </p>
-                                <a href="shared-hosting" class="rts-service__single--btn">Explore Plans<i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon email__hosting">
-                                    <img src="assets/images/service/email__hosting.svg" alt="">
-                                </div>
-                                <a href="price#email" class="rts-service__single--title">Email Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Professional email, built for teams that mean business every day.
-                                </p>
-                                <a href="price#email" class="rts-service__single--btn">Take a Look<i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                        </div>
-
-                        <div class="rts-service__column">
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon wordpress__hosting">
-                                    <img src="assets/images/service/shared__hosting.svg" alt="">
-                                </div>
-                                <a href="wordpress-hosting" class="rts-service__single--title">WordPress
-                                    Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Supercharge your WordPress site with speed, power, and ease.
-                                </p>
-                                <a href="wordpress-hosting" class="rts-service__single--btn">Explore Plans <i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon dedicated__hosting">
-                                    <img src="assets/images/service/dedicated__hosting.svg" alt="">
-                                </div>
-                                <a href="dedicated-hosting" class="rts-service__single--title">dedicated
-                                    Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Total control. Ultimate performance. Built for big-time traffic.
-                                </p>
-                                <a href="dedicated-hosting" class="rts-service__single--btn">Take a Look <i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-
-                        </div>
-
-                        <div class="rts-service__column">
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon vps__hosting">
-                                    <img src="assets/images/service/vps__hosting.svg" alt="">
-                                </div>
-                                <a href="vps-hosting" class="rts-service__single--title">VPS Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Scalable hosting that adapts to your needs without limits.
-                                </p>
-                                <a href="vps-hosting" class="rts-service__single--btn">Take a Look <i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon eccomerce__hosting">
-                                    <img src="assets/images/service/eccommerce__hosting.svg" alt="">
-                                </div>
-                                <a href="price#ecc" class="rts-service__single--title">eccommerce
-                                    Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Sell more with blazing-fast hosting optimized for online stores.
-                                </p>
-                                <a href="price#ecc" class="rts-service__single--btn">Take a Look<i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                        </div>
-
-                        <div class="rts-service__column">
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon reseller__hosting">
-                                    <img src="assets/images/service/resseller__hosting.svg" alt="">
-                                </div>
-                                <a href="reseller-hosting" class="rts-service__single--title">Reseller Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Launch your hosting business with zero stress and full support.
-                                </p>
-                                <a href="reseller-hosting" class="rts-service__single--btn">Explore Plans<i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                            <!-- single service -->
-                            <div class="rts-service__single">
-                                <div class="rts-service__single--icon cloud__hosting">
-                                    <img src="assets/images/service/cloud__hosting.svg" alt="">
-                                </div>
-                                <a href="price#cloud" class="rts-service__single--title">cloud Hosting</a>
-                                <p class="rts-service__single--excerpt">
-                                    Cloud hosting that blends power, reliability, and next-gen speed.
-                                </p>
-                                <a href="price#cloud" class="rts-service__single--btn">Explore Plans<i
-                                        class="fa-regular fa-arrow-right"></i></a>
-                            </div>
-                            <!-- single service end -->
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- OUR SERVICES END -->
-        <section class="custom-feature-section">
-            <div class="container flex-container">
-                <div class="image-side">
-                    <img src="assets/images/nutropropanel.png" alt="See everything. Control everything." loading="lazy"
-                        style="width: 700px; height: 400px;" />
-                </div>
-                <div class="text-side">
-                    <div class="badge">AI-POWERED</div>
-                    <h2>See everything. Control everything.</h2>
-                    <p>Keep an eye on everything that’s important to you, with our easy to use dashboard.</p>
-                    <p>Designed to be easy-to-use for beginners and professionals alike, you can see at a glance how
-                        your site is performing and make adjustments, among other things.</p>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- FLASH SELL AREA -->
-        <!-- <section class="rts-flash-sell">
-            <div class="container">
-                <div class="rts-flash-sell__bg">
-                    <div class="row align-items-center">
-                        <div class="col-lg-4">
-                            <div class="rts-flash-sell__title">
-                                <h3 data-sal="slide-down" data-sal-delay="300" data-sal-duration="800">Hosting Nutron
-                                    Sale
-                                </h3>
-                                <p data-sal="slide-down" data-sal-delay="400" data-sal-duration="800">For a limited
-                                    time,
-                                    launch your website
-                                    with incredible savings.
-                                </p>
-                                <a data-sal="slide-down" data-sal-delay="500" data-sal-duration="800" href="Nutron"
-                                    class="primary__btn white__bg">See Details</a>
-                            </div>
-                        </div>
-                        <div class="col-lg-8 p--0">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single__sell">
-                                        <div class="single__sell--content">
-                                            <div class="offer">for a limited Time</div>
-                                            <div class="discount">45% Off</div>
-                                            <span>hosting</span>
-                                        </div>
-                                        <div class="single__sell--image">
-                                            <img src="assets/images/icon/cloud.svg" alt="">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="single__sell">
-                                        <div class="single__sell--content">
-                                            <div class="offer">for a limited Time</div>
-                                            <div class="discount">90% Off</div>
-                                            <span>hosting</span>
-                                        </div>
-                                        <div class="single__sell--image">
-                                            <img src="assets/images/icon/domain.svg" alt="">
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> -->
-        <!-- FLASH SELL AREA END -->
-
-        <br>
-        <style>
-            .featurew-bg {
-                width: 100vw;
-                margin-left: calc(-50vw + 50%);
-                background: #1e3a8a;
-                padding: 90px 0 100px 0;
-                position: relative;
-                z-index: 0;
-            }
-
-            .featurew-title {
-                font-size: 40px;
-                font-weight: 800;
-                letter-spacing: 1px;
-                color: #fff;
-                margin-bottom: 16px;
-            }
-
-            .featurew-subtitle {
-                font-size: 20px;
-                color: #dad6ef;
-                margin-bottom: 60px;
-                font-weight: 500;
-            }
-
-            .featurew-row {
-                display: flex;
-                justify-content: center;
-                gap: 40px;
-                flex-wrap: wrap;
-            }
-
-            .featurew-card {
-                background: #007BFF;
-                border-radius: 24px;
-                padding: 56px 42px 38px 42px;
-                min-width: 330px;
-                max-width: 400px;
-                min-height: 320px;
-                color: #fff;
-                box-shadow: 0 8px 32px rgba(65, 105, 225, 0.13), 0 2px 8px rgba(0, 0, 0, 0.08);
-                text-align: left;
-                position: relative;
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
-                transition: transform 0.19s, box-shadow 0.19s;
-                font-size: 15px;
-                margin-bottom: 25px;
-            }
-
-            .featurew-card:hover {
-                transform: translateY(-9px) scale(1.04);
-                box-shadow: 0 16px 52px rgba(65, 105, 225, 0.16), 0 2px 8px rgba(0, 0, 0, 0.11);
-            }
-
-            .featurew-icon {
-                background: #2a59f3;
-                border-radius: 12px;
-                width: 56px;
-                height: 56px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 2.3rem;
-                color: #fff;
-                margin-bottom: 22px;
-                box-shadow: 0 2px 8px rgba(113, 90, 255, 0.12);
-            }
-
-            .featurew-card-title {
-                font-size: 20px;
-                font-weight: 700;
-                margin-bottom: 16px;
-                line-height: 1.2;
-            }
-
-            .featurew-card-desc {
-                font-size: 1.15rem;
-                color: #e7e7e7;
-                font-weight: 400;
-                line-height: 1.5;
-            }
-
-            @media (max-width: 1200px) {
-                .featurew-row {
-                    gap: 28px;
-                }
-
-                .featurew-card {
-                    padding: 44px 20px 28px 20px;
-                    min-width: 260px;
-                    max-width: 340px;
-                }
-            }
-
-            @media (max-width: 992px) {
-                .featurew-bg {
-                    padding: 64px 0 60px 0;
-                }
-
-                .featurew-title {
-                    font-size: 40px;
-                }
-
-                .featurew-subtitle {
-                    font-size: 15px;
-                }
-
-                .featurew-row {
-                    gap: 22px;
-                }
-
-                .featurew-card {
-                    padding: 30px 10px 20px 10px;
-                    min-width: 220px;
-                    font-size: 1rem;
-                }
-
-                .featurew-card-title {
-                    font-size: 1.1rem;
-                }
-            }
-
-            @media (max-width: 768px) {
-                .featurew-bg {
-                    padding: 32px 0 32px 0;
-                }
-
-                .featurew-title {
-                    font-size: 40px;
-                }
-
-                .featurew-row {
-                    flex-direction: column;
-                    align-items: center;
-                }
-
-                .featurew-card {
-                    width: 95%;
-                    min-width: unset;
-                    max-width: unset;
-                }
-            }
-
-            .featurew-sec-visual {
-                min-height: 340px;
-                min-width: 320px;
-                width: 100%;
-                max-width: 400px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                position: relative;
-            }
-
-            .featurew-sec-main-img {
-                width: 1000px;
-                max-width: 800px;
-                /* عدل الرقم لو عاوز الصورة أكبر أو أصغر */
-                border-radius: 20px;
-                object-fit: cover;
-                display: block;
-                margin: 0 auto;
-            }
-
-            @media (max-width: 992px) {
-                .featurew-sec-visual {
-                    min-width: 500px;
-                    min-height: 600px;
-                    max-width: 900px;
-                }
-
-                .featurew-sec-main-img {
-                    max-width: 800px;
-                    /* Updated to match the new max-width */
-                }
-            }
-        </style>
-
-        <div class="featurew-bg">
-            <div class="container">
-                <div class="text-center mb-4">
-                    <h2 class="featurew-title">Fast, Smooth & Always On</h2>
-                    <p class="featurew-subtitle">
-                        Your site’s always flying — fast loading, zero hiccups, and ready for anything. Just plug in and
-                        shine online.
-                    </p>
-
-                </div>
-                <div class="featurew-row">
-                    <div class="featurew-card">
-                        <div class="featurew-icon">
-                            <i class="bi bi-globe"></i>
-                        </div>
-                        <div class="featurew-card-title">
-                            Local data centers.<br> Around the world.
-                        </div>
-                        <div class="featurew-card-desc">
-                            Wherever you are in the world, your site will automatically connect to the closest data
-                            center in our global network. Extra efficiency at no extra cost.
-                        </div>
-                    </div>
-                    <div class="featurew-card">
-                        <div class="featurew-icon">
-                            <i class="bi bi-graph-up"></i>
-                        </div>
-                        <div class="featurew-card-title">
-                            Full speed ahead.<br> Whatever the traffic.
-                        </div>
-                        <div class="featurew-card-desc">
-                            Benefit from lower response times and rapid page-loading speeds, no matter how high your
-                            site traffic spikes.
-                        </div>
-                    </div>
-                    <div class="featurew-card">
-                        <div class="featurew-icon">
-                            <i class="bi bi-arrow-repeat"></i>
-                        </div>
-                        <div class="featurew-card-title">
-                            Live and kicking.<br> 24/7.
-                        </div>
-                        <div class="featurew-card-desc">
-                            Day and night your site is working hard. Our 99.9% uptime guarantee means your website is
-                            always available.
-                        </div>
-                    </div>
-                </div>
-                <div class="featurew-security-section py-5">
-                    <div class="container">
-                        <div class="row align-items-center justify-content-center">
-                            <div class="col-lg-6 mb-4 mb-lg-0 d-flex justify-content-center">
-                                <div class="featurew-sec-visual position-relative">
-                                    <!-- الصورة الرئيسية -->
-                                    <img src="assets/images/cta/mannutro.png" alt="Person"
-                                        class="featurew-sec-main-img">
-                                    <div class="featurew-sec-icon-box position-absolute" style="top:10%; left:-20%;">
-                                        <div class="bg-primary text-white rounded-3 p-3 shadow-sm d-flex justify-content-center align-items-center"
-                                            style="width:60px; height:60px;">
-                                            <i class="bi bi-cloud"></i>
-                                        </div>
-                                    </div>
-                                    <div class="featurew-sec-backup-box position-absolute" style="top:30%; right:-14%;">
-                                        <div class="bg-white rounded-4 p-3 shadow-sm" style="min-width:170px;">
-                                            <div class="mb-1 text-purple fw-bold small">DAILY BACKUPS</div>
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="fs-4 text-secondary"><i
-                                                        class="bi bi-folder2-open"></i></span>
-                                                <span class="ms-2 fw-bold">Files backups</span>
-                                            </div>
-                                            <div class="text-muted" style="font-size:0.95rem;">Download or restore
-                                                website file backups</div>
-                                        </div>
-                                    </div>
-                                    <div class="featurew-sec-ssl-box position-absolute" style="bottom:11%; left:5%;">
-                                        <div class="bg-white rounded-3 px-3 py-2 shadow-sm d-flex align-items-center">
-                                            <span class="fw-semibold">720 GOST</span>
-                                            <span class="badge bg-success ms-2">ACTIVE</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Right Side: Text & Button -->
-                            <div class="col-lg-6">
-                                <h2 class="featurew-security-title mb-4"
-                                    style="font-size:40px; font-weight:800; color:#fff;">
-                                    Total security.<br>Complete confidence.
-                                </h2>
-                                <ul class="featurew-security-list mb-5" style="list-style:none;padding:0;">
-                                    <li class="mb-3" style="font-size:15px; color:#dad6ef;">
-                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                        Secure your files with regular automatic backups and two-factor authentication
-                                    </li>
-                                    <li class="mb-3" style="font-size:15px; color:#dad6ef;">
-                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                        Encrypt your website traffic with unlimited SSL security certificates
-                                    </li>
-                                    <li class="mb-3" style="font-size:15px; color:#dad6ef;">
-                                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                                        Enjoy full protection from DDoS attacks with Cloudflare protected nameservers
-                                    </li>
-                                </ul>
-                                <a href="price" class="btn btn-lg"
-                                    style="background:#1b42ec;color:#fff;font-weight:700; font-size:1.2rem; border-radius:12px;">Get
-                                    started</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="hero-input-btn"><i class="fas fa-paper-plane"></i> Ask AI</div>
+      </div>
+    </div>
+
+    <div class="hero-btns">
+      <a href="ai" class="hero-btn-p"><i class="fas fa-bolt"></i> Get started free</a>
+      <a href="#deal" class="hero-btn-s">View plans</a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-trust-item"><i class="fas fa-check-circle" style="color:#26CF4B;"></i> 99.9% Uptime</div>
+      <div class="hero-trust-sep"></div>
+      <div class="hero-trust-item"><i class="fas fa-shield-alt" style="color:#4493f8;"></i> DDoS Protected</div>
+      <div class="hero-trust-sep"></div>
+      <div class="hero-trust-item"><i class="fas fa-bolt" style="color:#FFC107;"></i> LiteSpeed Powered</div>
+      <div class="hero-trust-sep"></div>
+      <div class="hero-trust-item"><i class="fas fa-globe" style="color:#a5d6ff;"></i> Global CDN</div>
+      <div class="hero-trust-sep"></div>
+      <div class="hero-trust-item"><i class="fas fa-star" style="color:#FFC107;"></i> 4.8 / 5 Rating</div>
+    </div>
+
+    <div class="hero-chips">
+      <a href="ai" class="hero-chip">Boost my website speed</a>
+      <a href="ai" class="hero-chip">Protect my business</a>
+      <a href="ai" class="hero-chip">Find my perfect plan</a>
+      <a href="ai" class="hero-chip">Get professional email</a>
+      <a href="ai" class="hero-chip">Secure my site free</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
+</section>
+
+<script>
+var _p=['How do I speed up my WordPress site?','My website is down, what should I do?','Which hosting plan is best for my store?','How to set up a professional email?','Explain DDoS protection in simple terms','Help me migrate my site to Nutro Cloud'],
+    _i=0,_c=0,_d=false,_el=document.getElementById('h-type');
+function _tl(){if(!_el)return;var w=_p[_i];if(!_d){_el.textContent=w.slice(0,++_c);if(_c===w.length){_d=true;setTimeout(_tl,2400);return;}setTimeout(_tl,50);}else{_el.textContent=w.slice(0,--_c);if(_c===0){_d=false;_i=(_i+1)%_p.length;setTimeout(_tl,500);return;}setTimeout(_tl,22);}}
+setTimeout(_tl,900);
+</script>
+
+                <!-- ===== SECTION 2: HOSTING TABS ===== -->
+
+<style>
+
+/* -- outer section bg -- */
+
+.vt-section {
+
+    background: #eef0f4;
+
+    padding: 40px 0 48px;
+
+}
+
+
+
+/* -- container with max-width and padding -- */
+
+.vt-container {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 0 32px;
+
+}
+
+
+
+/* -- flex row holding all tabs -- */
+
+.vt-row {
+
+    display: flex;
+
+    gap: 10px;
+
+    height: 500px;
+
+    align-items: stretch;
+
+}
+
+
+
+/* -- every tab is a rounded card -- */
+
+.vt-tab {
+
+    flex: 0 0 82px;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    cursor: pointer;
+
+    transition: flex 0.52s cubic-bezier(0.4,0,0.2,1),
+
+                border-radius 0.3s;
+
+    background: #1a1f2e;
+
+}
+
+
+
+.vt-tab.vt-active {
+
+    flex: 1 1 0%;
+
+}
+
+
+
+/* -- background image -- */
+
+.vt-bg {
+
+    position: absolute;
+
+    inset: 0;
+
+    background-size: cover;
+
+    background-position: center;
+
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1),
+
+                opacity 0.4s;
+
+    transform: scale(1.06);
+
+    opacity: 0.55;
+
+}
+
+.vt-tab.vt-active .vt-bg {
+
+    transform: scale(1);
+
+    opacity: 1;
+
+}
+
+
+
+/* -- gradient overlay -- */
+
+.vt-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background: linear-gradient(
+
+        105deg,
+
+        rgba(5,12,28,0.88) 0%,
+
+        rgba(5,12,28,0.55) 45%,
+
+        rgba(5,12,28,0.10) 100%
+
+    );
+
+    transition: opacity 0.4s;
+
+}
+
+.vt-tab:not(.vt-active) .vt-overlay {
+
+    background: rgba(5,12,28,0.68);
+
+}
+
+
+
+/* -- vertical label on inactive tabs -- */
+
+.vt-label {
+
+    position: absolute;
+
+    top: 50%;
+
+    left: 50%;
+
+    transform: translate(-50%, -50%) rotate(-90deg);
+
+    transform-origin: center center;
+
+    white-space: nowrap;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    color: rgba(255,255,255,0.6);
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+
+    transition: opacity 0.25s, color 0.25s;
+
+    pointer-events: none;
+
+    font-family: 'Plus Jakarta Sans','Inter',sans-serif;
+
+    width: max-content;
+
+    max-width: 120px;
+
+}
+
+.vt-tab.vt-active .vt-label { opacity: 0; }
+
+.vt-tab:not(.vt-active):hover .vt-label { color: rgba(255,255,255,0.9); }
+
+
+
+/* -- content block -- */
+
+.vt-content {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: flex-end;
+
+    padding: 36px 44px 32px;
+
+    opacity: 0;
+
+    transform: translateY(18px);
+
+    transition: opacity 0.38s 0.18s, transform 0.38s 0.18s;
+
+    pointer-events: none;
+
+    font-family: 'Plus Jakarta Sans','Inter',sans-serif;
+
+}
+
+.vt-tab.vt-active .vt-content {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+    pointer-events: auto;
+
+}
+
+
+
+.vt-badge {
+
+    display: inline-block;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+
+    color: rgba(255,255,255,0.65);
+
+    margin-bottom: 8px;
+
+}
+
+.vt-content h3 {
+
+    font-size: 30px;
+
+    font-weight: 800;
+
+    color: #fff;
+
+    margin: 0 0 10px;
+
+    line-height: 1.18;
+
+    max-width: 500px;
+
+}
+
+.vt-content p {
+
+    font-size: 14px;
+
+    color: rgba(255,255,255,0.68);
+
+    line-height: 1.6;
+
+    margin: 0 0 22px;
+
+    max-width: 420px;
+
+}
+
+.vt-btns {
+
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+.vt-btn-p {
+
+    background: #0774FF;
+
+    color: #fff;
+
+    padding: 13px 26px;
+
+    border-radius: 50px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: background 0.2s, transform 0.2s;
+
+    white-space: nowrap;
+
+    font-family: inherit;
+
+}
+
+.vt-btn-p:hover { background:#0553c7; color:#fff; transform:translateY(-2px); }
+
+.vt-btn-o {
+
+    background: transparent;
+
+    color: #fff;
+
+    padding: 12px 26px;
+
+    border-radius: 50px;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    border: 1.5px solid rgba(255,255,255,0.4);
+
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+
+    white-space: nowrap;
+
+    font-family: inherit;
+
+}
+
+.vt-btn-o:hover { border-color:#fff; background:rgba(255,255,255,0.1); color:#fff; transform:translateY(-2px); }
+
+
+
+/* -- progress bar -- */
+
+.vt-prog {
+
+    position: absolute;
+
+    bottom: 0; left: 0;
+
+    height: 3px;
+
+    background: #0774FF;
+
+    width: 0%;
+
+    border-radius: 0 0 0 20px;
+
+    transition: width linear;
+
+    opacity: 0;
+
+}
+
+.vt-tab.vt-active .vt-prog { opacity: 1; }
+
+
+
+/* -- hover lift on inactive -- */
+
+.vt-tab:not(.vt-active):hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+
+}
+
+
+
+@media(max-width:900px){
+
+    .vt-row { height: auto; flex-direction: column; gap: 8px; }
+
+    .vt-tab { flex: 0 0 54px !important; border-radius: 14px; }
+
+    .vt-tab.vt-active { flex: 0 0 360px !important; }
+
+    .vt-label { writing-mode: horizontal-tb; transform: translate(-50%, -50%); top: 50%; left: 50%; }
+
+    .vt-content { padding: 28px 24px; }
+
+    .vt-content h3 { font-size: 24px; }
+
+}
+
+</style>
+
+
+
+<section class="vt-section">
+
+  <div class="vt-container">
+
+    <div class="vt-row" id="vtRow">
+
+
+
+      <!-- WordPress -->
+
+      <div class="vt-tab vt-active" data-idx="0">
+
+        <div class="vt-bg" style="background-image:url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=1400&q=85');"></div>
+
+        <div class="vt-overlay"></div>
+
+        <span class="vt-label">WordPress</span>
+
+        <div class="vt-content">
+
+          <span class="vt-badge">WordPress Hosting</span>
+
+          <h3>WordPress hosting that<br>your business deserves.</h3>
+
+          <p>Trusted by 40% of the web. Pre-optimized with LiteSpeed, auto-updates, and free SSL &mdash; your site is live in under 5 minutes.</p>
+
+          <div class="vt-btns">
+
+            <a href="price" class="vt-btn-p">Get WordPress Hosting <i class="fas fa-chevron-right"></i></a>
+
+            <a href="price" class="vt-btn-o">See Plans <i class="fas fa-chevron-right"></i></a>
+
+          </div>
+
         </div>
 
-        <!-- Bootstrap Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        <!-- WHY CHOOSE US END -->
+        <div class="vt-prog" id="vtp-0"></div>
 
-        <!-- PRICING SECTION -->
-        <section class="pricing-section" style="background: #f5f7fa; padding: 80px 0;" id="deal">
-            <div class="container">
-                <div class="text-center" style="margin-bottom: 80px;">
-                    <span class="badge" style="background: #e3f2fd; color: #1976d2; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 600; margin-bottom: 15px; display: inline-block;">Plans and pricing</span>
-                    <h2 style="font-size: 42px; font-weight: 800; color: #2c3e50; margin-bottom: 20px;">Don’t miss Nutro WordPress Deals!</h2>
-                    <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px;">
-                        <div style="display: flex; align-items: center; gap: 8px; color: #555;">
-                            <i class="bi bi-headset" style="font-size: 20px; color: #1976d2;"></i>
-                            <span>24/7 support</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 8px; color: #555;">
-                            <i class="bi bi-shield-check" style="font-size: 20px; color: #1976d2;"></i>
-                            <span>30-day money-back guarantee</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 8px; color: #555;">
-                            <i class="bi bi-x-circle" style="font-size: 20px; color: #1976d2;"></i>
-                            <span>Cancel anytime</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center" id="plans-container">
-                    <div class="loading-spinner" style="text-align: center; padding: 60px;">
-                        <div class="spinner" style="width: 60px; height: 60px; border: 4px solid #f3f4f6; border-top: 4px solid #fbbf24; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px;"></div>
-                        <p style="color: #6b7280; font-size: 16px; font-weight: 500;">Loading pricing plans...</p>
-                    </div>
-                </div>
-                <style>
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                </style>
+      </div>
+
+
+
+      <!-- Web Hosting -->
+
+      <div class="vt-tab" data-idx="1">
+
+        <div class="vt-bg" style="background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1400&q=85');"></div>
+
+        <div class="vt-overlay"></div>
+
+        <span class="vt-label">Web Hosting</span>
+
+        <div class="vt-content">
+
+          <span class="vt-badge">Web Hosting</span>
+
+          <h3>Rock-solid hosting for<br>businesses that grow.</h3>
+
+          <p>99.9% uptime guaranteed. Unlimited bandwidth, NVMe storage, and a control panel so intuitive, anyone can manage it.</p>
+
+          <div class="vt-btns">
+
+            <a href="price" class="vt-btn-p">Get Web Hosting <i class="fas fa-chevron-right"></i></a>
+
+            <a href="price" class="vt-btn-o">See Plans <i class="fas fa-chevron-right"></i></a>
+
+          </div>
+
+        </div>
+
+        <div class="vt-prog" id="vtp-1"></div>
+
+      </div>
+
+
+
+      <!-- VPS -->
+
+      <div class="vt-tab" data-idx="2">
+
+        <div class="vt-bg" style="background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=85');"></div>
+
+        <div class="vt-overlay"></div>
+
+        <span class="vt-label">VPS Hosting</span>
+
+        <div class="vt-content">
+
+          <span class="vt-badge">VPS Hosting</span>
+
+          <h3>Dedicated power for<br>serious projects.</h3>
+
+          <p>Full root access, isolated resources, and enterprise DDoS protection. Built for developers who refuse to compromise.</p>
+
+          <div class="vt-btns">
+
+            <a href="price" class="vt-btn-p">Get VPS Hosting <i class="fas fa-chevron-right"></i></a>
+
+            <a href="price" class="vt-btn-o">See Plans <i class="fas fa-chevron-right"></i></a>
+
+          </div>
+
+        </div>
+
+        <div class="vt-prog" id="vtp-2"></div>
+
+      </div>
+
+
+
+      <!-- Dedicated -->
+
+      <div class="vt-tab" data-idx="3">
+
+        <div class="vt-bg" style="background-image:url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1400&q=85');"></div>
+
+        <div class="vt-overlay"></div>
+
+        <span class="vt-label">Dedicated</span>
+
+        <div class="vt-content">
+
+          <span class="vt-badge">Dedicated Server</span>
+
+          <h3>Bare-metal performance.<br>Zero compromises.</h3>
+
+          <p>Your own physical server with custom hardware, 99.99% SLA, and 24/7 priority support. For businesses where downtime is not an option.</p>
+
+          <div class="vt-btns">
+
+            <a href="price" class="vt-btn-p">Get Dedicated Server <i class="fas fa-chevron-right"></i></a>
+
+            <a href="price" class="vt-btn-o">See Plans <i class="fas fa-chevron-right"></i></a>
+
+          </div>
+
+        </div>
+
+        <div class="vt-prog" id="vtp-3"></div>
+
+      </div>
+
+
+
+      <!-- Astro AI -->
+
+      <div class="vt-tab" data-idx="4">
+
+        <div class="vt-bg" style="background-image:url('https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1400&q=85');"></div>
+
+        <div class="vt-overlay"></div>
+
+        <span class="vt-label">Astro AI</span>
+
+        <div class="vt-content">
+
+          <span class="vt-badge">Astro AI</span>
+
+          <h3>Describe it. AI builds it.<br>You own it.</h3>
+
+          <p>Tell Astro AI what you need &mdash; a store, portfolio, or blog &mdash; and watch it come to life. Professional results, zero learning curve.</p>
+
+          <div class="vt-btns">
+
+            <a href="price" class="vt-btn-p">Try Astro AI <i class="fas fa-chevron-right"></i></a>
+
+            <a href="price" class="vt-btn-o">Learn More <i class="fas fa-chevron-right"></i></a>
+
+          </div>
+
+        </div>
+
+        <div class="vt-prog" id="vtp-4"></div>
+
+      </div>
+
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<script>
+
+(function(){
+
+  var DURATION = 5000;
+
+  var tabs = document.querySelectorAll('#vtRow .vt-tab');
+
+  var cur = 0, timer, paused = false;
+
+
+
+  function activate(i){
+
+    tabs.forEach(function(t){ t.classList.remove('vt-active'); });
+
+    for(var k=0;k<tabs.length;k++){
+
+      var p=document.getElementById('vtp-'+k);
+
+      if(p){p.style.transition='none';p.style.width='0%';}
+
+    }
+
+    tabs[i].classList.add('vt-active');
+
+    cur = i;
+
+    var prog = document.getElementById('vtp-'+i);
+
+    if(prog){
+
+      prog.getBoundingClientRect();
+
+      prog.style.transition='width '+DURATION+'ms linear';
+
+      prog.style.width='100%';
+
+    }
+
+  }
+
+
+
+  function next(){ activate((cur+1)%tabs.length); }
+
+
+
+  function startTimer(){ clearInterval(timer); timer=setInterval(next,DURATION); }
+
+
+
+  tabs.forEach(function(t,i){
+
+    t.addEventListener('click',function(){
+
+      clearInterval(timer);
+
+      activate(i);
+
+      if(!paused) startTimer();
+
+    });
+
+  });
+
+
+
+  var row = document.getElementById('vtRow');
+
+  row.addEventListener('mouseenter',function(){
+
+    paused=true; clearInterval(timer);
+
+    var p=document.getElementById('vtp-'+cur);
+
+    if(p){p.style.transition='none';}
+
+  });
+
+  row.addEventListener('mouseleave',function(){
+
+    paused=false;
+
+    var p=document.getElementById('vtp-'+cur);
+
+    if(p){p.style.transition='none';p.style.width='0%';p.getBoundingClientRect();p.style.transition='width '+DURATION+'ms linear';p.style.width='100%';}
+
+    startTimer();
+
+  });
+
+
+
+  activate(0);
+
+  startTimer();
+
+})();
+
+</script>
+
+
+
+<!-- ===== SECTION 3: REVIEWS INFINITE SCROLL ===== -->
+
+<style>
+
+.rv-section{background:#fff;padding:80px 0 72px;}
+
+.rv-header{text-align:center;margin-bottom:48px;padding:0 24px;}
+
+.rv-label{display:inline-block;background:#e8f5e9;color:#26CF4B;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;}
+
+.rv-title{font-size:38px;font-weight:800;color:#0d1b2e;margin:0 0 12px;}
+
+.rv-tp{display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;color:#64748b;}
+
+.rv-stars{color:#00b67a;font-size:18px;letter-spacing:2px;}
+
+
+
+/* infinite marquee */
+
+.rv-marquee-wrap{position:relative;overflow:hidden;width:100%;}
+
+.rv-marquee-wrap::before,.rv-marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:180px;z-index:2;pointer-events:none;}
+
+.rv-marquee-wrap::before{left:0;background:linear-gradient(to right,#fff 0%,transparent 100%);}
+
+.rv-marquee-wrap::after{right:0;background:linear-gradient(to left,#fff 0%,transparent 100%);}
+
+.rv-marquee{display:flex;gap:20px;width:max-content;animation:rv-scroll 38s linear infinite;}
+
+.rv-marquee:hover{animation-play-state:paused;}
+
+@keyframes rv-scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+
+
+.rv-card{background:#f8fafc;border-radius:14px;padding:24px 26px;border:1.5px solid #f1f5f9;width:320px;flex-shrink:0;transition:box-shadow .25s,border-color .25s;}
+
+.rv-card:hover{box-shadow:0 8px 28px rgba(7,116,255,0.1);border-color:#c7d9ff;}
+
+.rv-card-stars{color:#f59e0b;font-size:13px;margin-bottom:10px;}
+
+.rv-card-quote{font-size:14px;color:#334155;line-height:1.75;margin:0 0 18px;font-style:italic;}
+
+.rv-card-author{display:flex;align-items:center;gap:10px;}
+
+.rv-card-av{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px;flex-shrink:0;}
+
+.rv-card-name{font-size:13px;font-weight:700;color:#0d1b2e;}
+
+.rv-card-role{font-size:11px;color:#94a3b8;}
+
+
+
+/* media logos */
+
+.media-section{background:#fff;padding:0 0 72px;}
+
+.media-divider{max-width:1100px;margin:0 auto 40px;padding:0 24px;border-top:1px solid #f1f5f9;}
+
+.media-wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+
+.media-label{text-align:center;font-size:11px;font-weight:600;color:#94a3b8;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;}
+
+.media-logos{display:flex;align-items:center;justify-content:center;gap:48px;flex-wrap:wrap;}
+
+.media-logo{opacity:.3;transition:opacity .2s;cursor:default;}
+
+.media-logo:hover{opacity:.6;}
+
+.media-logo span{font-size:17px;font-weight:800;color:#0d1b2e;letter-spacing:-0.3px;white-space:nowrap;}
+
+</style>
+
+
+
+<section class="rv-section">
+
+  <div class="rv-header">
+
+    <span class="rv-label">What Our Clients Say</span>
+
+    <h2 class="rv-title">Trusted by businesses in 150+ countries</h2>
+
+    <div class="rv-tp">
+
+      <span class="rv-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
+
+      <strong>4.8 / 5</strong>
+
+      <span>based on 12,000+ reviews</span>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="rv-marquee-wrap">
+
+    <div class="rv-marquee" id="rvMarquee">
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Switched from another host and the difference in speed was immediate. My WordPress site loads in under a second now."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#0774FF;">S</div><div><div class="rv-card-name">Sarah Mitchell</div><div class="rv-card-role">Blogger &amp; Content Creator</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"The support team is outstanding. Had a technical issue at 2am and they resolved it within 20 minutes. Rare service."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#26CF4B;">M</div><div><div class="rv-card-name">Marcus Chen</div><div class="rv-card-role">E-commerce Store Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"I manage 30+ client websites and Nutro.cloud makes it effortless. Dashboard is clean, backups are automatic."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#f59e0b;">A</div><div><div class="rv-card-name">Ahmed Al-Rashid</div><div class="rv-card-role">Web Developer &amp; Agency Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Astro AI helped me write all my website content in minutes. Zero technical experience and my site was live same day."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#8b5cf6;">L</div><div><div class="rv-card-name">Laura Fernandez</div><div class="rv-card-role">Small Business Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Migrated my entire site for free and it was seamless. Zero downtime, all files intact. Free SSL activated automatically."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#ef4444;">J</div><div><div class="rv-card-name">James Okafor</div><div class="rv-card-role">Startup Founder</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Best value hosting I've found. The Business plan gives you everything for less than a coffee a day. Highly recommend."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#0ea5e9;">P</div><div><div class="rv-card-name">Priya Sharma</div><div class="rv-card-role">Digital Marketing Consultant</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Setup was incredibly easy. Had my store live in under an hour. The LiteSpeed cache makes a huge difference."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#10b981;">R</div><div><div class="rv-card-name">Ryan Torres</div><div class="rv-card-role">Online Store Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"The free domain and SSL made it so easy to get started. I've recommended Nutro.cloud to all my clients."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#f97316;">K</div><div><div class="rv-card-name">Karen Liu</div><div class="rv-card-role">Freelance Designer</div></div></div></div>
+
+      <!-- duplicate for seamless loop -->
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Switched from another host and the difference in speed was immediate. My WordPress site loads in under a second now."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#0774FF;">S</div><div><div class="rv-card-name">Sarah Mitchell</div><div class="rv-card-role">Blogger &amp; Content Creator</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"The support team is outstanding. Had a technical issue at 2am and they resolved it within 20 minutes. Rare service."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#26CF4B;">M</div><div><div class="rv-card-name">Marcus Chen</div><div class="rv-card-role">E-commerce Store Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"I manage 30+ client websites and Nutro.cloud makes it effortless. Dashboard is clean, backups are automatic."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#f59e0b;">A</div><div><div class="rv-card-name">Ahmed Al-Rashid</div><div class="rv-card-role">Web Developer &amp; Agency Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Astro AI helped me write all my website content in minutes. Zero technical experience and my site was live same day."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#8b5cf6;">L</div><div><div class="rv-card-name">Laura Fernandez</div><div class="rv-card-role">Small Business Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Migrated my entire site for free and it was seamless. Zero downtime, all files intact. Free SSL activated automatically."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#ef4444;">J</div><div><div class="rv-card-name">James Okafor</div><div class="rv-card-role">Startup Founder</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Best value hosting I've found. The Business plan gives you everything for less than a coffee a day. Highly recommend."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#0ea5e9;">P</div><div><div class="rv-card-name">Priya Sharma</div><div class="rv-card-role">Digital Marketing Consultant</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"Setup was incredibly easy. Had my store live in under an hour. The LiteSpeed cache makes a huge difference."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#10b981;">R</div><div><div class="rv-card-name">Ryan Torres</div><div class="rv-card-role">Online Store Owner</div></div></div></div>
+
+      <div class="rv-card"><div class="rv-card-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div><p class="rv-card-quote">"The free domain and SSL made it so easy to get started. I've recommended Nutro.cloud to all my clients."</p><div class="rv-card-author"><div class="rv-card-av" style="background:#f97316;">K</div><div><div class="rv-card-name">Karen Liu</div><div class="rv-card-role">Freelance Designer</div></div></div></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<section class="media-section">
+
+  <div class="media-wrap">
+
+    <div class="media-label">Recognized by industry leaders</div>
+
+    <div class="media-logos">
+
+      <div class="media-logo"><span style="font-family:serif;font-size:20px;font-weight:900;letter-spacing:-1px;">Forbes</span></div>
+
+      <div class="media-logo"><span style="font-family:monospace;font-size:15px;font-weight:700;border:2px solid #0d1b2e;padding:2px 6px;">WIRED</span></div>
+
+      <div class="media-logo"><span>TechRadar</span></div>
+
+      <div class="media-logo"><span style="font-style:italic;">Wirecutter</span></div>
+
+      <div class="media-logo"><span>CNET</span></div>
+
+      <div class="media-logo"><span>PCMag</span></div>
+
+      <div class="media-logo"><span style="font-size:20px;font-weight:900;">G2</span></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ===== SECTION 3B: HOW IT WORKS STICKY ===== -->
+
+<style>
+
+.hiw2-outer{background:linear-gradient(180deg,#0a1628 0%,#111d35 100%);padding:100px 0 120px;}
+
+.hiw2-header{text-align:center;margin-bottom:40px;padding:0 24px;}
+
+.hiw2-label{display:inline-block;background:rgba(7,116,255,0.15);color:#60a5fa;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:7px 18px;border-radius:50px;margin-bottom:16px;border:1px solid rgba(7,116,255,0.25);}
+
+.hiw2-title{font-size:44px;font-weight:800;color:#fff;margin:0 0 12px;line-height:1.1;}
+
+.hiw2-sub{font-size:16px;color:#94a3b8;margin:0 auto;max-width:460px;line-height:1.7;}
+
+
+
+.hiw2-tabs{display:flex;justify-content:center;margin-bottom:36px;}
+
+.hiw2-tabs-inner{display:inline-flex;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px;box-shadow:0 4px 20px rgba(0,0,0,0.3);backdrop-filter:blur(10px);}
+
+.hiw2-tab{padding:8px 26px;border-radius:50px;font-size:14px;font-weight:500;color:rgba(255,255,255,0.45);cursor:pointer;border:none;background:transparent;transition:all .3s;white-space:nowrap;}
+
+.hiw2-tab.active{background:#0774FF;color:#fff;font-weight:700;box-shadow:0 4px 16px rgba(7,116,255,0.4);}
+
+
+
+.hiw2-box{max-width:1400px;margin:0 auto;padding:0 24px;position:relative;height:580px;}
+
+
+
+.hiw2-panel{
+
+  display:grid;grid-template-columns:1fr 1fr;
+
+  border-radius:24px;overflow:hidden;
+
+  min-height:580px;
+
+  box-shadow:0 20px 80px rgba(0,0,0,0.4);
+
+  position:absolute;top:0;left:0;right:0;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  will-change:transform,opacity;
+
+  backface-visibility:hidden;
+
+}
+
+.hiw2-panel.active{opacity:1;pointer-events:auto;z-index:2;}
+
+
+
+.hiw2-left{background:#141e30;padding:56px;display:flex;flex-direction:column;justify-content:center;}
+
+.hiw2-step-tag{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px;}
+
+.hiw2-step-title{font-size:32px;font-weight:800;color:#fff;margin:0 0 12px;line-height:1.2;}
+
+.hiw2-step-desc{font-size:14px;color:#94a3b8;line-height:1.8;margin:0 0 28px;}
+
+.hiw2-feats{display:flex;flex-direction:column;}
+
+.hiw2-feat{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.07);cursor:pointer;transition:padding-left .2s;}
+
+.hiw2-feat:last-child{border-bottom:none;}
+
+.hiw2-feat:hover{padding-left:6px;}
+
+.hiw2-feat-text h4{font-size:14px;font-weight:700;color:#e2e8f0;margin:0 0 2px;}
+
+.hiw2-feat-text p{font-size:12px;color:#64748b;margin:0;}
+
+.hiw2-feat-arr{width:24px;height:24px;border-radius:50%;border:1.5px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;color:#64748b;flex-shrink:0;transition:all .2s;}
+
+.hiw2-feat:hover .hiw2-feat-arr{border-color:#0774FF;color:#0774FF;background:rgba(7,116,255,0.15);}
+
+
+
+.hiw2-right{display:flex;align-items:center;justify-content:center;padding:48px;position:relative;overflow:hidden;}
+
+.hiw2-panel[data-tab="build"]  .hiw2-right{background:#080f1f;}
+
+.hiw2-panel[data-tab="sell"]   .hiw2-right{background:#06120d;}
+
+.hiw2-panel[data-tab="market"] .hiw2-right{background:#140c04;}
+
+.hiw2-panel[data-tab="scale"]  .hiw2-right{background:#0d0620;}
+
+.hiw2-right::before{content:'';position:absolute;width:350px;height:350px;border-radius:50%;filter:blur(100px);opacity:0.6;top:-40px;left:-40px;pointer-events:none;}
+
+.hiw2-right::after{content:'';position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(90px);opacity:0.45;bottom:-30px;right:-30px;pointer-events:none;}
+
+.hiw2-panel[data-tab="build"]  .hiw2-right::before{background:#2563eb;}
+
+.hiw2-panel[data-tab="build"]  .hiw2-right::after{background:#3b82f6;}
+
+.hiw2-panel[data-tab="sell"]   .hiw2-right::before{background:#059669;}
+
+.hiw2-panel[data-tab="sell"]   .hiw2-right::after{background:#10b981;}
+
+.hiw2-panel[data-tab="market"] .hiw2-right::before{background:#ea580c;}
+
+.hiw2-panel[data-tab="market"] .hiw2-right::after{background:#f97316;}
+
+.hiw2-panel[data-tab="scale"]  .hiw2-right::before{background:#7c3aed;}
+
+.hiw2-panel[data-tab="scale"]  .hiw2-right::after{background:#8b5cf6;}
+
+
+
+.hiw2-panel[data-tab="build"]  .hiw2-step-tag{color:#1d4ed8;}
+
+.hiw2-panel[data-tab="sell"]   .hiw2-step-tag{color:#059669;}
+
+.hiw2-panel[data-tab="market"] .hiw2-step-tag{color:#ea580c;}
+
+.hiw2-panel[data-tab="scale"]  .hiw2-step-tag{color:#7c3aed;}
+
+
+
+.hiw2-vis-win{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:14px;padding:18px;width:100%;position:relative;z-index:1;backdrop-filter:blur(8px);}
+
+.hiw2-vis-topbar{display:flex;align-items:center;gap:5px;margin-bottom:14px;}
+
+.hiw2-vis-dot{width:8px;height:8px;border-radius:50%;}
+
+.hiw2-vis-url{background:rgba(255,255,255,0.12);border-radius:4px;padding:3px 9px;font-size:10px;color:rgba(255,255,255,0.55);margin-left:5px;}
+
+.hiw2-vis-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+
+.hiw2-vis-pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:rgba(255,255,255,0.9);font-size:11px;font-weight:600;padding:4px 11px;border-radius:50px;}
+
+.hiw2-vis-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;}
+
+.hiw2-vis-stat{background:rgba(255,255,255,0.1);border-radius:9px;padding:11px;text-align:center;}
+
+.hiw2-vis-stat-n{font-size:17px;font-weight:800;color:#fff;}
+
+.hiw2-vis-stat-l{font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;}
+
+
+
+.hiw2-progress{display:flex;gap:8px;justify-content:center;margin-top:24px;}
+
+.hiw2-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,0.2);transition:all .35s;}
+
+.hiw2-dot.active{background:#0774FF;width:24px;border-radius:4px;}
+
+
+
+@media(max-width:768px){
+
+  .hiw2-panel{grid-template-columns:1fr;}
+
+  .hiw2-right{min-height:240px;}
+
+  .hiw2-left{padding:32px 24px;}
+
+  .hiw2-step-title{font-size:22px;}
+
+  .hiw2-title{font-size:28px;}
+
+}
+
+</style>  
+
+
+
+<!-- GSAP + ScrollTrigger CDN -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+
+
+<section class="hiw2-outer" id="hiwSection">
+
+  <div class="hiw2-header">
+
+    <span class="hiw2-label">Your Journey</span>
+
+    <h2 class="hiw2-title">From first click to global scale.</h2>
+
+    <p class="hiw2-sub">Whether you're a first-time creator or a scaling enterprise, we've built every tool you need to succeed online.</p>
+
+  </div>
+
+
+
+  <div class="hiw2-tabs">
+
+    <div class="hiw2-tabs-inner">
+
+      <button class="hiw2-tab active" data-target="0">Build</button>
+
+      <button class="hiw2-tab" data-target="1">Sell</button>
+
+      <button class="hiw2-tab" data-target="2">Market</button>
+
+      <button class="hiw2-tab" data-target="3">Scale</button>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="hiw2-box" id="hiwBox">
+
+    <div class="hiw2-panel active" data-tab="build">
+
+      <div class="hiw2-left">
+
+        <div class="hiw2-step-tag">Build</div>
+
+        <h3 class="hiw2-step-title">Launch your vision in minutes, not months</h3>
+
+        <p class="hiw2-step-desc">Stop waiting. Our AI-powered platform turns your idea into a professional website before your coffee gets cold. No designers, no developers, no delays.</p>
+
+        <div class="hiw2-feats">
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>AI domain name generation</h4><p>Instantly find a name that fits your brand</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>AI-powered site builder</h4><p>Speed and reliability from day one</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>Expert design services</h4><p>Custom WordPress sites built for you</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+        </div>
+
+      </div>
+
+      <div class="hiw2-right"><div class="hiw2-vis-win">
+
+        <div class="hiw2-vis-topbar"><div class="hiw2-vis-dot" style="background:#ff5f57;"></div><div class="hiw2-vis-dot" style="background:#febc2e;"></div><div class="hiw2-vis-dot" style="background:#28c840;"></div><span class="hiw2-vis-url">nutro.cloud &mdash; AI Builder</span></div>
+
+        <div class="hiw2-vis-pills"><span class="hiw2-vis-pill">WordPress</span><span class="hiw2-vis-pill">AI Builder</span><span class="hiw2-vis-pill">Free Domain</span><span class="hiw2-vis-pill">Free SSL</span></div>
+
+        <div class="hiw2-vis-stats"><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">3M+</div><div class="hiw2-vis-stat-l">Sites Built</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">&lt;5min</div><div class="hiw2-vis-stat-l">Setup Time</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">99.9%</div><div class="hiw2-vis-stat-l">Uptime</div></div></div>
+
+      </div></div>
+
+    </div>
+
+
+
+    <div class="hiw2-panel" data-tab="sell">
+
+      <div class="hiw2-left">
+
+        <div class="hiw2-step-tag">Sell</div>
+
+        <h3 class="hiw2-step-title">Turn visitors into loyal customers</h3>
+
+        <p class="hiw2-step-desc">Every second of load time costs you sales. Our commerce-optimized hosting ensures your store is fast, secure, and always ready to convert.</p>
+
+        <div class="hiw2-feats">
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>WooCommerce hosting</h4><p>Optimized performance for online stores</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>WordPress hosting</h4><p>Flexible, powerful foundations for any business</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>eCommerce web design + SEO</h4><p>Designed to sell and built to be found</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+        </div>
+
+      </div>
+
+      <div class="hiw2-right"><div class="hiw2-vis-win">
+
+        <div class="hiw2-vis-topbar"><div class="hiw2-vis-dot" style="background:#ff5f57;"></div><div class="hiw2-vis-dot" style="background:#febc2e;"></div><div class="hiw2-vis-dot" style="background:#28c840;"></div><span class="hiw2-vis-url">nutro.cloud &mdash; Store</span></div>
+
+        <div class="hiw2-vis-pills"><span class="hiw2-vis-pill">WooCommerce</span><span class="hiw2-vis-pill">Payments</span><span class="hiw2-vis-pill">SSL Secure</span><span class="hiw2-vis-pill">Fast Checkout</span></div>
+
+        <div class="hiw2-vis-stats"><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">6x</div><div class="hiw2-vis-stat-l">Faster Load</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">0%</div><div class="hiw2-vis-stat-l">Transaction Fee</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">24/7</div><div class="hiw2-vis-stat-l">Support</div></div></div>
+
+      </div></div>
+
+    </div>
+
+
+
+    <div class="hiw2-panel" data-tab="market">
+
+      <div class="hiw2-left">
+
+        <div class="hiw2-step-tag">Market</div>
+
+        <h3 class="hiw2-step-title">Get found. Get chosen. Get ahead.</h3>
+
+        <p class="hiw2-step-desc">Ranking on Google isn't luck &mdash; it's strategy. Built-in SEO tools, professional email, and expert marketing services to put you ahead of the competition.</p>
+
+        <div class="hiw2-feats">
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>Yoast SEO built-in</h4><p>Built-in guidance to improve rankings</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>Expert digital marketing</h4><p>Hands-on help to accelerate results</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>Professional business email</h4><p>Domain-branded email addresses</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+        </div>
+
+      </div>
+
+      <div class="hiw2-right"><div class="hiw2-vis-win">
+
+        <div class="hiw2-vis-topbar"><div class="hiw2-vis-dot" style="background:#ff5f57;"></div><div class="hiw2-vis-dot" style="background:#febc2e;"></div><div class="hiw2-vis-dot" style="background:#28c840;"></div><span class="hiw2-vis-url">nutro.cloud &mdash; Marketing</span></div>
+
+        <div class="hiw2-vis-pills"><span class="hiw2-vis-pill">SEO Tools</span><span class="hiw2-vis-pill">Email Marketing</span><span class="hiw2-vis-pill">Analytics</span><span class="hiw2-vis-pill">CDN</span></div>
+
+        <div class="hiw2-vis-stats"><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">+73%</div><div class="hiw2-vis-stat-l">Traffic Lift</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">Free</div><div class="hiw2-vis-stat-l">SEO Tools</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">Global</div><div class="hiw2-vis-stat-l">CDN Reach</div></div></div>
+
+      </div></div>
+
+    </div>
+
+
+
+    <div class="hiw2-panel" data-tab="scale">
+
+      <div class="hiw2-left">
+
+        <div class="hiw2-step-tag">Scale</div>
+
+        <h3 class="hiw2-step-title">Scale without limits or worries</h3>
+
+        <p class="hiw2-step-desc">When your traffic doubles overnight, your hosting shouldn't flinch. Seamless upgrades, zero downtime, and infrastructure that grows as fast as your ambition.</p>
+
+        <div class="hiw2-feats">
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>VPS hosting</h4><p>More control and performance as demand increases</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>Agency hosting</h4><p>Manage multiple sites with confidence</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+          <div class="hiw2-feat"><div class="hiw2-feat-text"><h4>Dedicated hosting</h4><p>Maximum power for high-traffic businesses</p></div><div class="hiw2-feat-arr"><i class="fas fa-arrow-right"></i></div></div>
+
+        </div>
+
+      </div>
+
+      <div class="hiw2-right"><div class="hiw2-vis-win">
+
+        <div class="hiw2-vis-topbar"><div class="hiw2-vis-dot" style="background:#ff5f57;"></div><div class="hiw2-vis-dot" style="background:#febc2e;"></div><div class="hiw2-vis-dot" style="background:#28c840;"></div><span class="hiw2-vis-url">nutro.cloud &mdash; VPS</span></div>
+
+        <div class="hiw2-vis-pills"><span class="hiw2-vis-pill">VPS</span><span class="hiw2-vis-pill">Dedicated</span><span class="hiw2-vis-pill">NVMe SSD</span><span class="hiw2-vis-pill">DDoS Shield</span></div>
+
+        <div class="hiw2-vis-stats"><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">99.99%</div><div class="hiw2-vis-stat-l">SLA Uptime</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">8</div><div class="hiw2-vis-stat-l">Data Centers</div></div><div class="hiw2-vis-stat"><div class="hiw2-vis-stat-n">1-click</div><div class="hiw2-vis-stat-l">Upgrade</div></div></div>
+
+      </div></div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="hiw2-progress" id="hiwDots">
+
+    <div class="hiw2-dot active"></div>
+
+    <div class="hiw2-dot"></div>
+
+    <div class="hiw2-dot"></div>
+
+    <div class="hiw2-dot"></div>
+
+  </div>
+
+</section>
+
+
+
+<script>
+
+(function(){
+
+  gsap.registerPlugin(ScrollTrigger);
+
+
+
+  var tabs   = document.querySelectorAll('.hiw2-tab');
+
+  var panels = document.querySelectorAll('.hiw2-panel');
+
+  var dots   = document.querySelectorAll('.hiw2-dot');
+
+  var cur    = 0;
+
+
+
+  panels.forEach(function(p,i){
+
+    gsap.set(p,{opacity:i===0?1:0, y:i===0?0:20, zIndex:i===0?2:1});
+
+    if(i===0) p.classList.add('active');
+
+  });
+
+
+
+  function goTo(i){
+
+    if(i===cur) return;
+
+    var oldP=panels[cur], newP=panels[i];
+
+    cur=i;
+
+
+
+    tabs.forEach(function(t,x){t.classList.toggle('active',x===i);});
+
+    dots.forEach(function(d,x){d.classList.toggle('active',x===i);});
+
+
+
+    gsap.killTweensOf(panels);
+
+
+
+    // hide old instantly, show new with quick slide
+
+    oldP.classList.remove('active');
+
+    gsap.set(oldP,{opacity:0, zIndex:1});
+
+
+
+    newP.classList.add('active');
+
+    gsap.fromTo(newP,
+
+      {opacity:0, y:20, zIndex:2},
+
+      {opacity:1, y:0, duration:0.3, ease:'power2.out'}
+
+    );
+
+  }
+
+
+
+  tabs.forEach(function(t,i){
+
+    t.addEventListener('click',function(){ goTo(i); });
+
+  });
+
+
+
+  ScrollTrigger.create({
+
+    trigger:'#hiwSection',
+
+    start:'top top',
+
+    end:'+=80%',
+
+    pin:true,
+
+    anticipatePin:1,
+
+    snap:{snapTo:[0,0.33,0.66,1], duration:0.25, ease:'power1.inOut'},
+
+    onUpdate:function(self){
+
+      var idx = Math.min(3, Math.floor(self.progress / 0.26));
+
+      if(idx!==cur) goTo(idx);
+
+    }
+
+  });
+
+})();
+
+</script>
+
+
+
+<!-- ===== SECTION 3C: CUSTOMER SITES ===== -->
+
+<style>
+
+.csites2-section{background:#fff;padding:90px 0;overflow:hidden;}
+
+.csites2-header{text-align:center;margin-bottom:52px;padding:0 24px;}
+
+.csites2-title{font-size:42px;font-weight:800;color:#0d1b2e;line-height:1.15;margin:0 0 10px;}
+
+.csites2-title mark{background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:#1d4ed8;border-radius:6px;padding:2px 8px;font-style:normal;}
+
+.csites2-sub{font-size:16px;color:#64748b;margin:0;}
+
+
+
+/* marquee rows */
+
+.csites2-rows{display:flex;flex-direction:column;gap:24px;}
+
+.csites2-row{display:flex;gap:18px;width:max-content;}
+
+.csites2-row.row1{animation:csites-scroll1 35s linear infinite;}
+
+.csites2-row.row2{animation:csites-scroll2 40s linear infinite;}
+
+@keyframes csites-scroll1{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+
+@keyframes csites-scroll2{0%{transform:translateX(-50%);}100%{transform:translateX(0);}}
+
+.csites2-rows:hover .csites2-row{animation-play-state:paused;}
+
+
+
+.csite2{width:680px;height:420px;border-radius:18px;overflow:hidden;flex-shrink:0;position:relative;background:#e2e8f0;box-shadow:0 6px 28px rgba(0,0,0,0.1);}
+
+.csite2 img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+
+.csite2:hover img{transform:scale(1.05);}
+
+.csite2-label{position:absolute;bottom:14px;left:14px;background:rgba(10,37,64,0.75);color:#fff;font-size:13px;font-weight:700;padding:5px 12px;border-radius:8px;backdrop-filter:blur(4px);}
+
+</style>
+
+
+
+<section class="csites2-section">
+
+  <div class="csites2-header">
+
+    <h2 class="csites2-title"><mark>6,000+</mark> businesses chose us.<br>Their success speaks for itself.</h2>
+
+    <p class="csites2-sub">Real businesses. Real results. All powered by Nutro.cloud.</p>
+
+  </div>
+
+  <div class="csites2-rows">
+
+    <div class="csites2-row row1">
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=680&q=80" alt=""><div class="csite2-label">Business</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=680&q=80" alt=""><div class="csite2-label">eCommerce</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=680&q=80" alt=""><div class="csite2-label">Fitness</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=680&q=80" alt=""><div class="csite2-label">Restaurant</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=680&q=80" alt=""><div class="csite2-label">Agency</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=680&q=80" alt=""><div class="csite2-label">Tech Startup</div></div>
+
+      <!-- duplicate -->
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=680&q=80" alt=""><div class="csite2-label">Business</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=680&q=80" alt=""><div class="csite2-label">eCommerce</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=680&q=80" alt=""><div class="csite2-label">Fitness</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=680&q=80" alt=""><div class="csite2-label">Restaurant</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=680&q=80" alt=""><div class="csite2-label">Agency</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=680&q=80" alt=""><div class="csite2-label">Tech Startup</div></div>
+
+    </div>
+
+    <div class="csites2-row row2">
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=680&q=80" alt=""><div class="csite2-label">Corporate</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=680&q=80" alt=""><div class="csite2-label">Food Blog</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=680&q=80" alt=""><div class="csite2-label">Portfolio</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=680&q=80" alt=""><div class="csite2-label">Fashion Store</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=680&q=80" alt=""><div class="csite2-label">Developer</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=680&q=80" alt=""><div class="csite2-label">SaaS</div></div>
+
+      <!-- duplicate -->
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=680&q=80" alt=""><div class="csite2-label">Corporate</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=680&q=80" alt=""><div class="csite2-label">Food Blog</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=680&q=80" alt=""><div class="csite2-label">Portfolio</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=680&q=80" alt=""><div class="csite2-label">Fashion Store</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=680&q=80" alt=""><div class="csite2-label">Developer</div></div>
+
+      <div class="csite2"><img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=680&q=80" alt=""><div class="csite2-label">SaaS</div></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+<!-- ===== SECTION 5: FEATURES GRID ===== -->
+
+<style>
+
+.feat-section{background:#030b1a;padding:100px 0;position:relative;overflow:hidden;}
+
+
+
+.feat-wrap{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+.feat-header{text-align:center;margin-bottom:64px;}
+
+.feat-label{display:inline-block;background:rgba(59,130,246,0.08);color:#60a5fa;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:8px 20px;border-radius:50px;margin-bottom:18px;border:1px solid rgba(59,130,246,0.18);}
+
+.feat-title{font-size:42px;font-weight:800;color:#fff;margin:0 0 14px;line-height:1.1;letter-spacing:-0.5px;}
+
+.feat-sub{font-size:16px;color:#64748b;margin:0;}
+
+.feat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+
+.feat-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:30px 24px;transition:all .3s;position:relative;overflow:hidden;}
+
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#3b82f6,transparent);opacity:0;transition:opacity .3s;}
+
+.feat-card:hover{background:rgba(59,130,246,0.06);border-color:rgba(59,130,246,0.25);transform:translateY(-4px);box-shadow:0 12px 40px rgba(59,130,246,0.1);}
+
+.feat-card:hover::before{opacity:1;}
+
+.feat-card-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;background:transparent;position:relative;}.feat-card-icon::before{content:'';position:absolute;inset:-2px;border-radius:16px;background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(139,92,246,0.15),rgba(59,130,246,0.1));z-index:0;animation:feat-glow 3s ease-in-out infinite alternate;}.feat-card-icon::after{content:'';position:absolute;inset:1px;border-radius:13px;background:#030b1a;z-index:1;}.feat-card-icon svg{position:relative;z-index:2;}@keyframes feat-glow{0%{opacity:0.5;filter:blur(0px);}100%{opacity:1;filter:blur(2px);}}.feat-card:hover .feat-card-icon::before{background:linear-gradient(135deg,rgba(59,130,246,0.5),rgba(139,92,246,0.4),rgba(59,130,246,0.3));filter:blur(4px);}
+
+.feat-card h4{font-size:15px;font-weight:700;color:#e2e8f0;margin:0 0 8px;}
+
+.feat-card p{font-size:13px;color:#64748b;line-height:1.65;margin:0;}
+
+.feat-bottom{margin-top:64px;background:linear-gradient(135deg,rgba(59,130,246,0.06),rgba(37,99,235,0.03));border:1px solid rgba(59,130,246,0.12);border-radius:20px;padding:48px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;position:relative;overflow:hidden;}
+
+
+
+.feat-bottom-left h3{font-size:28px;font-weight:800;color:#fff;margin:0 0 14px;}
+
+.feat-bottom-left p{font-size:15px;color:#64748b;line-height:1.7;margin:0 0 24px;}
+
+.feat-bottom-btn{display:inline-block;background:#3b82f6;color:#fff;padding:13px 28px;border-radius:10px;font-size:14px;font-weight:700;text-decoration:none;transition:all .25s;box-shadow:0 6px 24px rgba(59,130,246,0.3);}
+
+.feat-bottom-btn:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 10px 36px rgba(59,130,246,0.4);color:#fff;}
+
+.feat-bottom-right{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+.feat-stat{text-align:center;background:rgba(59,130,246,0.05);border:1px solid rgba(59,130,246,0.1);border-radius:14px;padding:22px;transition:all .25s;}
+
+.feat-stat:hover{background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.25);}
+
+.feat-stat-num{font-size:30px;font-weight:800;color:#3b82f6;}
+
+.feat-stat-label{font-size:12px;color:#64748b;margin-top:4px;}
+
+@media(max-width:900px){.feat-grid{grid-template-columns:repeat(2,1fr);}.feat-bottom{grid-template-columns:1fr;}.feat-title{font-size:30px;}}
+
+@media(max-width:580px){.feat-grid{grid-template-columns:1fr;}.feat-bottom-right{grid-template-columns:1fr 1fr;}}
+
+</style>
+
+<section class="feat-section">
+
+  <div class="feat-wrap">
+
+    <div class="feat-header">
+
+      <span class="feat-label">Why Nutro.cloud</span>
+
+      <h2 class="feat-title">Enterprise infrastructure.<br>Startup simplicity.</h2>
+
+      <p class="feat-sub">The same technology that powers Fortune 500 websites &mdash; now accessible to everyone.</p>
+
+    </div>
+
+    <div class="feat-grid">
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+
+        </div>
+
+        <h4>6x Faster Servers</h4>
+
+        <p>Your visitors won't wait. LiteSpeed + HTTP/3 delivers pages in milliseconds, not seconds.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+
+        </div>
+
+        <h4>Free SSL / HTTPS</h4>
+
+        <p>Every plan includes auto-renewing SSL. Your visitors see the padlock. Your business earns their trust.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+
+        </div>
+
+        <h4>Daily Backups</h4>
+
+        <p>Sleep peacefully. Automatic daily backups mean your data is always one click away from full recovery.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+
+        </div>
+
+        <h4>DDoS Protection</h4>
+
+        <p>While you focus on growing, our security team blocks millions of threats daily. Your site stays online, always.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+
+        </div>
+
+        <h4>Business Email</h4>
+
+        <p>you@yourbrand.com &mdash; because first impressions matter. Professional, spam-free, and always reliable.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+
+        </div>
+
+        <h4>Free Domain</h4>
+
+        <p>Your brand deserves its own address. Free domain included with every annual plan &mdash; .com, .net, .org, and more.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+
+        </div>
+
+        <h4>Analytics Dashboard</h4>
+
+        <p>Know exactly who visits, when they visit, and what they do. Data-driven decisions start here.</p>
+
+      </div>
+
+      <div class="feat-card">
+
+        <div class="feat-card-icon">
+
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+
+        </div>
+
+        <h4>Astro AI Tools</h4>
+
+        <p>Build, write, and optimize with AI. What used to take weeks now takes minutes.</p>
+
+      </div>
+
+    </div>
+
+    <div class="feat-bottom">
+
+      <div class="feat-bottom-left">
+
+        <h3>Your security is our obsession</h3>
+
+        <p>Our dedicated security operations center monitors every server around the clock. When threats emerge, our team responds in under 15 minutes &mdash; so you never have to worry.</p>
+
+        <a href="price" class="feat-bottom-btn">View Security Features <i class="fas fa-arrow-right"></i></a>
+
+      </div>
+
+      <div class="feat-bottom-right">
+
+        <div class="feat-stat"><div class="feat-stat-num">99.9%</div><div class="feat-stat-label">Uptime SLA</div></div>
+
+        <div class="feat-stat"><div class="feat-stat-num">&lt;15m</div><div class="feat-stat-label">Incident Response</div></div>
+
+        <div class="feat-stat"><div class="feat-stat-num">256-bit</div><div class="feat-stat-label">SSL Encryption</div></div>
+
+        <div class="feat-stat"><div class="feat-stat-num">24/7</div><div class="feat-stat-label">Security Monitoring</div></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- ===== SECTION 4: CONTROL PANEL ===== -->
+
+<style>
+
+.cp-section{position:relative;padding:100px 0 120px;overflow:hidden;background:linear-gradient(180deg,#030b1a 0%,#030b1a 5%,#071530 12%,#0c1f45 22%,#132d5c 34%,#1d3f73 46%,#2e5a94 58%,#4a7db8 68%,#6fa0d2 76%,#96bfe2 83%,#bdd8ef 89%,#dce9f4 94%,#f0f3f7 98%,#f4f6f9 100%);}
+
+.cp-section::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 40%,rgba(59,130,246,0.08) 0%,transparent 60%);pointer-events:none;}
+
+.cp-wrap{max-width:1100px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+
+.cp-top{text-align:center;margin-bottom:56px;}
+
+.cp-label{display:inline-flex;align-items:center;gap:8px;background:rgba(59,130,246,0.15);color:#60a5fa;font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:8px 20px;border-radius:50px;margin-bottom:20px;border:1px solid rgba(59,130,246,0.25);}
+
+.cp-title{font-size:46px;font-weight:800;color:#fff;margin:0 0 16px;line-height:1.1;letter-spacing:-1px;}
+
+.cp-title span{background:linear-gradient(135deg,#60a5fa,#93c5fd,#bfdbfe);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+.cp-sub{font-size:16px;color:rgba(255,255,255,0.6);line-height:1.7;margin:0 auto 36px;max-width:560px;}
+
+.cp-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:0;}
+
+.cp-pill{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:50px;padding:10px 20px;transition:all .25s;cursor:default;}
+
+.cp-pill:hover{background:rgba(59,130,246,0.15);border-color:rgba(59,130,246,0.35);transform:translateY(-2px);}
+
+.cp-pill svg{flex-shrink:0;}
+
+.cp-pill span{font-size:13px;font-weight:600;color:#cbd5e1;}
+
+.cp-visual{position:relative;max-width:920px;margin:0 auto;}
+
+.cp-glow-orb{display:none;}
+
+.cp-glow-1{width:400px;height:400px;background:rgba(59,130,246,0.12);top:-80px;left:-120px;}
+
+.cp-glow-2{width:350px;height:350px;background:rgba(59,130,246,0.06);bottom:-60px;right:-100px;}
+
+.cp-glow-3{width:200px;height:200px;background:rgba(59,130,246,0.08);top:50%;left:50%;transform:translate(-50%,-50%);}
+
+.cp-mockup{position:relative;z-index:1;border-radius:18px;overflow:hidden;border:1px solid rgba(59,130,246,0.2);box-shadow:0 0 0 1px rgba(59,130,246,0.08),0 4px 16px rgba(0,0,0,0.2),0 24px 80px rgba(59,130,246,0.12);background:#0c1829;}
+
+.cp-mockup-bar{background:rgba(255,255,255,0.03);padding:12px 18px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06);}
+
+.cp-mockup-dot{width:10px;height:10px;border-radius:50%;}
+
+.cp-mockup-url{background:rgba(255,255,255,0.05);border-radius:6px;padding:5px 14px;font-size:11px;color:#475569;margin-left:8px;display:flex;align-items:center;gap:6px;}
+
+.cp-mockup-url::before{content:'';width:7px;height:7px;background:#3b82f6;border-radius:50%;box-shadow:0 0 6px rgba(59,130,246,0.6);}
+
+.cp-mockup-screen{position:relative;line-height:0;}
+
+.cp-mockup-screen img{width:100%;display:block;}
+
+.cp-mockup-fallback{display:none;flex-direction:column;padding:24px;background:linear-gradient(180deg,#0a1628,#0d1f35);}
+
+.cp-fb-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+
+.cp-fb-title{font-size:14px;font-weight:700;color:#fff;}
+
+.cp-fb-status{font-size:11px;font-weight:600;color:#3b82f6;background:rgba(59,130,246,0.1);padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;}
+
+.cp-fb-status::before{content:'';width:6px;height:6px;background:#3b82f6;border-radius:50%;box-shadow:0 0 6px #3b82f6;}
+
+.cp-fb-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+
+.cp-fb-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:10px;padding:14px;}
+
+.cp-fb-card-lbl{font-size:10px;color:#475569;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;}
+
+.cp-fb-card-val{font-size:20px;font-weight:800;color:#3b82f6;margin-bottom:4px;}
+
+.cp-fb-bar{height:4px;border-radius:2px;background:rgba(255,255,255,0.05);overflow:hidden;}
+
+.cp-fb-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#2563eb,#60a5fa);}
+
+.cp-fb-chart{display:flex;align-items:flex-end;gap:5px;height:60px;padding-top:10px;}
+
+.cp-fb-chart-bar{flex:1;border-radius:3px 3px 0 0;}
+
+.cp-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:28px;position:relative;z-index:1;}
+
+.cp-stat-card{background:rgba(255,255,255,0.7);border:1px solid rgba(59,130,246,0.1);border-radius:14px;padding:20px;text-align:center;transition:all .3s;backdrop-filter:blur(8px);}
+
+.cp-stat-card:hover{background:rgba(255,255,255,0.9);border-color:rgba(59,130,246,0.2);transform:translateY(-3px);box-shadow:0 8px 30px rgba(59,130,246,0.1);}
+
+.cp-stat-num{font-size:28px;font-weight:800;color:#3b82f6;}
+
+.cp-stat-lbl{font-size:12px;color:#64748b;margin-top:4px;}
+
+.cp-cta-row{display:flex;gap:14px;justify-content:center;margin-top:36px;}
+
+.cp-btn-primary{display:inline-flex;align-items:center;gap:8px;background:#3b82f6;color:#fff;padding:15px 32px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all .3s;box-shadow:0 8px 30px rgba(59,130,246,0.35);}
+
+.cp-btn-primary:hover{background:#2563eb;transform:translateY(-2px);box-shadow:0 14px 44px rgba(59,130,246,0.45);color:#fff;}
+
+.cp-btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:#334155;padding:15px 32px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(0,0,0,0.12);transition:all .3s;}
+
+.cp-btn-ghost:hover{border-color:#3b82f6;color:#3b82f6;background:rgba(59,130,246,0.04);}
+
+@keyframes cp-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cp-particles{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.cp-particle{position:absolute;background:rgba(59,130,246,0.4);border-radius:50%;animation:cp-particle-float 6s ease-in-out infinite;box-shadow:0 0 12px rgba(59,130,246,0.3),0 0 24px rgba(59,130,246,0.15);}
+@keyframes cp-particle-float{0%,100%{transform:translateY(0) scale(1);opacity:0.4;}50%{transform:translateY(-20px) scale(1.3);opacity:0.8;}}
+
+
+
+.cp-mockup{animation:cp-float 6s ease-in-out infinite;}
+
+@media(max-width:768px){
+
+  .cp-title{font-size:30px;}
+
+  .cp-mockup{animation:none;}
+
+  .cp-stats-row{grid-template-columns:1fr;max-width:300px;margin-left:auto;margin-right:auto;}
+
+  .cp-cta-row{flex-direction:column;align-items:center;}
+
+}
+
+</style>
+
+<section class="cp-section">
+
+  <div class="cp-wrap">
+
+    <!-- Top: Text + Pills -->
+
+    <div class="cp-top">
+
+      <div class="cp-label">
+
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+
+        Control Panel
+
+      </div>
+
+      <h2 class="cp-title">One dashboard.<br><span>Total control.</span></h2>
+
+      <p class="cp-sub">Hosting, domains, emails, databases, analytics &mdash; manage your entire online presence from one beautifully simple interface. No technical expertise required.</p>
+
+      <div class="cp-pills">
+
+        <div class="cp-pill">
+
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+
+          <span>One-click installer</span>
+
+        </div>
+
+        <div class="cp-pill">
+
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+
+          <span>Real-time monitoring</span>
+
+        </div>
+
+        <div class="cp-pill">
+
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#93c5fd" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+
+          <span>File manager &amp; SSH</span>
+
+        </div>
+
+        <div class="cp-pill">
+
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+
+          <span>DNS management</span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Visual: Dashboard mockup with glows -->
+
+    <div class="cp-visual">
+
+      <div class="cp-glow-orb cp-glow-1"></div>
+
+      <div class="cp-glow-orb cp-glow-2"></div>
+
+      <div class="cp-glow-orb cp-glow-3"></div>
+
+
+
+      <div class="cp-mockup">
+
+        <div class="cp-mockup-bar">
+
+          <div class="cp-mockup-dot" style="background:#ff5f57;"></div>
+
+          <div class="cp-mockup-dot" style="background:#febc2e;"></div>
+
+          <div class="cp-mockup-dot" style="background:#28c840;"></div>
+
+          <div class="cp-mockup-url">pro.nutro.cloud &mdash; PRO PANEL</div>
+
+        </div>
+
+        <div class="cp-mockup-screen">
+
+          <img src="https://nutro.cloud/assets/images/nutropropanel.png" alt="Nutro Pro Dashboard" onerror="this.style.display='none';this.parentElement.querySelector('.cp-mockup-fallback').style.display='flex';">
+
+          <div class="cp-mockup-fallback">
+
+            <div class="cp-fb-header">
+
+              <div class="cp-fb-title">Server Overview</div>
+
+              <div class="cp-fb-status">All Systems Operational</div>
+
             </div>
-        </section>
 
-        <style>
-            .pricing-card {
-                background: #ffffff;
-                border-radius: 16px;
-                padding: 32px 28px;
-                box-shadow: 0 2px 16px rgba(0,0,0,0.08);
-                transition: all 0.3s ease;
-                position: relative;
-                height: 100%;
-                border: 1px solid #e5e7eb;
-            }
-            .pricing-card:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 12px 32px rgba(0,0,0,0.12);
-                border-color: #1976d2;
-            }
-            .pricing-card.popular {
-                border: 2px solid #1976d2;
-                box-shadow: 0 8px 24px rgba(25,118,210,0.15);
-            }
-            .pricing-card.popular:hover {
-                transform: translateY(-8px);
-                box-shadow: 0 16px 40px rgba(25,118,210,0.2);
-            }
-            .popular-badge {
-                position: absolute;
-                top: -14px;
-                left: 50%;
-                transform: translateX(-50%);
-                background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-                color: white;
-                padding: 8px 24px;
-                border-radius: 24px;
-                font-size: 12px;
-                font-weight: 700;
-                text-transform: uppercase;
-                letter-spacing: 0.5px;
-                box-shadow: 0 4px 12px rgba(25,118,210,0.3);
-            }
-            .discount-badge {
-                position: absolute;
-                top: 16px;
-                right: 16px;
-                background: #dc3545;
-                color: white;
-                padding: 6px 12px;
-                border-radius: 8px;
-                font-size: 12px;
-                font-weight: 700;
-            }
-            .plan-icon {
-                width: 48px;
-                height: 48px;
-                margin-bottom: 16px;
-            }
-            .plan-header {
-                margin-bottom: 24px;
-            }
-            .plan-name {
-                font-size: 24px;
-                font-weight: 700;
-                color: #111827;
-                margin-bottom: 8px;
-            }
-            .plan-desc {
-                font-size: 14px;
-                color: #6b7280;
-                line-height: 1.5;
-                margin: 0;
-            }
-            .plan-price {
-                margin: 24px 0;
-                text-align: center;
-            }
-            .price-main {
-                margin-bottom: 12px;
-            }
-            .price-amount {
-                font-size: 48px;
-                font-weight: 800;
-                color: #111827;
-                letter-spacing: -1px;
-            }
-            .price-currency {
-                font-size: 18px;
-                vertical-align: super;
-                color: #6b7280;
-            }
-            .price-period {
-                font-size: 16px;
-                color: #6b7280;
-            }
-            .price-details {
-                font-size: 12px;
-                color: #6b7280;
-                margin: 8px 0 4px;
-            }
-            .price-renew {
-                font-size: 11px;
-                color: #9ca3af;
-                margin: 4px 0 0;
-            }
-            .plan-bonus {
-                background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-                color: #92400e;
-                padding: 8px 16px;
-                border-radius: 20px;
-                font-size: 13px;
-                font-weight: 700;
-                margin: 12px 0;
-                display: inline-block;
-                border: 2px solid #fbbf24;
-            }
-            .plan-button {
-                width: 100%;
-                padding: 16px;
-                border: none;
-                background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
-                color: white;
-                border-radius: 10px;
-                font-weight: 700;
-                font-size: 16px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                text-decoration: none;
-                display: block;
-                text-align: center;
-                position: relative;
-                overflow: hidden;
-            }
-            .plan-button::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: -100%;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(90deg, transparent, rgba(251,191,36,0.3), transparent);
-                transition: left 0.5s ease;
-            }
-            .plan-button:hover::before {
-                left: 100%;
-            }
-            .plan-button:hover {
-                background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-                color: #111827;
-                transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(251,191,36,0.4);
-            }
-            .pricing-card.popular .plan-button {
-                background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-                color: #111827;
-            }
-            .pricing-card.popular .plan-button:hover {
-                background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            }
-            .plan-features {
-                list-style: none;
-                padding: 0;
-                margin: 24px 0;
-            }
-            .plan-features li {
-                padding: 12px 16px;
-                color: #1f2937;
-                font-size: 14px;
-                display: flex;
-                align-items: flex-start;
-                gap: 12px;
-                line-height: 1.6;
-                background: #f9fafb;
-                border-radius: 8px;
-                margin-bottom: 8px;
-                transition: all 0.2s ease;
-            }
-            .plan-features li:hover {
-                background: #fef3c7;
-                transform: translateX(4px);
-            }
-            .plan-features li i {
-                margin-top: 2px;
-                flex-shrink: 0;
-                font-size: 18px;
-            }
-            .plan-features li span {
-                flex: 1;
-                font-weight: 500;
-            }
-            .plan-features li:nth-child(odd) i {
-                color: #fbbf24;
-            }
-            .plan-features li:nth-child(even) i {
-                color: #1976d2;
-            }
-            .plan-divider {
-                border: none;
-                border-top: 1px solid rgba(0,0,0,0.08);
-                margin: 24px 0;
-            }
-        </style>
+            <div class="cp-fb-grid">
+
+              <div class="cp-fb-card"><div class="cp-fb-card-lbl">CPU Usage</div><div class="cp-fb-card-val">12%</div><div class="cp-fb-bar"><div class="cp-fb-bar-fill" style="width:12%;"></div></div></div>
+
+              <div class="cp-fb-card"><div class="cp-fb-card-lbl">Memory</div><div class="cp-fb-card-val">1.2 GB</div><div class="cp-fb-bar"><div class="cp-fb-bar-fill" style="width:30%;"></div></div></div>
+
+              <div class="cp-fb-card"><div class="cp-fb-card-lbl">Disk</div><div class="cp-fb-card-val">18 GB</div><div class="cp-fb-bar"><div class="cp-fb-bar-fill" style="width:18%;"></div></div></div>
+
+              <div class="cp-fb-card"><div class="cp-fb-card-lbl">Uptime</div><div class="cp-fb-card-val">99.98%</div><div class="cp-fb-bar"><div class="cp-fb-bar-fill" style="width:99%;"></div></div></div>
+
+            </div>
+
+            <div class="cp-fb-chart">
+
+              <div class="cp-fb-chart-bar" style="height:30%;background:linear-gradient(180deg,#2563eb,rgba(37,99,235,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:55%;background:linear-gradient(180deg,#3b82f6,rgba(59,130,246,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:80%;background:linear-gradient(180deg,#1d4ed8,rgba(29,78,216,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:45%;background:linear-gradient(180deg,#60a5fa,rgba(96,165,250,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:100%;background:linear-gradient(180deg,#2563eb,rgba(37,99,235,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:65%;background:linear-gradient(180deg,#3b82f6,rgba(59,130,246,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:50%;background:linear-gradient(180deg,#1e40af,rgba(30,64,175,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:90%;background:linear-gradient(180deg,#2563eb,rgba(37,99,235,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:60%;background:linear-gradient(180deg,#60a5fa,rgba(96,165,250,0.15));"></div>
+
+              <div class="cp-fb-chart-bar" style="height:75%;background:linear-gradient(180deg,#3b82f6,rgba(59,130,246,0.15));"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Stats row -->
+
+    <div class="cp-stats-row">
+
+      <div class="cp-stat-card"><div class="cp-stat-num">99.9%</div><div class="cp-stat-lbl">Uptime SLA</div></div>
+
+      <div class="cp-stat-card"><div class="cp-stat-num">6x</div><div class="cp-stat-lbl">Faster Speed</div></div>
+
+      <div class="cp-stat-card"><div class="cp-stat-num">24/7</div><div class="cp-stat-lbl">Monitoring</div></div>
+
+    </div>
+
+
+
+    <!-- CTA -->
+
+    <div class="cp-cta-row">
+
+      <a href="price" class="cp-btn-primary">Explore Dashboard <span><i class="fas fa-arrow-right"></i></span></a>
+
+      <a href="price" class="cp-btn-ghost">View Plans <span><i class="fas fa-arrow-right"></i></span></a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ===== SECTION 6: PRICING (Dynamic API) ===== -->
+<style>
+.pr-section{background:#f4f6f9;padding:90px 0;}
+.pr-wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+.pr-header{text-align:center;margin-bottom:56px;}
+.pr-label{display:inline-block;background:#e8f0fe;color:#0774FF;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;}
+.pr-title{font-size:38px;font-weight:800;color:#0d1b2e;margin:0 0 12px;}
+.pr-sub{font-size:16px;color:#64748b;margin:0;}
+.pr-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.pr-card{background:#fff;border-radius:16px;padding:36px 28px;border:2px solid #f1f5f9;position:relative;transition:all .25s;display:flex;flex-direction:column;}
+.pr-card:hover{border-color:#0774FF;box-shadow:0 12px 40px rgba(7,116,255,0.12);}
+.pr-card.popular{border-color:#0774FF;box-shadow:0 12px 40px rgba(7,116,255,0.15);}
+.pr-popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:#0774FF;color:#fff;font-size:12px;font-weight:700;padding:5px 16px;border-radius:20px;white-space:nowrap;display:flex;align-items:center;gap:6px;}
+.pr-discount{position:absolute;top:16px;right:16px;background:#fef3c7;color:#d97706;font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;}
+.pr-plan-name{font-size:14px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.pr-plan-desc{font-size:13px;color:#94a3b8;margin-bottom:16px;line-height:1.5;}
+.pr-price{margin-bottom:6px;display:flex;align-items:baseline;gap:2px;}
+.pr-price-currency{font-size:16px;font-weight:700;color:#0d1b2e;vertical-align:top;}
+.pr-price-amount{font-size:42px;font-weight:800;color:#0d1b2e;line-height:1;}
+.pr-price-period{font-size:13px;color:#94a3b8;margin-left:4px;}
+.pr-bonus{font-size:12px;color:#0774FF;font-weight:600;background:#e8f0fe;padding:4px 10px;border-radius:6px;display:inline-block;margin-bottom:8px;}
+.pr-price-details{font-size:12px;color:#94a3b8;margin:4px 0 0;}
+.pr-price-renew{font-size:11px;color:#b0b8c4;margin:2px 0 0;}
+.pr-divider{height:1px;background:#f1f5f9;margin:20px 0;border:none;}
+.pr-features{list-style:none;padding:0;margin:0 0 28px;display:flex;flex-direction:column;gap:10px;flex:1;}
+.pr-features li{display:flex;align-items:center;gap:10px;font-size:13px;color:#334155;}
+.pr-features li i{color:#26CF4B;font-size:12px;flex-shrink:0;}
+.pr-cta{display:block;text-align:center;padding:13px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;transition:all .2s;margin-top:auto;}
+.pr-cta-outline{border:2px solid #0774FF;color:#0774FF;}
+.pr-cta-outline:hover{background:#0774FF;color:#fff;}
+.pr-cta-fill{background:#0774FF;color:#fff;border:2px solid #0774FF;}
+.pr-cta-fill:hover{background:#0553c7;border-color:#0553c7;color:#fff;}
+.pr-loading{text-align:center;padding:60px 0;grid-column:1/-1;}
+.pr-spinner{width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:#0774FF;border-radius:50%;animation:pr-spin 0.8s linear infinite;margin:0 auto 16px;}
+@keyframes pr-spin{to{transform:rotate(360deg);}}
+.pr-loading-text{font-size:14px;color:#94a3b8;}
+@media(max-width:900px){.pr-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto;}}
+</style>
+<section class="pr-section" id="deal">
+  <div class="pr-wrap">
+    <div class="pr-header">
+      <span class="pr-label">Pricing</span>
+      <h2 class="pr-title">Invest in your success</h2>
+      <p class="pr-sub">Transparent pricing. No hidden fees. 30-day money-back guarantee on every plan.</p>
+    </div>
+    <div class="pr-grid" id="plans-container">
+      <div class="pr-loading">
+        <div class="pr-spinner"></div>
+        <div class="pr-loading-text">Loading plans...</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded",function(){
+  window.addEventListener("load",function(){
+    setTimeout(function(){
+      fetch("https://user.7tteam.com/admin/nutrocloud/wpplan.php")
+        .then(function(res){
+          if(!res.ok) throw new Error('Network error');
+          return res.json();
+        })
+        .then(function(plans){
+          var c=document.getElementById("plans-container");
+          c.innerHTML='';
+          var limited=plans.slice(0,3);
+          limited.forEach(function(plan){
+            var isPopular=plan.popular;
+            var card=document.createElement('div');
+            card.className='pr-card'+(isPopular?' popular':'');
+            var html='';
+            if(isPopular) html+='<div class="pr-popular-badge"><i class="fas fa-star"></i> MOST POPULAR</div>';
+            if(plan.discount) html+='<div class="pr-discount">'+plan.discount+'</div>';
+            html+='<div class="pr-plan-name">'+plan.name+'</div>';
+            if(plan.tagline||plan.desc) html+='<div class="pr-plan-desc">'+(plan.tagline||plan.desc)+'</div>';
+            html+='<div class="pr-price">';
+            html+='<span class="pr-price-currency">US$</span>';
+            html+='<span class="pr-price-amount">'+plan.price+'</span>';
+            html+='<span class="pr-price-period">'+plan.period+'</span>';
+            html+='</div>';
+            if(plan.bonus) html+='<div class="pr-bonus">'+plan.bonus+'</div>';
+            if(plan.total_price) html+='<p class="pr-price-details">'+plan.total_price+'</p>';
+            if(plan.renew_price) html+='<p class="pr-price-renew">'+plan.renew_price+'</p>';
+            html+='<hr class="pr-divider">';
+            html+='<ul class="pr-features">';
+            var feats=plan.features?plan.features.slice(0,12):[];
+            feats.forEach(function(f){
+              html+='<li><i class="fas fa-check-circle"></i> <span>'+f+'</span></li>';
+            });
+            html+='</ul>';
+            html+='<a href="'+(plan.link||'price')+'" class="pr-cta '+(isPopular?'pr-cta-fill':'pr-cta-outline')+'">Choose plan <i class="fas fa-arrow-right"></i></a>';
+            card.innerHTML=html;
+            c.appendChild(card);
+          });
+        })
+        .catch(function(err){
+          console.error("Error loading plans:",err);
+          document.getElementById("plans-container").innerHTML='<div style="text-align:center;padding:40px;color:#e74c3c;grid-column:1/-1;"><h3><i class="fas fa-exclamation-triangle"></i> Unable to load pricing plans</h3><p>Please refresh the page or contact support</p></div>';
+        });
+    },1200);
+  });
+});
+</script>
+
+<!-- ===== SECTION 7B: TRUST BAR + CARDS ===== -->
+
+<style>
+
+.trust-bar-section { background:#f8fafc; padding:60px 0; }
+
+.trust-bar-wrap { max-width:1100px; margin:0 auto; padding:0 24px; }
+
+
+
+/* Trustpilot bar */
+
+.trust-tp-bar { display:flex; align-items:center; justify-content:center; gap:16px; margin-bottom:48px; flex-wrap:wrap; }
+
+.trust-tp-logo { font-size:18px; font-weight:800; color:#0d1b2e; letter-spacing:-0.5px; }
+
+.trust-tp-logo span { color:#00b67a; }
+
+.trust-tp-stars { display:flex; gap:3px; }
+
+.trust-tp-star { width:28px; height:28px; background:#00b67a; display:flex; align-items:center; justify-content:center; border-radius:3px; }
+
+.trust-tp-star svg { width:16px; height:16px; fill:#fff; }
+
+.trust-tp-text { font-size:14px; color:#64748b; }
+
+.trust-tp-text strong { color:#0d1b2e; }
+
+.trust-tp-divider { width:1px; height:28px; background:#e2e8f0; }
+
+
+
+/* Two wide blue cards */
+
+.trust-cards-row { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+
+.trust-card-blue {
+
+    background: linear-gradient(135deg, #0774FF 0%, #0553c7 100%);
+
+    border-radius:16px;
+
+    padding:36px 40px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:24px;
+
+    text-decoration:none;
+
+    transition:transform .2s, box-shadow .2s;
+
+    box-shadow: 0 8px 32px rgba(7,116,255,0.25);
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.trust-card-blue::before {
+    content:'';
+    position:absolute;
+    top:0;right:0;bottom:0;left:0;
+    background-image:
+        radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+        radial-gradient(2px 2px at 75% 15%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 88% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+        radial-gradient(2px 2px at 35% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+        radial-gradient(1px 1px at 55% 45%, rgba(255,255,255,0.35) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 8% 65%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(2px 2px at 92% 80%, rgba(255,255,255,0.35) 0%, transparent 100%);
+    animation:trust-sparkle 4s ease-in-out infinite alternate;
+    pointer-events:none;
+}
+@keyframes trust-sparkle{0%{opacity:0.3;}100%{opacity:1;}}
+
+.trust-card-blue:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(7,116,255,0.35); }
+
+.trust-card-blue-left h3 { font-size:22px; font-weight:800; color:#fff; margin:0 0 6px; }
+
+.trust-card-blue-left p { font-size:14px; color:rgba(255,255,255,0.72); margin:0 0 16px; line-height:1.5; }
+
+.trust-card-blue-price { font-size:13px; font-weight:700; color:rgba(255,255,255,0.9); background:rgba(255,255,255,0.15); padding:6px 14px; border-radius:20px; display:inline-block; }
+
+.trust-card-blue-arrow { width:44px; height:44px; background:rgba(255,255,255,0.12); border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; font-size:16px; border:1px solid rgba(255,255,255,0.15); transition:all .2s; } .trust-card-blue:hover .trust-card-blue-arrow{background:rgba(255,255,255,0.25);transform:translateX(3px);}
+
+@media(max-width:700px){ .trust-cards-row { grid-template-columns:1fr; } }
+
+</style>
+
+<section class="trust-bar-section">
+
+  <div class="trust-bar-wrap">
+
+    <div class="trust-tp-bar">
+
+      <div class="trust-tp-logo">Trust<span>pilot</span></div>
+
+      <div class="trust-tp-stars">
+
+        <div class="trust-tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+
+        <div class="trust-tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+
+        <div class="trust-tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+
+        <div class="trust-tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+
+        <div class="trust-tp-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+
+      </div>
+
+      <div class="trust-tp-divider"></div>
+
+      <div class="trust-tp-text"><strong>Excellent</strong> &nbsp;4.8 out of 5</div>
+
+      <div class="trust-tp-divider"></div>
+
+      <div class="trust-tp-text">Based on <strong>12,000+</strong> reviews</div>
+
+    </div>
+
+    <div class="trust-cards-row">
+
+      <a href="price" class="trust-card-blue">
+
+        <div class="trust-card-blue-left">
+
+          <h3>Find your perfect plan</h3>
+
+          <p>Every plan includes free domain, SSL, daily backups, and 24/7 expert support.</p>
+
+          <span class="trust-card-blue-price">From $2.99/month</span>
+
+        </div>
+
+        <div class="trust-card-blue-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+
+      </a>
+
+      <a href="ai" class="trust-card-blue" style="background:linear-gradient(135deg,#6d28d9 0%,#4c1d95 100%);box-shadow:0 8px 32px rgba(109,40,217,0.25);">
+
+        <div class="trust-card-blue-left">
+
+          <h3>Build with AI in seconds</h3>
+
+          <p>Just describe your dream website. Astro AI handles the rest &mdash; design, content, and SEO.</p>
+
+          <span class="trust-card-blue-price">Try for free &nbsp;·&nbsp; No credit card required</span>
+
+        </div>
+
+        <div class="trust-card-blue-arrow"><i class="fas fa-arrow-up-right-from-square"></i></div>
+
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ===== SECTION 8: FAQ ===== -->
+
+<style>
+
+.faq2-section{background:#f4f6f9;padding:90px 0;}
+
+.faq2-wrap{max-width:800px;margin:0 auto;padding:0 24px;}
+
+.faq2-header{text-align:center;margin-bottom:48px;}
+
+.faq2-label{display:inline-block;background:#e8f0fe;color:#0774FF;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:16px;}
+
+.faq2-title{font-size:38px;font-weight:800;color:#0d1b2e;margin:0 0 12px;}
+
+.faq2-sub{font-size:16px;color:#64748b;margin:0;}
+
+.faq2-item{background:#fff;border-radius:12px;margin-bottom:10px;border:1.5px solid #f1f5f9;overflow:hidden;transition:border-color .25s,box-shadow .25s;}
+
+.faq2-item.open{border-color:#0774FF;box-shadow:0 4px 20px rgba(7,116,255,0.08);}
+
+.faq2-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;font-size:15px;font-weight:600;color:#0d1b2e;gap:16px;user-select:none;}
+
+.faq2-q:hover{color:#0774FF;}
+
+.faq2-icon{width:28px;height:28px;border-radius:50%;background:#f1f5f9;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .35s cubic-bezier(0.4,0,0.2,1),background .25s,color .25s;color:#64748b;font-size:18px;font-weight:300;}
+
+.faq2-item.open .faq2-icon{transform:rotate(45deg);background:#e8f0fe;color:#0774FF;}
+
+.faq2-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s cubic-bezier(0.4,0,0.2,1);}
+
+.faq2-item.open .faq2-body{grid-template-rows:1fr;}
+
+.faq2-body-inner{overflow:hidden;}
+
+.faq2-a{padding:0 24px 20px;font-size:14px;color:#64748b;line-height:1.75;}
+
+.faq2-cta{text-align:center;margin-top:40px;}
+
+.faq2-cta p{font-size:15px;color:#64748b;margin-bottom:16px;}
+
+</style>
+
+<section class="faq2-section">
+
+  <div class="faq2-wrap">
+
+    <div class="faq2-header">
+
+      <span class="faq2-label">FAQ</span>
+
+      <h2 class="faq2-title">Everything you need to know.</h2>
+
+      <p class="faq2-sub">Clear answers to help you make the right decision for your business.</p>
+
+    </div>
+
+    <div class="faq2-item open">
+
+      <div class="faq2-q" onclick="faqToggle(this)">What is included in the free domain offer?<span class="faq2-icon">+</span></div>
+
+      <div class="faq2-body"><div class="faq2-body-inner"><div class="faq2-a">Every annual hosting plan includes one free domain registration for the first year. You can choose from popular extensions like .com, .net, .org, and more. After the first year, renewal is at standard pricing.</div></div></div>
+
+    </div>
+
+    <div class="faq2-item">
+
+      <div class="faq2-q" onclick="faqToggle(this)">Can I migrate my existing website for free?<span class="faq2-icon">+</span></div>
+
+      <div class="faq2-body"><div class="faq2-body-inner"><div class="faq2-a">Yes! We offer free website migration for all new customers. Our team will handle the entire process &mdash; files, databases, emails &mdash; with zero downtime. Just open a support ticket after signing up.</div></div></div>
+
+    </div>
+
+    <div class="faq2-item">
+
+      <div class="faq2-q" onclick="faqToggle(this)">What is Astro AI and how does it work?<span class="faq2-icon">+</span></div>
+
+      <div class="faq2-body"><div class="faq2-body-inner"><div class="faq2-a">Astro AI is our built-in artificial intelligence assistant. It can help you build websites from scratch, generate content, optimize your SEO, troubleshoot issues, and answer hosting questions &mdash; all from your dashboard.</div></div></div>
+
+    </div>
+
+    <div class="faq2-item">
+
+      <div class="faq2-q" onclick="faqToggle(this)">Do you offer a money-back guarantee?<span class="faq2-icon">+</span></div>
+
+      <div class="faq2-body"><div class="faq2-body-inner"><div class="faq2-a">Yes, we offer a 30-day money-back guarantee on all hosting plans. If you&apos;re not satisfied for any reason within the first 30 days, contact our support team for a full refund &mdash; no questions asked.</div></div></div>
+
+    </div>
+
+    <div class="faq2-item">
+
+      <div class="faq2-q" onclick="faqToggle(this)">How fast is your hosting compared to others?<span class="faq2-icon">+</span></div>
+
+      <div class="faq2-body"><div class="faq2-body-inner"><div class="faq2-a">We use LiteSpeed web servers with NVMe SSD storage and a global CDN. Our servers are up to 6x faster than traditional Apache hosting. Average page load times on our platform are under 500ms.</div></div></div>
+
+    </div>
+
+    <div class="faq2-item">
+
+      <div class="faq2-q" onclick="faqToggle(this)">Can I upgrade my plan later?<span class="faq2-icon">+</span></div>
+
+      <div class="faq2-body"><div class="faq2-body-inner"><div class="faq2-a">Absolutely. You can upgrade your hosting plan at any time from your dashboard with a single click. The upgrade is instant with zero downtime, and you only pay the prorated difference.</div></div></div>
+
+    </div>
+
+    <div class="faq2-cta">
+
+      <p>Can't find your answer? Our expert team is here for you, 24 hours a day, 7 days a week.</p>
+
+      <a href="/support" style="display:inline-block;background:#0774FF;color:#fff;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;">Talk to an Expert <i class="fas fa-arrow-right"></i></a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+
+function faqToggle(el){
+
+  var item=el.parentElement;
+
+  var isOpen=item.classList.contains('open');
+
+  document.querySelectorAll('.faq2-item').forEach(function(i){i.classList.remove('open');});
+
+  if(!isOpen) item.classList.add('open');
+
+}
+
+</script>
+
+
+
+<!-- ===== SECTION 9: CTA ===== -->
+<style>
+.cta-final{position:relative;padding:70px 0;overflow:hidden;background:#f4f6f9;}
+.cta-final-bg{position:absolute;inset:0;z-index:0;}
+.cta-final-grad1{position:absolute;width:400px;height:400px;border-radius:50%;filter:blur(100px);opacity:0.06;top:-150px;left:-50px;background:#0774FF;animation:cta-drift1 12s ease-in-out infinite alternate;}
+.cta-final-grad2{position:absolute;width:350px;height:350px;border-radius:50%;filter:blur(90px);opacity:0.05;bottom:-100px;right:-50px;background:#6366f1;animation:cta-drift2 10s ease-in-out infinite alternate;}
+.cta-final-grad3{display:none;}
+@keyframes cta-drift1{0%{transform:translate(0,0);}100%{transform:translate(60px,40px);}}
+@keyframes cta-drift2{0%{transform:translate(0,0);}100%{transform:translate(-50px,-30px);}}
+.cta-final-grid{display:none;}
+.cta-final-wrap{max-width:900px;margin:0 auto;padding:0 24px;position:relative;z-index:2;}
+.cta-final-card{background:#fff;border:1px solid #e8ecf2;border-radius:24px;padding:48px 40px;text-align:center;position:relative;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,0.04);}
+.cta-final-card::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:120px;height:2px;border-radius:2px;background:linear-gradient(90deg,#0774FF,#6366f1);}
+.cta-final-icon{width:52px;height:52px;margin:0 auto 22px;background:linear-gradient(135deg,#0774FF,#6366f1);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff;box-shadow:0 6px 24px rgba(7,116,255,0.25);position:relative;}
+.cta-final-icon::after{content:'';position:absolute;inset:-3px;border-radius:17px;background:linear-gradient(135deg,rgba(7,116,255,0.2),rgba(99,102,241,0.15));z-index:-1;filter:blur(6px);animation:cta-icon-pulse 3s ease-in-out infinite;}
+@keyframes cta-icon-pulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.1);}}
+.cta-final-title{font-size:clamp(24px,4vw,36px);font-weight:800;color:#0d1b2e;margin:0 0 12px;line-height:1.15;letter-spacing:-0.5px;}
+.cta-final-title span{background:linear-gradient(135deg,#60a5fa,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-final-sub{font-size:15px;color:#64748b;margin:0 auto 32px;line-height:1.7;max-width:480px;}
+.cta-final-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.cta-final-btn-p{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#0774FF,#3b82f6);color:#fff;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;transition:all .3s;box-shadow:0 4px 16px rgba(7,116,255,0.25);position:relative;overflow:hidden;}
+.cta-final-btn-p::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);transition:left .5s;}
+.cta-final-btn-p:hover::before{left:100%;}
+.cta-final-btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(7,116,255,0.45);color:#fff;}
+.cta-final-btn-s{display:inline-flex;align-items:center;gap:8px;background:#fff;color:#334155;padding:14px 30px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;border:1.5px solid #e2e8f0;transition:all .3s;}
+.cta-final-btn-s:hover{background:#f8fafc;border-color:#0774FF;color:#0774FF;transform:translateY(-2px);}
+.cta-final-divider{width:50px;height:1px;background:#e2e8f0;margin:0 auto 24px;}
+.cta-final-trust{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:640px;margin:0 auto;}
+.cta-final-trust-item{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:#64748b;padding:8px;border-radius:8px;background:#f8fafc;border:1px solid #f1f5f9;transition:all .25s;}
+.cta-final-trust-item:hover{background:#eef2ff;border-color:#c7d2fe;}
+.cta-final-trust-item i{color:#26CF4B;font-size:11px;}
+@media(max-width:640px){
+  .cta-final-card{padding:48px 24px;}
+  .cta-final-trust{grid-template-columns:1fr 1fr;gap:8px;}
+  .cta-final-btns{flex-direction:column;align-items:center;}
+}
+</style>
+<section class="cta-final">
+  <div class="cta-final-bg">
+    <div class="cta-final-grad1"></div>
+    <div class="cta-final-grad2"></div>
+    <div class="cta-final-grad3"></div>
+    <div class="cta-final-grid"></div>
+  </div>
+  <div class="cta-final-wrap">
+    <div class="cta-final-card">
+      <div class="cta-final-icon"><i class="fas fa-rocket"></i></div>
+      <h2 class="cta-final-title">Your next chapter <span>starts here.</span></h2>
+      <p class="cta-final-sub">Join millions of businesses who chose reliability, speed, and support they can count on. Start free today &mdash; no credit card needed.</p>
+      <div class="cta-final-btns">
+        <a href="price" class="cta-final-btn-p"><i class="fas fa-bolt"></i> Get Started – From $2.99/mo</a>
+        <a href="/support" class="cta-final-btn-s"><i class="fas fa-headset"></i> Talk to Sales</a>
+      </div>
+      <div class="cta-final-divider"></div>
+      <div class="cta-final-trust">
+        <div class="cta-final-trust-item"><i class="fas fa-shield-alt"></i> 30-day guarantee</div>
+        <div class="cta-final-trust-item"><i class="fas fa-credit-card"></i> No card required</div>
+        <div class="cta-final-trust-item"><i class="fas fa-exchange-alt"></i> Free migration</div>
+        <div class="cta-final-trust-item"><i class="fas fa-times-circle"></i> Cancel anytime</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
         <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            window.addEventListener("load", function() {
-                setTimeout(function() {
-                    fetch("https://user.7tteam.com/admin/nutrocloud/wpplan.php")
-                        .then(res => {
-                            if (!res.ok) throw new Error('Network response was not ok');
-                            return res.json();
-                        })
-                        .then(plans => {
-                            const container = document.getElementById("plans-container");
-                            const loadingSpinner = container.querySelector('.loading-spinner');
-                            if (loadingSpinner) loadingSpinner.remove();
-                            container.innerHTML = '';
 
-                            const limitedPlans = plans.slice(0, 3);
-                            limitedPlans.forEach(plan => {
-                                const popularClass = plan.popular ? 'popular' : '';
-                                const popularBadge = plan.popular ? '<div class="popular-badge">MOST POPULAR</div>' : '';
-                                const discountBadge = plan.discount ? `<div class="discount-badge">${plan.discount}</div>` : '';
-                                
-                                let features = plan.features.slice(0, 12).map((f, idx) => 
-                                    `<li><i class="bi bi-check-circle-fill"></i> <span>${f}</span></li>`
-                                ).join('');
+            document.addEventListener('contextmenu', function (event) {
 
-                                container.innerHTML += `
-                                    <div class="col-lg-4 col-md-6 mb-4">
-                                        <div class="pricing-card ${popularClass}">
-                                            ${popularBadge}
-                                            ${discountBadge}
-                                            
-                                            <div class="plan-header">
-                                                <h3 class="plan-name">${plan.name}</h3>
-                                                <p class="plan-desc">${plan.tagline || plan.desc || ''}</p>
-                                            </div>
-                                            
-                                            <div class="plan-price">
-                                                <div class="price-main">
-                                                    <span class="price-currency">US$</span>
-                                                    <span class="price-amount">${plan.price}</span>
-                                                    <span class="price-period">${plan.period}</span>
-                                                </div>
-                                                ${plan.bonus ? `<div class="plan-bonus">${plan.bonus}</div>` : ''}
-                                                ${plan.total_price ? `<p class="price-details">${plan.total_price}</p>` : ''}
-                                                ${plan.renew_price ? `<p class="price-renew">${plan.renew_price}</p>` : ''}
-                                            </div>
-                                            
-                                            <a href="${plan.link}" class="plan-button">Choose plan</a>
-                                            
-                                            <hr class="plan-divider">
-                                            
-                                            <ul class="plan-features">
-                                                ${features}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                `;
-                            });
-                        })
-                        .catch(err => {
-                            console.error("Error loading plans:", err);
-                            document.getElementById("plans-container").innerHTML = `
-                                <div style="text-align: center; padding: 40px; color: #e74c3c;">
-                                    <h3>⚠️ Unable to load pricing plans</h3>
-                                    <p>Please refresh the page or contact support</p>
-                                </div>
-                            `;
-                        });
-                }, 1200);
+                event.preventDefault();
+
             });
-        });
+
+            document.addEventListener('keydown', function (event) {
+
+                if (event.key === 'F12' || (event.ctrlKey && event.shiftKey && event.key === 'I') || (event.ctrlKey && event.shiftKey && event.key === 'J') || (event.ctrlKey && event.key === 'U')) {
+
+                    event.preventDefault();
+
+                }
+
+            });
+
         </script>
-        <!-- PRICING END -->
-
-        <!-- FAQ -->
-        <section class="rts-faq section__padding">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="rts-faq__first">
-                            <h3 class="title" data-sal="slide-down" data-sal-delay="300" data-sal-duration="800">Got
-                                questions? Well,
-                                we've got answers.</h3>
-                            <p data-sal="slide-down" data-sal-delay="400" data-sal-duration="800">From 24/7 support that
-                                acts as your extended team to incredibly fast website performance</p>
-                            <img data-sal="slide-down" data-sal-delay="500" data-sal-duration="800"
-                                src="assets/images/faq/faq.svg" alt="faq">
-                            <div class="rts-faq__first--shape">
-                                <div class="img"><img src="assets/images/faq/faq__animated.svg" alt=""></div>
-                                <div class="shape-one">domain</div>
-                                <div class="shape-two">hosting</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 offset-lg-1">
-                        <div class="rts-faq__accordion">
-                            <div class="accordion accordion-flush" id="rts-accordion">
-
-
-                                <!-- FAQ 1 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="100"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq1">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq1" aria-expanded="false"
-                                            aria-controls="item__faq1">
-                                            What makes your hosting reliable?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq1" class="accordion-collapse collapse" aria-labelledby="faq1"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            Our infrastructure is built on cutting-edge technology with daily backups,
-                                            99.9% uptime, and global CDN integration — ensuring your website stays
-                                            online and fast, always.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FAQ 2 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="200"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq2">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq2" aria-expanded="false"
-                                            aria-controls="item__faq2">
-                                            Can I upgrade my hosting plan later?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq2" class="accordion-collapse collapse" aria-labelledby="faq2"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            Absolutely! You can upgrade your plan anytime as your needs grow. No
-                                            downtime, no data loss — just seamless scaling.
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-                                <!-- FAQ 4 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="400"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq4">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq4" aria-expanded="false"
-                                            aria-controls="item__faq4">
-                                            How secure is your hosting?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq4" class="accordion-collapse collapse" aria-labelledby="faq4"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            Security is our top priority. All our servers include DDoS protection,
-                                            real-time monitoring, and regular security patches to keep your data safe.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FAQ 5 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="500"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq5">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq5" aria-expanded="false"
-                                            aria-controls="item__faq5">
-                                            Do you offer free migration?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq5" class="accordion-collapse collapse" aria-labelledby="faq5"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            Yes! We offer free website migration with zero downtime. Our team will
-                                            handle everything — just sit back and relax.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FAQ 6 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="600"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq6">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq6" aria-expanded="false"
-                                            aria-controls="item__faq6">
-                                            Is your support really 24/7?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq6" class="accordion-collapse collapse" aria-labelledby="faq6"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            100%. Our expert support team is available 24/7 via chat, email, and
-                                            tickets. No bots — just real humans ready to help.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FAQ 7 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="700"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq7">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq7" aria-expanded="false"
-                                            aria-controls="item__faq7">
-                                            Will I get a free domain?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq7" class="accordion-collapse collapse" aria-labelledby="faq7"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            Yes! Most of our annual plans include a free domain for the first year —
-                                            helping you save money and launch faster.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FAQ 8 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="800"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq8">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq8" aria-expanded="false"
-                                            aria-controls="item__faq8">
-                                            Can I host multiple websites?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq8" class="accordion-collapse collapse" aria-labelledby="faq8"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            Definitely! Our Pro and Business plans let you host multiple websites with
-                                            separate domains and isolated resources.
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- FAQ 9 -->
-                                <div class="accordion-item" data-sal="slide-left" data-sal-delay="900"
-                                    data-sal-duration="800">
-                                    <div class="accordion-header" id="faq9">
-                                        <h4 class="accordion-button collapsed" data-bs-toggle="collapse"
-                                            data-bs-target="#item__faq9" aria-expanded="false"
-                                            aria-controls="item__faq9">
-                                            How fast is your hosting?
-                                        </h4>
-                                    </div>
-                                    <div id="item__faq9" class="accordion-collapse collapse" aria-labelledby="faq9"
-                                        data-bs-parent="#rts-accordion">
-                                        <div class="accordion-body">
-                                            We use SSD storage, LiteSpeed caching, and optimized servers to ensure
-                                            lightning-fast load times — your visitors will love it.
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- FAQ END -->
-        <!-- CTA AREA -->
-        <div class="rts-cta">
-            <div class="container">
-                <div class="row">
-                    <div class="rts-cta__wrapper">
-                        <div class="rts-cta__left">
-                            <h3 class="cta__title" data-sal="slide-down" data-sal-delay="300" data-sal-duration="800">
-                                NutroFree — Fast. Free. Forever.
-                            </h3>
-                            <p data-sal="slide-down" data-sal-delay="400" data-sal-duration="800">
-                                Get started with our powerful free hosting — no credit card, no stress. Perfect for
-                                small projects, testing ideas, or just exploring. 100% free, forever.
-                            </p>
-                            <a data-sal="slide-down" data-sal-delay="500" data-sal-duration="800"
-                                href="https://free.nutro.cloud" class="primary__btn secondary__bg">
-                                Launch Free Hosting <i class="fa-regular fa-arrow-right"></i>
-                            </a>
-
-                        </div>
-                        <div class="rts-cta__right">
-                            <div class="cta-image">
-                                <div class="cta-image__one">
-                                    <img src="assets/images/cta/cta__hosting.svg" alt="">
-                                </div>
-                                <div class="cta-image__two">
-                                    <img src="assets/images/cta/cta__person.svg" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- CTA AREA END  -->
         <div id="footer"></div>
 
