@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Astro AI – Your Intelligent Hosting Assistant | Nutro Cloud</title>
+    <meta name="description" content="Meet Astro, Nutro Cloud's AI-powered assistant. Get instant answers, optimize your hosting, and manage your website smarter with AI.">
+    <meta name="keywords" content="AI hosting assistant, Astro AI, Nutro Cloud AI, smart hosting, AI website builder, hosting automation">
+    <link rel="icon" href="assets/images/fav.png" type="image/x-icon">
+    <link rel="canonical" href="https://www.nutro.cloud/ai">
+
+    <meta property="og:title" content="Astro AI – Intelligent Hosting Assistant | Nutro Cloud">
+    <meta property="og:description" content="Meet Astro, your AI-powered hosting assistant. Optimize, build, and manage your website smarter.">
+    <meta property="og:image" content="https://www.nutro.cloud/assets/images/banner.jpg">
+    <meta property="og:url" content="https://www.nutro.cloud/ai">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/plugins.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/fontawesome.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script defer src="main.js"></script>
+</head>
+<body>
+<div id="header"></div>
+
+<style>
+/* ===== AI PAGE ===== */
+:root{
+  --brand:#0774FF;
+  --brand-dark:#0553c7;
+  --dark:#050d1f;
+  --dark2:#0a1628;
+  --text-light:rgba(255,255,255,0.6);
+}
+
+/* Hero */
+.ai-hero{
+  position:relative;min-height:100vh;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  overflow:hidden;
+  background:radial-gradient(ellipse 100% 70% at 50% 0%,#0d2a5e 0%,var(--dark) 60%,#020810 100%);
+  padding:120px 24px 80px;
+}
+.ai-hero-bg{position:absolute;inset:0;z-index:0;}
+.ai-hero-glow{
+  position:absolute;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(7,116,255,0.2) 0%,transparent 70%);
+  top:-10%;left:50%;transform:translateX(-50%);
+  filter:blur(80px);pointer-events:none;
+  animation:ai-glow-pulse 6s ease-in-out infinite alternate;
+}
+@keyframes ai-glow-pulse{0%{opacity:0.6;transform:translateX(-50%) scale(1);}100%{opacity:1;transform:translateX(-50%) scale(1.1);}}
+
+.ai-hero-grid{
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,0.04) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 70% 50% at 50% 40%,black 10%,transparent 70%);
+}
+
+.ai-wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;}
+
+.ai-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(7,116,255,0.1);border:1px solid rgba(7,116,255,0.25);
+  color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;
+  padding:7px 18px;border-radius:100px;margin-bottom:28px;
+}
+.ai-badge-dot{width:8px;height:8px;border-radius:50%;background:#26CF4B;animation:ai-dot-pulse 2s ease-in-out infinite;}
+@keyframes ai-dot-pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+
+.ai-title{
+  font-size:clamp(2.8rem,6vw,5rem);font-weight:800;color:#fff;
+  line-height:1.05;margin:0 0 20px;letter-spacing:-2px;
+}
+.ai-title-grad{
+  background:linear-gradient(90deg,#60a5fa,#93c5fd,#0774FF,#60a5fa);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:ai-grad 4s linear infinite;
+}
+@keyframes ai-grad{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+
+.ai-sub{
+  font-size:clamp(1.1rem,2vw,1.3rem);color:var(--text-light);
+  max-width:560px;margin:0 auto 44px;line-height:1.8;
+}
+
+/* AI Chat Preview */
+.ai-chat-preview{
+  max-width:580px;margin:0 auto 40px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:20px;padding:24px;
+  backdrop-filter:blur(12px);
+  text-align:left;
+}
+.ai-chat-msg{
+  display:flex;gap:12px;margin-bottom:16px;
+  animation:ai-msg-in 0.5s ease both;
+}
+.ai-chat-msg:nth-child(2){animation-delay:0.8s;}
+.ai-chat-msg:nth-child(3){animation-delay:1.6s;}
+@keyframes ai-msg-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.ai-chat-avatar{
+  width:32px;height:32px;border-radius:10px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;
+}
+.ai-chat-avatar.user{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);}
+.ai-chat-avatar.bot{background:var(--brand);color:#fff;}
+
+.ai-chat-bubble{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:12px;padding:14px 18px;
+  font-size:15px;color:rgba(255,255,255,0.85);line-height:1.7;
+  max-width:85%;
+}
+.ai-chat-bubble.bot{background:rgba(7,116,255,0.1);border-color:rgba(7,116,255,0.2);}
+
+/* CTA Buttons */
+.ai-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;}
+.ai-btn-p{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,var(--brand),#3b82f6);
+  color:#fff;padding:18px 38px;border-radius:14px;
+  font-size:16px;font-weight:700;text-decoration:none;
+  transition:all 0.3s;box-shadow:0 4px 24px rgba(7,116,255,0.3);
+}
+.ai-btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(7,116,255,0.45);color:#fff;}
+.ai-btn-s{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.7);
+  padding:18px 38px;border-radius:14px;font-size:16px;font-weight:500;
+  text-decoration:none;border:1px solid rgba(255,255,255,0.12);transition:all 0.3s;
+}
+.ai-btn-s:hover{border-color:rgba(7,116,255,0.4);color:#fff;background:rgba(7,116,255,0.1);transform:translateY(-1px);}
+
+/* Features Section */
+.ai-features{background:#fff;padding:100px 0;}
+.ai-features-header{text-align:center;margin-bottom:60px;}
+.ai-features-label{
+  display:inline-block;background:#e8f0fe;color:var(--brand);
+  font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  padding:6px 16px;border-radius:50px;margin-bottom:16px;
+}
+.ai-features-title{font-size:2.6rem;font-weight:800;color:#0d1b2e;margin:0 0 14px;}
+.ai-features-sub{font-size:1.1rem;color:#64748b;max-width:520px;margin:0 auto;line-height:1.7;}
+
+.ai-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:24px;max-width:1100px;margin:0 auto;padding:0 24px;
+}
+.ai-card{
+  background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;
+  padding:32px 28px;transition:all 0.3s;
+}
+.ai-card:hover{
+  transform:translateY(-4px);box-shadow:0 12px 36px rgba(7,116,255,0.08);
+  border-color:rgba(7,116,255,0.2);
+}
+.ai-card-icon{
+  width:52px;height:52px;border-radius:14px;
+  background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;margin-bottom:18px;
+}
+.ai-card h3{font-size:1.25rem;font-weight:700;color:#0d1b2e;margin:0 0 10px;}
+.ai-card p{font-size:1rem;color:#64748b;line-height:1.75;margin:0;}
+
+/* How it Works */
+.ai-how{background:#f4f6f9;padding:100px 0;}
+.ai-how-header{text-align:center;margin-bottom:56px;}
+.ai-how-title{font-size:2.4rem;font-weight:800;color:#0d1b2e;margin:0 0 14px;}
+.ai-how-sub{font-size:1.1rem;color:#64748b;}
+
+.ai-steps{
+  display:flex;gap:32px;max-width:1000px;margin:0 auto;padding:0 24px;
+  flex-wrap:wrap;justify-content:center;
+}
+.ai-step{
+  flex:1;min-width:260px;text-align:center;
+  background:#fff;border-radius:18px;padding:36px 28px;
+  border:1px solid #e2e8f0;
+}
+.ai-step-num{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;margin:0 auto 18px;
+}
+.ai-step h4{font-size:1.2rem;font-weight:700;color:#0d1b2e;margin:0 0 10px;}
+.ai-step p{font-size:0.95rem;color:#64748b;line-height:1.75;margin:0;}
+
+/* CTA Bottom */
+.ai-cta{
+  background:var(--dark2);padding:80px 0;text-align:center;
+}
+.ai-cta-title{font-size:2.4rem;font-weight:800;color:#fff;margin:0 0 16px;}
+.ai-cta-sub{font-size:1.1rem;color:var(--text-light);margin:0 0 36px;line-height:1.7;}
+
+/* Responsive */
+@media(max-width:768px){
+  .ai-hero{padding:100px 16px 60px;}
+  .ai-title{letter-spacing:-1px;}
+  .ai-chat-preview{padding:18px;}
+  .ai-btns{flex-direction:column;align-items:center;}
+  .ai-grid{grid-template-columns:1fr;}
+  .ai-steps{flex-direction:column;}
+}
+@media(max-width:640px){
+  [style*="grid-template-columns:repeat(4"]{grid-template-columns:repeat(2,1fr) !important;gap:16px !important;}
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+}
+</style>
+
+<!-- ===== HERO ===== -->
+<section class="ai-hero">
+  <div class="ai-hero-bg">
+    <div class="ai-hero-glow"></div>
+    <div class="ai-hero-grid"></div>
+  </div>
+
+  <div class="ai-wrap">
+    <div class="ai-badge">
+      <span class="ai-badge-dot"></span>
+      Astro AI is live — powered by advanced language models
+    </div>
+
+    <h1 class="ai-title">Meet <span class="ai-title-grad">Astro</span></h1>
+    <p class="ai-sub">Your AI-powered hosting assistant. Ask anything about your website, get instant optimization tips, and manage your hosting smarter than ever.</p>
+
+    <!-- Chat Preview -->
+    <div class="ai-chat-preview">
+      <div class="ai-chat-msg">
+        <div class="ai-chat-avatar user">Y</div>
+        <div class="ai-chat-bubble">How can I speed up my WordPress site?</div>
+      </div>
+      <div class="ai-chat-msg">
+        <div class="ai-chat-avatar bot"><i class="fas fa-robot"></i></div>
+        <div class="ai-chat-bubble bot">I'll analyze your site now. Here are 3 quick wins: enable LiteSpeed Cache, optimize images with WebP, and enable CDN. Want me to do it for you?</div>
+      </div>
+      <div class="ai-chat-msg">
+        <div class="ai-chat-avatar user">Y</div>
+        <div class="ai-chat-bubble">Yes, do it!</div>
+      </div>
+    </div>
+
+    <div class="ai-btns">
+      <a href="https://pro.nutro.cloud" class="ai-btn-p"><i class="fas fa-bolt"></i> Try Astro Free</a>
+      <a href="#how" class="ai-btn-s"><i class="fas fa-play-circle"></i> See how it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FEATURES ===== -->
+<section class="ai-features">
+  <div class="ai-features-header">
+    <span class="ai-features-label">Capabilities</span>
+    <h2 class="ai-features-title">What Astro can do for you</h2>
+    <p class="ai-features-sub">From instant answers to full automation — Astro handles it all.</p>
+  </div>
+
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-card-icon"><i class="fas fa-tachometer-alt"></i></div>
+      <h3>Performance Optimization</h3>
+      <p>Astro analyzes your site speed and applies fixes automatically — caching, compression, CDN, and more.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon" style="background:#26CF4B;"><i class="fas fa-shield-alt"></i></div>
+      <h3>Security Monitoring</h3>
+      <p>Real-time threat detection, malware scanning, and automatic SSL management to keep your site safe 24/7.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon" style="background:#f59e0b;"><i class="fas fa-magic"></i></div>
+      <h3>AI Website Builder</h3>
+      <p>Describe what you want and Astro builds it. Full websites generated in under 60 seconds with AI.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon" style="background:#8b5cf6;"><i class="fas fa-headset"></i></div>
+      <h3>24/7 Smart Support</h3>
+      <p>Get instant answers to hosting questions. Astro understands context and provides step-by-step solutions.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon" style="background:#ef4444;"><i class="fas fa-chart-line"></i></div>
+      <h3>Traffic Analytics</h3>
+      <p>Understand your visitors with AI-powered insights. Get recommendations to grow your traffic organically.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon" style="background:#0ea5e9;"><i class="fas fa-server"></i></div>
+      <h3>Server Management</h3>
+      <p>Manage DNS, emails, databases, and backups through simple conversational commands.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STATS ===== -->
+<section style="background:#0a1628;padding:80px 0;">
+  <div style="max-width:1000px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;">
+    <div>
+      <div style="font-size:2.8rem;font-weight:800;color:#fff;margin-bottom:6px;">2M+</div>
+      <div style="font-size:0.95rem;color:rgba(255,255,255,0.5);">Questions Answered</div>
+    </div>
+    <div>
+      <div style="font-size:2.8rem;font-weight:800;color:#fff;margin-bottom:6px;">&lt;3s</div>
+      <div style="font-size:0.95rem;color:rgba(255,255,255,0.5);">Avg Response Time</div>
+    </div>
+    <div>
+      <div style="font-size:2.8rem;font-weight:800;color:#fff;margin-bottom:6px;">97%</div>
+      <div style="font-size:0.95rem;color:rgba(255,255,255,0.5);">Resolution Rate</div>
+    </div>
+    <div>
+      <div style="font-size:2.8rem;font-weight:800;color:#fff;margin-bottom:6px;">24/7</div>
+      <div style="font-size:0.95rem;color:rgba(255,255,255,0.5);">Always Available</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== USE CASES ===== -->
+<section style="background:#fff;padding:100px 0;">
+  <div style="text-align:center;margin-bottom:56px;padding:0 24px;">
+    <span class="ai-features-label">Use Cases</span>
+    <h2 class="ai-features-title">Built for everyone</h2>
+    <p class="ai-features-sub">Whether you're a beginner or a pro, Astro adapts to your needs.</p>
+  </div>
+  <div style="max-width:1100px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
+    <div style="background:linear-gradient(135deg,#0a1628,#132d5c);border-radius:20px;padding:40px 32px;color:#fff;">
+      <div style="font-size:32px;margin-bottom:18px;">🛒</div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin:0 0 12px;color:#fff;">E-commerce Owners</h3>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.65);line-height:1.8;margin:0;">"Astro, optimize my store for Black Friday traffic" — and it handles caching, CDN, and load balancing automatically.</p>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a1628,#132d5c);border-radius:20px;padding:40px 32px;color:#fff;">
+      <div style="font-size:32px;margin-bottom:18px;">💻</div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin:0 0 12px;color:#fff;">Developers</h3>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.65);line-height:1.8;margin:0;">"Set up a staging environment with Node.js 20 and MongoDB" — Astro provisions it in seconds, no tickets needed.</p>
+    </div>
+    <div style="background:linear-gradient(135deg,#0a1628,#132d5c);border-radius:20px;padding:40px 32px;color:#fff;">
+      <div style="font-size:32px;margin-bottom:18px;">📝</div>
+      <h3 style="font-size:1.3rem;font-weight:700;margin:0 0 12px;color:#fff;">Bloggers & Creators</h3>
+      <p style="font-size:1rem;color:rgba(255,255,255,0.65);line-height:1.8;margin:0;">"Build me a portfolio site with a blog section" — Astro generates the full site with AI, ready to publish in 60 seconds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COMPARISON ===== -->
+<section style="background:#f4f6f9;padding:100px 0;">
+  <div style="text-align:center;margin-bottom:48px;padding:0 24px;">
+    <h2 class="ai-features-title">Traditional support vs Astro</h2>
+    <p class="ai-features-sub">See the difference AI makes.</p>
+  </div>
+  <div style="max-width:800px;margin:0 auto;padding:0 24px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+      <div style="background:#fff;border-radius:18px;padding:36px;border:1px solid #e2e8f0;">
+        <div style="font-size:14px;font-weight:700;color:#ef4444;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;">❌ Traditional</div>
+        <ul style="list-style:none;padding:0;margin:0;font-size:1rem;color:#64748b;line-height:2.4;">
+          <li>⏱️ Wait 2-24 hours for a reply</li>
+          <li>🔄 Back-and-forth ticket exchanges</li>
+          <li>📋 Manual server configuration</li>
+          <li>🌐 Limited to business hours</li>
+          <li>🗣️ Language barriers</li>
+        </ul>
+      </div>
+      <div style="background:#fff;border-radius:18px;padding:36px;border:2px solid rgba(7,116,255,0.3);box-shadow:0 8px 32px rgba(7,116,255,0.08);">
+        <div style="font-size:14px;font-weight:700;color:#0774FF;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;">✨ With Astro</div>
+        <ul style="list-style:none;padding:0;margin:0;font-size:1rem;color:#334155;line-height:2.4;">
+          <li>⚡ Instant response in seconds</li>
+          <li>🎯 One message, problem solved</li>
+          <li>🤖 Automated server actions</li>
+          <li>🌙 Available 24/7/365</li>
+          <li>🌍 English & Arabic fluent</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section class="ai-how" id="how">
+  <div class="ai-how-header">
+    <h2 class="ai-how-title">How Astro works</h2>
+    <p class="ai-how-sub">Three simple steps to smarter hosting</p>
+  </div>
+
+  <div class="ai-steps">
+    <div class="ai-step">
+      <div class="ai-step-num">1</div>
+      <h4>Ask anything</h4>
+      <p>Type your question or describe what you need — in plain English or Arabic.</p>
+    </div>
+    <div class="ai-step">
+      <div class="ai-step-num">2</div>
+      <h4>Astro analyzes</h4>
+      <p>AI processes your request, checks your hosting environment, and finds the best solution.</p>
+    </div>
+    <div class="ai-step">
+      <div class="ai-step-num">3</div>
+      <h4>Done in seconds</h4>
+      <p>Get instant answers, automated fixes, or step-by-step guides — all in real time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section style="background:#fff;padding:90px 0;">
+  <div style="max-width:700px;margin:0 auto;padding:0 24px;">
+    <div style="text-align:center;margin-bottom:48px;">
+      <h2 class="ai-features-title">Frequently asked questions</h2>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <details style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:22px 26px;cursor:pointer;">
+        <summary style="font-weight:700;color:#0d1b2e;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is Astro free to use? <span style="color:#0774FF;">+</span></summary>
+        <p style="margin:16px 0 0;color:#64748b;font-size:0.95rem;line-height:1.8;">Yes! Astro is included free with all Nutro Cloud hosting plans. Just log in to your dashboard at pro.nutro.cloud and start chatting.</p>
+      </details>
+      <details style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:22px 26px;cursor:pointer;">
+        <summary style="font-weight:700;color:#0d1b2e;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Does Astro support Arabic? <span style="color:#0774FF;">+</span></summary>
+        <p style="margin:16px 0 0;color:#64748b;font-size:0.95rem;line-height:1.8;">Absolutely. Astro is fully fluent in both English and Arabic. You can ask questions, give commands, and receive answers in either language.</p>
+      </details>
+      <details style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:22px 26px;cursor:pointer;">
+        <summary style="font-weight:700;color:#0d1b2e;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Can Astro make changes to my server? <span style="color:#0774FF;">+</span></summary>
+        <p style="margin:16px 0 0;color:#64748b;font-size:0.95rem;line-height:1.8;">Yes. Astro can enable caching, configure DNS, manage SSL certificates, create email accounts, and more — all through simple chat commands. It always asks for confirmation before making critical changes.</p>
+      </details>
+      <details style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:22px 26px;cursor:pointer;">
+        <summary style="font-weight:700;color:#0d1b2e;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">What if Astro can't solve my problem? <span style="color:#0774FF;">+</span></summary>
+        <p style="margin:16px 0 0;color:#64748b;font-size:0.95rem;line-height:1.8;">If Astro encounters something beyond its capabilities, it seamlessly escalates to our human support team with full context — so you never have to repeat yourself.</p>
+      </details>
+      <details style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:22px 26px;cursor:pointer;">
+        <summary style="font-weight:700;color:#0d1b2e;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;align-items:center;">Is my data safe with Astro? <span style="color:#0774FF;">+</span></summary>
+        <p style="margin:16px 0 0;color:#64748b;font-size:0.95rem;line-height:1.8;">100%. Astro operates within your hosting environment only. Your conversations are encrypted, never shared with third parties, and you can delete your chat history anytime.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="ai-cta">
+  <h2 class="ai-cta-title">Ready to try Astro?</h2>
+  <p class="ai-cta-sub">Available free for all Nutro Cloud customers. Log in to your dashboard to start.</p>
+  <div class="ai-btns">
+    <a href="https://pro.nutro.cloud" class="ai-btn-p"><i class="fas fa-rocket"></i> Open Dashboard</a>
+    <a href="price" class="ai-btn-s"><i class="fas fa-tag"></i> View Plans</a>
+  </div>
+</section>
+
+<div id="footer"></div>
+
+<!-- THEME PRELOADER START -->
+<div class="loader-wrapper">
+    <div class="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+<!-- THEME PRELOADER END -->
+
+<!-- BACK TO TOP -->
+<div class="progress-wrap">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear 0s; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 307.919;"></path>
+    </svg>
+</div>
+
+<script defer src="assets/js/plugins.min.js"></script>
+<script defer src="assets/js/main.js"></script>
+</body>
+</html>
