@@ -34,23 +34,24 @@
         .domain-search-box {
             background: white;
             border-radius: 16px;
-            padding: 8px;
+            padding: 6px 6px 6px 0;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
             display: flex;
-            gap: 8px;
-            max-width: 640px;
+            align-items: center;
+            max-width: 620px;
             margin: 0 auto;
         }
 
         .domain-search-box input {
             flex: 1;
             border: none;
-            padding: 18px 24px;
-            font-size: 17px;
+            padding: 20px 24px;
+            font-size: 16px;
             border-radius: 12px;
             outline: none;
             font-weight: 500;
             color: #0d1b2e;
+            min-width: 0;
         }
 
         .domain-search-box input::placeholder {
@@ -62,16 +63,21 @@
             background: linear-gradient(135deg, #0774FF 0%, #0553c7 100%);
             color: white;
             border: none;
-            padding: 18px 32px;
+            padding: 14px 28px;
             border-radius: 12px;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .domain-search-box button i {
+            font-size: 13px;
         }
 
         .domain-search-box button:hover {
@@ -611,8 +617,8 @@
             if (available === false) {
                 html += `
                     <div class="alert-domain-status alert-taken">
-                        <h5 class="mb-2"><i class="fas fa-times-circle me-2"></i><strong>${domain}</strong> is already taken.</h5>
-                        <p class="mb-0">Don't worry â€” explore similar options below.</p>
+                        <h5 class="mb-2"><i class="fas fa-info-circle me-2"></i><strong>${domain}</strong> appears to be registered.</h5>
+                        <p class="mb-0">You can still try to register it. We verify availability at checkout.</p>
                     </div>
                 `;
             } else if (available === true) {
@@ -650,18 +656,18 @@
                 `;
             }
             
-            // Suggestions - check availability for each
+            // Suggestions - show as direct purchase options (availability verified at checkout)
             if (suggestions && suggestions.length > 0) {
                 html += `
                     <div class="promo-banner">
-                        <h6><i class="fas fa-gift me-2"></i>Special Offer: Free WHOIS Privacy + SSL with every domain</h6>
-                        <p>All domains include free privacy protection and SSL certificate</p>
+                        <h6><i class="fas fa-gift me-2"></i>Every domain includes: Free WHOIS Privacy + SSL Certificate</h6>
+                        <p>All domains are verified at checkout. If unavailable, you won't be charged.</p>
                     </div>
                     
                     <h5 class="mb-3 mt-4"><i class="fas fa-globe me-2" style="color: #0774FF;"></i>Alternative extensions for "${name}"</h5>
-                    <div class="domain-grid" id="suggestions-grid">
+                    <div class="domain-grid">
                         ${suggestions.map(s => `
-                            <div class="domain-result-card suggestion-card" data-domain="${s.domain}">
+                            <div class="domain-result-card">
                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                     <h6 class="mb-0 fw-bold">${s.domain}</h6>
                                     <span style="background:#e8f0fe;color:#0774FF;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;">${s.tld}</span>
@@ -672,9 +678,9 @@
                                     <span class="text-muted" style="font-size: 14px;">/1st yr</span>
                                 </div>
                                 <p class="text-muted mb-2" style="font-size:12px;">Renews at US$ ${s.renew.toFixed(2)}/yr</p>
-                                <button class="btn btn-register w-100" style="font-size:14px;padding:10px;" onclick="checkAndBuy('${s.domain}', this)">
-                                    <i class="fas fa-search me-1"></i> Check & Register
-                                </button>
+                                <a href="https://pro.nutro.cloud/checkout/?pay=domain:${s.domain}" class="btn btn-register w-100" style="font-size:14px;padding:10px;">
+                                    <i class="fas fa-cart-plus me-1"></i> Get This Domain
+                                </a>
                             </div>
                         `).join('')}
                     </div>
@@ -682,60 +688,6 @@
             }
             
             resultsContainer.innerHTML = html;
-            
-            // Auto-check availability for first 5 suggestions in background
-            if (suggestions && suggestions.length > 0) {
-                checkSuggestionsAvailability(suggestions.slice(0, 5));
-            }
-        }
-
-        // Check availability for suggestions in background
-        async function checkSuggestionsAvailability(suggestions) {
-            for (const s of suggestions) {
-                try {
-                    const res = await fetch(API_URL + '?domain=' + encodeURIComponent(s.domain));
-                    const data = await res.json();
-                    const card = document.querySelector(`.suggestion-card[data-domain="${s.domain}"]`);
-                    if (!card) continue;
-                    
-                    if (data.available === true) {
-                        card.style.borderColor = '#26CF4B';
-                        card.querySelector('button').innerHTML = '<i class="fas fa-check-circle me-1"></i> Available — Register';
-                        card.querySelector('button').onclick = function() { window.location.href = 'https://pro.nutro.cloud/checkout/?pay=domain:' + s.domain; };
-                        card.querySelector('button').style.background = 'linear-gradient(135deg, #26CF4B, #1da851)';
-                    } else if (data.available === false) {
-                        card.style.opacity = '0.5';
-                        card.querySelector('button').innerHTML = '<i class="fas fa-times-circle me-1"></i> Taken';
-                        card.querySelector('button').disabled = true;
-                        card.querySelector('button').style.background = '#e2e8f0';
-                        card.querySelector('button').style.color = '#94a3b8';
-                    }
-                } catch (e) { /* skip */ }
-            }
-        }
-
-        // Check single domain and redirect to checkout
-        async function checkAndBuy(domain, btn) {
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Checking...';
-            btn.disabled = true;
-            try {
-                const res = await fetch(API_URL + '?domain=' + encodeURIComponent(domain));
-                const data = await res.json();
-                if (data.available === true) {
-                    window.location.href = 'https://pro.nutro.cloud/checkout/?pay=domain:' + domain;
-                } else if (data.available === false) {
-                    btn.innerHTML = '<i class="fas fa-times-circle me-1"></i> Taken';
-                    btn.style.background = '#e2e8f0';
-                    btn.style.color = '#94a3b8';
-                } else {
-                    btn.innerHTML = '<i class="fas fa-external-link-alt me-1"></i> Try Anyway';
-                    btn.disabled = false;
-                    btn.onclick = function() { window.location.href = 'https://pro.nutro.cloud/checkout/?pay=domain:' + domain; };
-                }
-            } catch (e) {
-                btn.innerHTML = '<i class="fas fa-redo me-1"></i> Retry';
-                btn.disabled = false;
-            }
         }
 
         // Load popular domains on page load
