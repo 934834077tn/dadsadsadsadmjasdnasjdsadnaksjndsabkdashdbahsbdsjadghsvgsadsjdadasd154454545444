@@ -33,39 +33,50 @@
 
         .domain-search-box {
             background: white;
-            border-radius: 50px;
-            padding: 6px;
+            border-radius: 16px;
+            padding: 8px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.2);
             display: flex;
-            gap: 6px;
-            max-width: 700px;
+            gap: 8px;
+            max-width: 640px;
             margin: 0 auto;
         }
 
         .domain-search-box input {
             flex: 1;
             border: none;
-            padding: 18px 28px;
-            font-size: 16px;
-            border-radius: 50px;
+            padding: 18px 24px;
+            font-size: 17px;
+            border-radius: 12px;
             outline: none;
+            font-weight: 500;
+            color: #0d1b2e;
+        }
+
+        .domain-search-box input::placeholder {
+            color: #94a3b8;
+            font-weight: 400;
         }
 
         .domain-search-box button {
             background: linear-gradient(135deg, #0774FF 0%, #0553c7 100%);
             color: white;
             border: none;
-            padding: 18px 24px;
-            border-radius: 50px;
-            font-weight: 600;
+            padding: 18px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s;
-            min-width: 60px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
         }
 
         .domain-search-box button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(0,82,204,0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(7,116,255,0.4);
         }
 
         .section-title {
@@ -298,9 +309,9 @@
                     
                     <form onsubmit="searchDomain(event)">
                         <div class="domain-search-box">
-                            <input type="text" id="domain-input" placeholder="yourdomain.com" required>
+                            <input type="text" id="domain-input" placeholder="Enter your domain name (e.g. mysite.com)" required>
                             <button type="submit">
-                                <i class="fas fa-search" style="font-size: 20px;"></i>
+                                <i class="fas fa-search"></i> Search
                             </button>
                         </div>
                     </form>
@@ -639,7 +650,7 @@
                 `;
             }
             
-            // Suggestions
+            // Suggestions - check availability for each
             if (suggestions && suggestions.length > 0) {
                 html += `
                     <div class="promo-banner">
@@ -647,10 +658,10 @@
                         <p>All domains include free privacy protection and SSL certificate</p>
                     </div>
                     
-                    <h5 class="mb-3 mt-4"><i class="fas fa-lightbulb me-2" style="color: #0774FF;"></i>More options for you</h5>
-                    <div class="domain-grid">
+                    <h5 class="mb-3 mt-4"><i class="fas fa-globe me-2" style="color: #0774FF;"></i>Alternative extensions for "${name}"</h5>
+                    <div class="domain-grid" id="suggestions-grid">
                         ${suggestions.map(s => `
-                            <div class="domain-result-card">
+                            <div class="domain-result-card suggestion-card" data-domain="${s.domain}">
                                 <div class="d-flex justify-content-between align-items-start mb-2">
                                     <h6 class="mb-0 fw-bold">${s.domain}</h6>
                                     <span style="background:#e8f0fe;color:#0774FF;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;">${s.tld}</span>
@@ -661,9 +672,9 @@
                                     <span class="text-muted" style="font-size: 14px;">/1st yr</span>
                                 </div>
                                 <p class="text-muted mb-2" style="font-size:12px;">Renews at US$ ${s.renew.toFixed(2)}/yr</p>
-                                <a href="https://pro.nutro.cloud/checkout/?pay=domain:${s.domain}" class="btn btn-register w-100" style="font-size:14px;padding:10px;">
-                                    <i class="fas fa-cart-plus me-1"></i> Register
-                                </a>
+                                <button class="btn btn-register w-100" style="font-size:14px;padding:10px;" onclick="checkAndBuy('${s.domain}', this)">
+                                    <i class="fas fa-search me-1"></i> Check & Register
+                                </button>
                             </div>
                         `).join('')}
                     </div>
@@ -671,6 +682,60 @@
             }
             
             resultsContainer.innerHTML = html;
+            
+            // Auto-check availability for first 5 suggestions in background
+            if (suggestions && suggestions.length > 0) {
+                checkSuggestionsAvailability(suggestions.slice(0, 5));
+            }
+        }
+
+        // Check availability for suggestions in background
+        async function checkSuggestionsAvailability(suggestions) {
+            for (const s of suggestions) {
+                try {
+                    const res = await fetch(API_URL + '?domain=' + encodeURIComponent(s.domain));
+                    const data = await res.json();
+                    const card = document.querySelector(`.suggestion-card[data-domain="${s.domain}"]`);
+                    if (!card) continue;
+                    
+                    if (data.available === true) {
+                        card.style.borderColor = '#26CF4B';
+                        card.querySelector('button').innerHTML = '<i class="fas fa-check-circle me-1"></i> Available — Register';
+                        card.querySelector('button').onclick = function() { window.location.href = 'https://pro.nutro.cloud/checkout/?pay=domain:' + s.domain; };
+                        card.querySelector('button').style.background = 'linear-gradient(135deg, #26CF4B, #1da851)';
+                    } else if (data.available === false) {
+                        card.style.opacity = '0.5';
+                        card.querySelector('button').innerHTML = '<i class="fas fa-times-circle me-1"></i> Taken';
+                        card.querySelector('button').disabled = true;
+                        card.querySelector('button').style.background = '#e2e8f0';
+                        card.querySelector('button').style.color = '#94a3b8';
+                    }
+                } catch (e) { /* skip */ }
+            }
+        }
+
+        // Check single domain and redirect to checkout
+        async function checkAndBuy(domain, btn) {
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Checking...';
+            btn.disabled = true;
+            try {
+                const res = await fetch(API_URL + '?domain=' + encodeURIComponent(domain));
+                const data = await res.json();
+                if (data.available === true) {
+                    window.location.href = 'https://pro.nutro.cloud/checkout/?pay=domain:' + domain;
+                } else if (data.available === false) {
+                    btn.innerHTML = '<i class="fas fa-times-circle me-1"></i> Taken';
+                    btn.style.background = '#e2e8f0';
+                    btn.style.color = '#94a3b8';
+                } else {
+                    btn.innerHTML = '<i class="fas fa-external-link-alt me-1"></i> Try Anyway';
+                    btn.disabled = false;
+                    btn.onclick = function() { window.location.href = 'https://pro.nutro.cloud/checkout/?pay=domain:' + domain; };
+                }
+            } catch (e) {
+                btn.innerHTML = '<i class="fas fa-redo me-1"></i> Retry';
+                btn.disabled = false;
+            }
         }
 
         // Load popular domains on page load
