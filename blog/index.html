@@ -3,874 +3,1024 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NutroCloud Blog - Latest Articles & Updates</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Stay updated with the latest web hosting tips, tutorials, and industry news from NutroCloud Blog.">
-    <meta name="keywords" content="web hosting, cloud hosting, tutorials, tips, NutroCloud">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="NutroCloud Blog">
-    <meta property="og:description" content="Stay updated with the latest web hosting tips, tutorials, and industry news.">
-    <meta property="og:image" content="../assets/images/blog-default.jpg">
-    
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/fav.png">
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- CSS -->
+    <title>Blog - Nutro Cloud</title>
+    <meta name="description" content="Nutro Cloud Blog - Tutorials, tips, news and insights about web hosting, cloud infrastructure, and AI-powered tools.">
+    <link rel="shortcut icon" type="image/png" href="../assets/images/fav.png">
     <link rel="stylesheet" href="../assets/css/plugins.min.css">
     <link rel="stylesheet" href="../assets/css/plugins/fontawesome.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="css/blog-custom.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #ffffff;
+            color: #1a1a2e;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.2s ease;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* ===== HEADER ===== */
+        .blog-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: #ffffff;
+            border-bottom: 1px solid #e8ecf0;
+            padding: 0 40px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-logo img {
+            height: 36px;
+            width: auto;
+        }
+
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .header-nav a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a5568;
+            transition: color 0.2s;
+        }
+
+        .header-nav a:hover {
+            color: #0774FF;
+        }
+
+        .header-search {
+            position: relative;
+        }
+
+        .header-search input {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 16px 8px 36px;
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+            width: 220px;
+            background: #f8fafc;
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .header-search input:focus {
+            border-color: #0774FF;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(7, 116, 255, 0.1);
+        }
+
+        .header-search i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* ===== CONTAINER ===== */
+        .blog-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== FEATURED STORY ===== */
+        .featured-section {
+            padding: 60px 0 40px;
+        }
+
+        .featured-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 48px;
+            align-items: center;
+            background: #f8fafc;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 16px 0 0 16px;
+        }
+
+        .featured-content {
+            padding: 40px 40px 40px 0;
+        }
+
+        .featured-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #0774FF;
+            margin-bottom: 16px;
+        }
+
+        .featured-label i {
+            font-size: 10px;
+        }
+
+        .featured-content h1 {
+            font-size: 28px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: #0a1628;
+            margin-bottom: 16px;
+        }
+
+        .featured-content p {
+            font-size: 15px;
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .featured-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .featured-meta .author {
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .featured-meta .divider {
+            width: 4px;
+            height: 4px;
+            background: #cbd5e1;
+            border-radius: 50%;
+        }
+
+        /* ===== SECTION HEADERS ===== */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .section-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0a1628;
+        }
+
+        .section-header a {
+            font-size: 14px;
+            font-weight: 500;
+            color: #0774FF;
+        }
+
+        .section-header a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== TOP STORIES ===== */
+        .top-stories-section {
+            padding: 40px 0 60px;
+        }
+
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .story-card {
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid #e8ecf0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .story-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(10, 22, 40, 0.08);
+        }
+
+        .story-card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .story-card-body {
+            padding: 20px;
+        }
+
+        .story-card-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 12px;
+        }
+
+        .story-card-meta .category {
+            color: #0774FF;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .story-card-body h3 {
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.4;
+            color: #0a1628;
+            margin-bottom: 8px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .story-card-body h3:hover {
+            color: #0774FF;
+        }
+
+        .story-card-excerpt {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ===== CATEGORY SECTIONS ===== */
+        .category-section {
+            padding: 40px 0;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        /* ===== AD BANNER ===== */
+        .ad-banner-section {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .ad-banner-section img {
+            max-width: 728px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 12px;
+            transition: transform 0.2s;
+        }
+
+        .ad-banner-section img:hover {
+            transform: scale(1.01);
+        }
+
+        /* ===== ALL POSTS ===== */
+        .all-posts-section {
+            padding: 40px 0 80px;
+        }
+
+        .all-posts-list {
+            list-style: none;
+        }
+
+        .all-post-item {
+            display: grid;
+            grid-template-columns: 48px 1fr auto;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+
+        .all-post-item:hover {
+            background: #f8fafc;
+            margin: 0 -16px;
+            padding-left: 16px;
+            padding-right: 16px;
+            border-radius: 8px;
+        }
+
+        .all-post-number {
+            font-size: 20px;
+            font-weight: 700;
+            color: #e2e8f0;
+            text-align: center;
+        }
+
+        .all-post-info h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0a1628;
+            margin-bottom: 4px;
+            transition: color 0.2s;
+        }
+
+        .all-post-item:hover .all-post-info h4 {
+            color: #0774FF;
+        }
+
+        .all-post-info .post-meta {
+            font-size: 13px;
+            color: #94a3b8;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .all-post-info .post-meta .category {
+            color: #0774FF;
+            font-weight: 500;
+        }
+
+        .all-post-date {
+            font-size: 13px;
+            color: #94a3b8;
+            white-space: nowrap;
+        }
+
+        /* ===== FOOTER ===== */
+        .blog-footer {
+            background: #0a1628;
+            padding: 60px 0 30px;
+            color: #94a3b8;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand img {
+            height: 32px;
+            margin-bottom: 16px;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #94a3b8;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .footer-socials a:hover {
+            background: #0774FF;
+            color: #fff;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            font-size: 14px;
+            color: #64748b;
+            transition: color 0.2s;
+        }
+
+        .footer-column ul li a:hover {
+            color: #0774FF;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 13px;
+            color: #475569;
+        }
+
+        /* ===== SEARCH OVERLAY ===== */
+        .search-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 22, 40, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 9999;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 120px;
+        }
+
+        .search-overlay.active {
+            display: flex;
+        }
+
+        .search-overlay-box {
+            background: #fff;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 640px;
+            padding: 24px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.2);
+        }
+
+        .search-overlay-box input {
+            width: 100%;
+            border: none;
+            font-size: 18px;
+            font-family: 'Inter', sans-serif;
+            padding: 12px 0;
+            outline: none;
+            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 16px;
+        }
+
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: #0a1628;
+            margin-bottom: 4px;
+        }
+
+        .search-result-item p {
+            font-size: 13px;
+            color: #64748b;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .search-no-results {
+            text-align: center;
+            padding: 24px;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* ===== LOADING ===== */
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .featured-card {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-image {
+                height: 280px;
+                border-radius: 16px 16px 0 0;
+            }
+
+            .featured-content {
+                padding: 24px;
+            }
+
+            .stories-grid,
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .blog-header {
+                padding: 0 16px;
+            }
+
+            .header-nav {
+                display: none;
+            }
+
+            .header-search input {
+                width: 160px;
+            }
+
+            .featured-section {
+                padding: 32px 0 24px;
+            }
+
+            .featured-content h1 {
+                font-size: 22px;
+            }
+
+            .stories-grid,
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .all-post-item {
+                grid-template-columns: 36px 1fr;
+            }
+
+            .all-post-date {
+                display: none;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-search input {
+                width: 140px;
+                font-size: 13px;
+            }
+
+            .featured-image {
+                height: 200px;
+            }
+
+            .featured-content h1 {
+                font-size: 20px;
+            }
+
+            .section-header h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
 </head>
+<body>
 
-<body class="page-template template-resell loaded">
-  <!-- HEADER AREA -->
-<header class="rts-header style-five header__default">
-    <!-- HEADER TOP AREA -->
-    <div class="rts-ht rts-ht__bg">
-        <div class="container">
-            <div class="row">
-                
-            </div>
+    <!-- Header -->
+    <header class="blog-header">
+        <a href="https://nutro.cloud" class="header-logo">
+            <img src="https://nutro.cloud/assets/images/logo/logo2.png" alt="Nutro Cloud">
+        </a>
+        <nav class="header-nav">
+            <a href="https://nutro.cloud">Home</a>
+            <a href="https://nutro.cloud/blog">Blog</a>
+            <a href="https://nutro.cloud/price">Pricing</a>
+            <a href="https://nutro.cloud/about.html">About</a>
+            <a href="https://nutro.cloud/support.html">Support</a>
+        </nav>
+        <div class="header-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search articles..." id="headerSearchInput" autocomplete="off">
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="rts-header__wrapper">
-                <!-- FOR LOGO -->
-                <div class="rts-header__logo">
-                    <a href="index" class="site-logo">
-                        <img class="logo-white" src="../assets/images/logo/logo2.png" alt="NutroCloud by  7t">
-                    </a>
-                </div>
-                <!-- FOR NAVIGATION MENU -->
+    </header>
 
-                <nav class="rts-header__menu" id="mobile-menu">
-                    <div class="hostie-menu">
-                        <ul class="list-unstyled hostie-desktop-menu">
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="https://nutro.cloud/index" class="hostie-dropdown-main-element" data-gta>Home</a>
-
-                            </li>
-
-
-                            <li class="menu-item hostie-has-dropdown mega-menu">
-                                <a href="#" class="hostie-dropdown-main-element">Hosting</a>
-                                <div class="rts-mega-menu">
-                                    <div class="wrapper">
-                                        <div class="row g-0">
-                                            <div class="col-lg-6">
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/shared-hosting" data-gta>
-                                                            <img src="../assets/images/mega-menu/22.svg" alt="icon">
-                                                            <div class="info">
-                                                                <p>Shared Hosting</p>
-                                                                <span>Manage Shared Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/wordpress-hosting">
-                                                            <img src="../assets/images/mega-menu/23.svg" alt="icon">
-                                                            <div class="info">
-                                                                <p>WordPress Hosting</p>
-                                                                <span>WordPress Hosting speed</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/vps-hosting">
-                                                            <img src="../assets/images/mega-menu/24.svg" alt="icon">
-                                                            <div class="info">
-                                                                <p>VPS Hosting</p>
-                                                                <span>Dedicated resources</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/game">
-                                                            <img src="../assets/images/game-controller.png" alt="icon"
-                                                                width="60px">
-                                                            <div class="info">
-                                                                <p>Game Hosting</p>
-                                                                <span>Our Gameing Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#s3">
-                                                            <img width="50" height="50"
-                                                                src="https://img.icons8.com/external-outline-lafs/64/external-s3-folders-cloud-storage-outline-lafs.png"
-                                                                alt="external-s3-folders-cloud-storage-outline-lafs" />
-                                                            <div class="info">
-                                                                <p>Nutro S3</p>
-                                                                <span>Best S3 Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#js">
-                                                            <img width="48" height="48" src="https://img.icons8.com/color/48/message-bot.png" alt="message-bot"/>
-                                                            <div class="info">
-                                                                <p>Nutro js</p>
-                                                                <span>Best Nodejs Bot Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/soon">
-                                                            <img src="../assets/images/mega-menu/25.svg" alt="icon">
-                                                            <div class="info">
-                                                                <p>Reseller Hosting</p>
-                                                                <span>Earn additional revenue</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/dedicated-hosting">
-                                                            <img src="../assets/images/mega-menu/27.svg" alt="icon">
-                                                            <div class="info">
-                                                                <p>Dedicated Hosting</p>
-                                                                <span>Hosting that gives you tools</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/vds">
-                                                            <img src="../assets/images/mega-menu/29.svg" alt="icon">
-                                                            <div class="info">
-                                                                <p>VDS Hosting</p>
-                                                                <span>Manage vds Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#panel">
-                                                            <img src="../assets/images/admin-panel.png" alt="icon"
-                                                                width="50px">
-                                                            <div class="info">
-                                                                <p>Panel Hosting</p>
-                                                                <span>Manage Panel Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#gpu">
-                                                            <img width="48" height="48" src="https://img.icons8.com/color/48/overclocking-graphics.png" alt="overclocking-graphics"/>
-                                                            <div class="info">
-                                                                <p>GPU Hosting</p>
-                                                                <span>ai gpu Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#deekseek">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 48 48">
-                                                                <path fill="#5059c9" d="M47.496,10.074c-0.508-0.249-0.727,0.226-1.025,0.467c-0.102,0.078-0.188,0.179-0.274,0.272	c-0.743,0.794-1.611,1.315-2.746,1.253c-1.658-0.093-3.074,0.428-4.326,1.696c-0.266-1.564-1.15-2.498-2.495-3.097	c-0.704-0.311-1.416-0.623-1.909-1.3c-0.344-0.482-0.438-1.019-0.61-1.548c-0.11-0.319-0.219-0.646-0.587-0.7	c-0.399-0.062-0.555,0.272-0.712,0.553c-0.626,1.144-0.868,2.405-0.845,3.681c0.055,2.871,1.267,5.159,3.676,6.785	c0.274,0.187,0.344,0.373,0.258,0.646c-0.164,0.56-0.36,1.105-0.532,1.665c-0.11,0.358-0.274,0.436-0.657,0.28	c-1.322-0.552-2.464-1.369-3.473-2.358c-1.713-1.657-3.262-3.486-5.194-4.918c-0.454-0.335-0.907-0.646-1.377-0.942	c-1.971-1.914,0.258-3.486,0.774-3.673c0.54-0.195,0.188-0.864-1.557-0.856c-1.744,0.008-3.34,0.591-5.374,1.369	c-0.297,0.117-0.61,0.202-0.931,0.272c-1.846-0.35-3.763-0.428-5.765-0.202c-3.77,0.42-6.782,2.202-8.996,5.245	c-2.66,3.657-3.285,7.812-2.519,12.147c0.806,4.568,3.137,8.349,6.719,11.306c3.716,3.066,7.994,4.568,12.876,4.28	c2.965-0.171,6.266-0.568,9.989-3.719c0.939,0.467,1.924,0.654,3.559,0.794c1.259,0.117,2.472-0.062,3.411-0.257	c1.471-0.311,1.369-1.673,0.837-1.922C34,36,33.471,35.441,33.471,35.441c2.19-2.591,5.491-5.284,6.782-14.007	c0.102-0.692,0.016-1.128,0-1.689c-0.008-0.342,0.07-0.475,0.462-0.514c1.079-0.125,2.128-0.42,3.09-0.949	c2.793-1.525,3.919-4.031,4.185-7.034C48.028,10.79,47.981,10.315,47.496,10.074z"></path><path d="M32.83,26.18c-0.28-0.77-0.66-1.4-1-1.91l-0.14-0.2c-0.35-0.55-0.57-0.88-1.33-1.75l-0.1-0.11	c-0.78-0.76-1.4-1.36-2.27-1.71c-0.6-0.24-1.14-0.36-1.66-0.36c-0.56,0-1.06,0.14-1.6,0.46c-0.06,0.04-0.51,0.42-0.67,0.76	c-0.2,0.38-0.24,0.79-0.11,1.18c0.1,0.29,0.28,0.55,0.52,0.73c-0.19,0.27-0.31,0.61-0.31,0.96c0,0.9,0.71,1.61,1.61,1.61	c0.26,0,0.5-0.06,0.72-0.16c0.01,0.08,0.02,0.16,0.03,0.24c0.22,1.07,0.8,1.54,1.3,1.96L27.96,28c0.55,0.46,1.37,0.74,2.14,0.74	h0.14c0.55-0.03,1.06-0.21,1.53-0.4C32.71,27.94,33.13,27.08,32.83,26.18z M29.79,37.48c-0.47-0.29-0.99-0.7-1.66-1.26	c-2.01-1.7-3.54-3.8-4.77-5.62L22.95,30c-1.22-1.83-2.49-3.72-4.12-5.34c-3.26-3.23-7.12-5.19-11.5-5.83	c-0.45-0.06-0.93-0.1-1.41-0.1c-0.65,0-1.31,0.07-1.97,0.19c-1.28,0.23-1.84,0.93-1.77,2.21c0.15,3.27,1.06,6.43,2.72,9.4	c1.6,2.89,3.88,5.18,7.03,7.03c0.06,0.03,1.51,0.75,2.99,0.75c0.69,0,1.28-0.16,1.77-0.46c0.59-0.36,0.8-0.83,0.87-1.15	c0.1-0.49-0.01-0.99-0.33-1.45c-0.32-0.5-0.49-0.79-0.62-1.22c-0.01-0.05-0.03-0.1-0.04-0.14c0.67,0.25,2.28,1.1,5.97,4	c1.29,1.02,3.04,1.53,5.2,1.53c0.42,0,0.86-0.02,1.29-0.06c0.29-0.21,0.57-0.44,0.86-0.68c0.08,0.04,0.17,0.08,0.26,0.12	c0.05-0.08,0.08-0.16,0.1-0.25C30.34,38.14,30.16,37.71,29.79,37.48z" opacity=".05"></path><path d="M27.742,38.924c-2.05,0-3.695-0.479-4.892-1.425c-4.662-3.665-6.184-4.212-6.677-4.212l-0.117,0.021	c-0.028,0.026-0.103,0.263,0.074,0.865c0.152,0.485,0.342,0.822,0.683,1.347c0.241,0.354,0.332,0.727,0.257,1.073	c-0.049,0.231-0.201,0.563-0.642,0.832c-0.408,0.253-0.916,0.382-1.507,0.382c-1.364,0-2.758-0.688-2.771-0.695	c-3.043-1.791-5.263-4.016-6.815-6.819c-1.615-2.905-2.511-5.995-2.659-9.183c-0.052-1.019,0.343-1.512,1.363-1.698	c0.633-0.117,1.267-0.176,1.885-0.176c0.454,0,0.903,0.032,1.336,0.096c4.267,0.623,8.04,2.537,11.216,5.688	c1.599,1.583,2.852,3.451,4.062,5.257l0.404,0.601c1.254,1.857,2.813,3.991,4.867,5.726c0.69,0.58,1.22,1.001,1.723,1.31	c0.182,0.112,0.272,0.327,0.227,0.535c-0.047,0.208-0.221,0.364-0.433,0.388C28.785,38.894,28.252,38.924,27.742,38.924z M30.096,28.241c-0.647,0-1.358-0.246-1.812-0.626l-0.141-0.117c-0.486-0.402-0.945-0.781-1.131-1.683	c-0.092-0.45-0.031-1.069,0.032-1.376c0.099-0.461,0.024-0.696-0.307-0.969c-0.109-0.091-0.238-0.158-0.395-0.204	c0.095,0.054,0.178,0.121,0.249,0.201c0.183,0.181,0.299,0.466,0.299,0.762c0,0.615-0.501,1.115-1.117,1.115	c-0.623,0-1.11-0.49-1.11-1.115c0-0.499,0.329-0.921,0.782-1.063c-0.198-0.039-0.37-0.118-0.507-0.19	c-0.239-0.118-0.431-0.336-0.515-0.592c-0.086-0.258-0.06-0.533,0.075-0.795c0.107-0.215,0.452-0.535,0.528-0.592	c0.425-0.247,0.844-0.354,1.298-0.354c0.457,0,0.94,0.105,1.479,0.32c0.78,0.318,1.337,0.862,2.108,1.613	c0.01,0.01,0.077,0.077,0.087,0.087c0.722,0.833,0.919,1.135,1.277,1.682l0.131,0.199c0.325,0.488,0.692,1.086,0.945,1.806	c0.223,0.647-0.075,1.232-0.777,1.529c-0.429,0.176-0.885,0.339-1.355,0.358L30.096,28.241z" opacity=".07"></path><path fill="#fff" d="M23.161,37.107c-4.177-3.284-6.203-4.365-7.04-4.319c-0.782,0.047-0.641,0.942-0.469,1.525	c0.18,0.576,0.415,0.973,0.743,1.478c0.227,0.335,0.383,0.833-0.227,1.206c-1.345,0.833-3.684-0.28-3.794-0.335	c-2.722-1.603-4.998-3.72-6.602-6.614c-1.549-2.786-2.448-5.774-2.597-8.964c-0.039-0.77,0.188-1.043,0.954-1.183	c1.009-0.187,2.049-0.226,3.059-0.078c4.263,0.623,7.893,2.529,10.936,5.548c1.737,1.72,3.051,3.774,4.404,5.782	c1.439,2.132,2.988,4.163,4.959,5.828c0.696,0.584,1.252,1.027,1.783,1.354C27.667,38.515,24.991,38.554,23.161,37.107	L23.161,37.107z M25.164,24.228c0-0.342,0.274-0.615,0.618-0.615c0.078,0,0.149,0.015,0.211,0.039	c0.086,0.031,0.164,0.078,0.227,0.148c0.11,0.109,0.172,0.265,0.172,0.428c0,0.342-0.274,0.615-0.618,0.615	S25.164,24.571,25.164,24.228L25.164,24.228z M31.382,27.419c-0.399,0.163-0.798,0.303-1.181,0.319	c-0.595,0.031-1.244-0.21-1.596-0.506c-0.548-0.459-0.939-0.716-1.103-1.517c-0.07-0.342-0.031-0.872,0.031-1.175	c0.141-0.654-0.016-1.074-0.477-1.455c-0.376-0.311-0.853-0.397-1.377-0.397c-0.196,0-0.375-0.086-0.508-0.156	c-0.219-0.109-0.399-0.381-0.227-0.716c0.055-0.109,0.321-0.373,0.383-0.42c0.712-0.405,1.533-0.272,2.292,0.031	c0.704,0.288,1.236,0.817,2.003,1.564c0.782,0.903,0.923,1.152,1.369,1.829c0.352,0.529,0.673,1.074,0.892,1.696	C32.016,26.905,31.844,27.224,31.382,27.419L31.382,27.419z"></path>
-                                                                </svg>                                                              
-                                                            <div class="info">
-                                                                <p>deekseek Hosting</p>
-                                                                <span>deekseek gpu Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-
-
-
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="#" class="hostie-dropdown-main-element">Domain</a>
-                                <ul class="hostie-submenu list-unstyled menu-pages">
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/domain">Domain Checker</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/domain">Domain Transfer</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/domain">Domain Resigtration</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://720.7tteam.com/whois/">Whois</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="#" class="hostie-dropdown-main-element">Company</a>
-                                <ul class="hostie-submenu list-unstyled menu-pages">
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/technology">Technology</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/data-center">Data Centers</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/about">About</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://7tteam.com/termsofservices">Terms Of Services</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://7tteam.com/privacy-policy">Privacy Policy</a></li>
-
-                                </ul>
-                            </li>
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="#" class="hostie-dropdown-main-element">Help Center</a>
-                                <ul class="hostie-submenu list-unstyled menu-pages">
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/blog.html#update">Update</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/blog.html#news">news</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://status.nutro.cloud/">status</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="https://blog.nutro.cloud">Blog</a>
-                                    </li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://discord.gg/vJKKkaG8hm">Discord</a></li>
-                                </ul>
-                            </li>
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="#" class="hostie-dropdown-main-element">Free Hosting </a>
-                                <ul class="hostie-submenu list-unstyled menu-pages">
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://free.nutro.cloud/">Register</a></li>
-                                    <li class="nav-item"><a class="nav-link"
-                                            href="https://free.nutro.cloud/login">Login</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="free-hosting">about</a></li>
-
-                                </ul>
-                            </li>
-                           
-
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- FOR HEADER RIGHT -->
-                <div class="rts-header__right">
-                    <a href="https://nutro.cloud/users" class="login__btn" target="_blank">Client Area</a>
-                    <button id="menu-btn" aria-label="Menu" class="mobile__active menu-btn"><i
-                            class="fa-sharp fa-solid fa-bars"></i></button>
-                </div>
-            </div>
-        </div>
-    </div>
-   
-</header>
-<!-- HEADER AREA END -->
-    <!-- HEADER AREA END -->
-
-    <!-- SECONDARY HEADER WITH CATEGORIES & SEARCH -->
-    <div class="secondary-header">
-        <div class="container">
-            <div class="secondary-header-content">
-                <div class="top-categories">
-                    <span class="categories-label">Top Categories:</span>
-                    <div class="categories-list" id="top-categories">
-                        <div class="loading-categories">
-                            <div class="spinner-small"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="search-input" placeholder="Search articles..." autocomplete="off">
-                        <button class="search-btn" id="search-btn">
-                            <i class="fa-solid fa-search"></i>
-                        </button>
-                    </div>
-                    <div class="search-results" id="search-results"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- SECONDARY HEADER END -->
-
-    <!-- Hero Section -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-content">
-                <h1>NutroCloud Blog</h1>
-                <p>Stay updated with the latest web hosting tips, tutorials, and industry insights to grow your online presence.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Category View (Hidden by default) -->
-    <div id="category-view" style="display:none;">
-        <div class="container">
-            <div class="category-view-header">
-                <button class="back-btn" onclick="closeCategoryView()">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Blog
-                </button>
-                <h1 id="category-view-title"></h1>
-            </div>
-            <div class="posts-grid" id="category-view-posts"></div>
-        </div>
-    </div>
-
-    <!-- Featured Post -->
-    <div class="container" id="main-content-featured">
-        <div class="featured-post" id="featured-post">
-            <div class="loading">
-                <div class="spinner"></div>
-                <p>Loading featured post...</p>
-            </div>
+    <!-- Search Overlay -->
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-overlay-box">
+            <input type="text" placeholder="Search articles..." id="searchInput" autocomplete="off">
+            <div class="search-results" id="searchResults"></div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="container" id="main-content-categories">
+    <main>
+        <!-- Featured Story -->
+        <section class="featured-section">
+            <div class="blog-container">
+                <div id="featuredStory"></div>
+            </div>
+        </section>
+
+        <!-- Top Stories -->
+        <section class="top-stories-section">
+            <div class="blog-container">
+                <div class="section-header">
+                    <h2>Top Stories</h2>
+                </div>
+                <div class="stories-grid" id="topStories"></div>
+            </div>
+        </section>
+
         <!-- Category Sections -->
-        <div id="category-sections">
-            <div class="loading">
-                <div class="spinner"></div>
-                <p>Loading categories...</p>
+        <div id="categorySections"></div>
+
+        <!-- Ad Banner -->
+        <section class="ad-banner-section">
+            <div class="blog-container" id="adBanner"></div>
+        </section>
+
+        <!-- All Posts -->
+        <section class="all-posts-section">
+            <div class="blog-container">
+                <div class="section-header">
+                    <h2>All Posts</h2>
+                </div>
+                <ul class="all-posts-list" id="allPosts"></ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="blog-footer">
+        <div class="blog-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <img src="https://nutro.cloud/assets/images/logo/logo2.png" alt="Nutro Cloud">
+                    <p>Nutro Cloud is a global hosting platform powered by 7T Team. We help businesses build, launch, and grow their online presence with reliable hosting and AI-powered tools.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.facebook.com/profile.php?id=61556726948483" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.x.com/@7Tteame" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/@7tteam.inc" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@7tteam" target="_blank" rel="noopener" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://discord.gg/vJKKkaG8hm" target="_blank" rel="noopener" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h4>Hosting</h4>
+                    <ul>
+                        <li><a href="https://nutro.cloud/price">Shared Hosting</a></li>
+                        <li><a href="https://nutro.cloud/price">VPS Hosting</a></li>
+                        <li><a href="https://nutro.cloud/price">WordPress Hosting</a></li>
+                        <li><a href="https://nutro.cloud/domain.html">Domain Names</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="https://nutro.cloud/about.html">About Us</a></li>
+                        <li><a href="https://nutro.cloud/blog">Blog</a></li>
+                        <li><a href="https://nutro.cloud/support.html">Support</a></li>
+                        <li><a href="https://nutro.cloud/affiliate.html">Affiliate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://nutro.cloud/blog">Tutorials</a></li>
+                        <li><a href="https://nutro.cloud/blog">Knowledge Base</a></li>
+                        <li><a href="https://nutro.cloud/ai.html">Astro AI</a></li>
+                        <li><a href="https://discord.gg/vJKKkaG8hm">Community</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>&copy; 2024 Nutro Cloud. All rights reserved.</span>
+                <span>Powered by <a href="https://nutro.cloud" style="color: #0774FF;">Nutro Cloud</a></span>
             </div>
         </div>
-    </div>
+    </footer>
 
-    <!-- All Posts Section -->
-    <section class="all-posts-section" id="main-content-allposts">
-        <div class="container">
-            <h2 class="category-title text-center mb-4">All Posts</h2>
-            <div class="all-posts-list" id="all-posts">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Loading all posts...</p>
-                </div>
-            </div>
-        </div>
-    </section>
-  <!-- FOOTER AREA -->
-  <footer class="rts-footer site-footer-one section__padding">
-    <div class="container">
-        <div class="row">
-            <!-- widget -->
-            <div class="col-lg-3 col-md-5 col-sm-6 rts-footer__widget--column">
-                <div class="rts-footer__widget footer__widget w-280">
-                    <a href="index" aria-label="main page link" class="footer__logo">
-                        <img src="assets/images/logo/logo2.png" alt="">
-                    </a>
-                    <p class="brand-desc">We’re on a mission make life easier for web developers & small businesses.</p>
-                    <div class="separator site-default-border"></div>
-                    <div class="payment__method">
-                        <h6>Payment Method</h6>
-                        <ul>
-                            <li><img src="assets/images/payment/visa.svg" alt=""></li>
-                            <li><img src="assets/images/payment/master-card.svg" alt=""></li>
-                            <li><img src="assets/images/payment/paypal.svg" alt=""></li>
-                            <li><img src="assets/images/payment/american-express.svg" alt=""></li>
-                            <li><img src="assets/images/payment/wise.svg" alt=""></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- widget end -->
-            <!-- widget -->
-            <div class="col-lg-2 col-md-3 col-sm-6 rts-footer__widget--column">
-                <div class="rts-footer__widget footer__widget extra-padding">
-                    <h5 class="widget-title">Company</h5>
-                    <div class="rts-footer__widget--menu ">
-                        <ul>
-                            <li><a href="about.html">About Us</a></li>
-                            <li><a href="https://blog.7tteam.com">News Feed</a></li>
-                            <li><a href="contact.html">Contact</a></li>
-                            <li><a href="technology.html">Our Technology</a></li>
-                            <li><a href="sitemap.xml">sitemap </a></li>
-
-                  
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- widget end -->
-            <!-- widget -->
-            <div class="col-lg-2 col-md-4 col-sm-6 rts-footer__widget--column">
-                <div class="rts-footer__widget footer__widget extra-padding">
-                    <h5 class="widget-title">Feature</h5>
-                    <div class="rts-footer__widget--menu ">
-                        <ul>
-                            <li><a href="https://status.nutro.cloud/">status </a></li>
-                            <li><a href="domain">Domain Checker</a></li>
-                            <li><a href="domain">Domain Transfer</a></li>
-                            <li><a href="domain">Domain Registration</a></li>
-                            <li><a href="https://720.7tteam.com/whois/">Whois</a></li>
-                            <li><a href="support">Support</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- widget end -->
-            <!-- widget -->
-            <div class="col-lg-2 col-md-6 col-sm-6 rts-footer__widget--column">
-                <div class="rts-footer__widget footer__widget">
-                    <h5 class="widget-title">Hosting</h5>
-                    <div class="rts-footer__widget--menu">
-                        <ul>
-                            <li><a href="shared-hosting.html">Shared Hosting</a></li>
-                            <li><a href="wordpress-hosting.html">Wordpress Hosting</a></li>
-                            <li><a href="vps-hosting.html">VPS Hosting</a></li>
-                            <li><a href="reseller-hosting.html">Reseller Hosting</a></li>
-                            <li><a href="dedicated-hosting.html">Dedicated Hosting</a></li>
-                            <li><a href="cloud-hosting.html">Cloud Hosting</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- widget end -->
-            <!-- widget -->
-            <div class="col-lg-3 col-md-6 rts-footer__widget--column">
-                <div class="rts-footer__widget footer__widget">
-                    <h5 class="widget-title">Join Our Newsletter</h5>
-                    <p>We'll send you news and offers.</p>
-                    <form action="" class="newsletter mx-40">
-                        <iframe width="500" height="500" src="https://7a368357.sibforms.com/serve/MUIFAPfALqP7XXizXp0BCg8Z879bBaoLiEX9cpc5SXII3YllDlofpZxXaed1cyLYoigBBpzQQypXYiXc6Pl8GBKP2chMIc4Q70kHuPgEYSF-TfElOayumXgfljhi06E3ShpAKFkxeL_vFyUoGve9Edqpr7dAzoNZaoREEn_7gWXD4TNQth4lGLRJf7cIiul8nbuBirb6rkwTS7OD" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
-                    </form>
-                    <div class="social__media">
-                        <h5>social media</h5>
-                        <div class="social__media--list">
-                            <a href="https://www.facebook.com/profile.php?id=61556726948483" aria-label="social-link" target="_blank" class="media"><i class="fa-brands fa-facebook-f"></i></a>
-                            <a href="https://www.instagram.com/@7tteam.inc" aria-label="social-link" target="_blank" class="media"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="https://www.linkedin.com/in/7t-team-817073312/" aria-label="social-link" target="_blank" class="media"><i class="fa-brands fa-linkedin"></i></a>
-                            <a href="https://www.x.com/@7Tteame" aria-label="social-link" target="_blank" class="media"><i class="fa-brands fa-x-twitter"></i></a>
-                            <a href="https://www.behance.com/7tteam" aria-label="social-link" target="_blank" class="media"><i class="fa-brands fa-behance"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- widget end -->
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="rts-footer__copyright text-center">
-                <p>7Tteam &copy; Copyright 2025. All Rights Reserved.</p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- FOOTER AREA END -->
-
-<div id="anywhere-home" class="">
-</div>
-
-<!-- side bar area  -->
-<div id="side-bar" class="side-bar header-two">
-    <button class="close-icon-menu" aria-label="Close Menu"><i class="fa-sharp fa-thin fa-xmark"></i></button>
-    <!-- mobile menu area start -->
-    <div class="mobile-menu-main">
-        <nav class="nav-main mainmenu-nav mt--30">
-            <ul class="mainmenu metismenu" id="mobile-menu-active">
-                <li class="has-droupdown">
-                    <a href="#" class="main">Home</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="index">Home Phone</a></li>
-                        <li><a class="mobile-menu-link" href="index">Mobile App</a></li>
-                            </a></li>
-                        
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Hosting</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="shared-hosting.html">Shared Hosting</a></li>
-                        <li><a class="mobile-menu-link" href="wordpress-hosting.html">WordPress Hosting</a></li>
-                        <li><a class="mobile-menu-link" href="vps-hosting.html">VPS Hosting</a></li>
-                        <li><a class="mobile-menu-link" href="soon">Reseller Hosting</a></li>
-                        <li><a class="mobile-menu-link" href="dedicated-hosting.html">Dedicated Hosting</a></li>
-                        <li><a class="mobile-menu-link" href="cloud-hosting.html">Cloud Hosting</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Domain</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a href="domain">Domain Checker</a></li>
-                        <li><a href="domain">Domain Transfer</a></li>
-                        <li><a href="domain">Domain Registration</a></li>
-                        <li><a href="https://720.7tteam.com/whois/">Whois</a></li>
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Technology</a>
-                    <ul class="submenu mm-collapse">
-                        <li><a class="mobile-menu-link" href="technology.html">Technology</a></li>
-                        <li><a class="mobile-menu-link" href="data-center.html">Data Center</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about">About</a></li>
-                        
-                    </ul>
-                </li>
-                <li class="has-droupdown">
-                    <a href="#" class="main">Help Center</a>
-                    <ul class="submenu mm-collapse">
-                  
-                        <li><a class="mobile-menu-link" href="support.html">Support</a></li>
-                        <li><a class="mobile-menu-link" href="contact.html">Contact</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-
-        <ul class="social-area-one pl--20 mt--100">
-            <li><a href="https://www.linkedin.com/in/7t-team-817073312/" aria-label="social-link" target="_blank"><i class="fa-brands fa-linkedin"></i></a></li>
-            <li><a href="https://www.x.com/@7Tteame" aria-label="social-link" target="_blank"><i class="fa-brands fa-twitter"></i></a></li>
-            <li><a href="https://www.youtube.com/@7tteam" aria-label="social-link" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
-            <li><a href="https://www.facebook.com/profile.php?id=61556726948483" aria-label="social-link" target="_blank"><i class="fa-brands fa-facebook-f"></i></a></li>
-        </ul>
-    </div>
-    <!-- mobile menu area end -->
-</div>
-
-<!-- side abr area end -->
-
-
-    <!-- THEME PRELOADER START -->
-    <div class="loader-wrapper">
-        <div class="loader"></div>
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>
-    <!-- THEME PRELOADER END -->
-
-    <!-- BACK TO TOP AREA START -->
-    <div class="progress-wrap active-progress">
-        <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-            <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="transition: stroke-dashoffset 10ms linear; stroke-dasharray: 307.919, 307.919; stroke-dashoffset: 258.319;"></path>
-        </svg>
-    </div>
-    <!-- BACK TO TOP AREA END -->
-
-    <!-- Scripts -->
-    <script defer src="../assets/js/plugins.min.js"></script>
-    <script defer src="../assets/js/main.js"></script>
-
+    <!-- JavaScript -->
     <script>
-        // Configuration - NEW SYSTEM
-        const POSTS_DATA_URL = 'posts-data.json';
+    (function() {
+        'use strict';
 
         // Utility functions
-        function stripHtml(html) {
-            const tmp = document.createElement("div");
-            tmp.innerHTML = html;
-            return tmp.textContent || tmp.innerText || "";
+        function formatCategory(slug) {
+            return slug.split('-').map(function(word) {
+                return word.charAt(0).toUpperCase() + word.slice(1);
+            }).join(' ');
         }
 
-        function formatDate(dateString) {
-            return new Date(dateString).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return date.toLocaleDateString('en-US', options);
         }
 
-        // Fetch blog data from JSON
-        async function fetchBlogData() {
-            try {
-                const response = await fetch(POSTS_DATA_URL);
-                const data = await response.json();
-                return { posts: data.posts || [] };
-            } catch (error) {
-                console.error('Error loading posts:', error);
-                return { posts: [] };
-            }
+        function estimateReadTime(description) {
+            const words = description ? description.split(' ').length : 0;
+            const time = Math.max(2, Math.ceil(words / 40));
+            return time + ' min read';
         }
 
-        // Render featured post (pinned post)
-        function renderFeaturedPost(post) {
-            const container = document.getElementById('featured-post');
-            if (!post) {
-                container.innerHTML = '<p class="text-center">No featured post available.</p>';
-                return;
-            }
-
+        // Render Featured Story
+        function renderFeatured(post) {
+            const container = document.getElementById('featuredStory');
             container.innerHTML = `
-                <div class="featured-post-layout">
-                    <div class="featured-post-image">
-                        <img src="${post.cover}" alt="${post.title}">
-                    </div>
-                    <div class="featured-post-content">
-                        <span class="featured-badge">Featured</span>
-                        <h2><a href="${post.url}">${post.title}</a></h2>
-                        <p>${post.description || stripHtml(post.content || '').substring(0, 200)}...</p>
-                        <div class="post-meta">
-                            <span><i class="fa-regular fa-user"></i> ${post.author || 'Admin'}</span>
-                            <span><i class="fa-regular fa-calendar"></i> ${formatDate(post.date)}</span>
-                            <span><i class="fa-regular fa-tag"></i> ${post.category}</span>
+                <a href="${post.url}" class="featured-card">
+                    <img src="${post.cover}" alt="${post.title}" class="featured-image" loading="eager">
+                    <div class="featured-content">
+                        <div class="featured-label"><i class="fas fa-star"></i> Featured Story</div>
+                        <h1>${post.title}</h1>
+                        <p>${post.description}</p>
+                        <div class="featured-meta">
+                            <span class="author">${post.author}</span>
+                            <span class="divider"></span>
+                            <span>${formatDate(post.date)}</span>
+                            <span class="divider"></span>
+                            <span>${estimateReadTime(post.description)}</span>
                         </div>
                     </div>
-                </div>
+                </a>
             `;
         }
 
-        // Render category sections
-        function renderCategorySections(posts) {
-            const container = document.getElementById('category-sections');
-            
-            // Group posts by category
+        // Render Top Stories
+        function renderTopStories(posts) {
+            const container = document.getElementById('topStories');
+            container.innerHTML = posts.map(function(post) {
+                return `
+                    <a href="${post.url}" class="story-card">
+                        <img src="${post.cover}" alt="${post.title}" class="story-card-image" loading="lazy">
+                        <div class="story-card-body">
+                            <div class="story-card-meta">
+                                <span>${formatDate(post.date)}</span>
+                                <span class="category">${formatCategory(post.category)}</span>
+                                <span>${estimateReadTime(post.description)}</span>
+                            </div>
+                            <h3>${post.title}</h3>
+                            <p class="story-card-excerpt">${post.description}</p>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        }
+
+        // Render Category Sections
+        function renderCategories(posts) {
+            const container = document.getElementById('categorySections');
             const categories = {};
-            posts.forEach(post => {
-                if (!post.featured) { // Exclude featured posts from category sections
-                    if (!categories[post.category]) {
-                        categories[post.category] = [];
-                    }
-                    categories[post.category].push(post);
+
+            posts.forEach(function(post) {
+                if (!categories[post.category]) {
+                    categories[post.category] = [];
                 }
+                categories[post.category].push(post);
             });
 
             let html = '';
-            Object.keys(categories).forEach(categoryName => {
-                const categoryPosts = categories[categoryName].slice(0, 3); // Show max 3 posts per category
-                
+            Object.keys(categories).forEach(function(cat) {
+                const catPosts = categories[cat].slice(0, 3);
                 html += `
-                    <div class="category-section">
-                        <div class="category-header">
-                            <h2 class="category-title">${categoryName}</h2>
-                            <div class="category-nav">
-                                <button class="nav-arrow" onclick="scrollCategory('${categoryName}', -1)">
-                                    <i class="fa-solid fa-chevron-left"></i>
-                                </button>
-                                <button class="nav-arrow" onclick="scrollCategory('${categoryName}', 1)">
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                </button>
-                                <a href="#" class="view-all-btn" onclick="filterByCategory('${categoryName}')">
-                                    View All <i class="fa-solid fa-arrow-right"></i>
-                                </a>
+                    <section class="category-section">
+                        <div class="blog-container">
+                            <div class="section-header">
+                                <h2>${formatCategory(cat)}</h2>
+                            </div>
+                            <div class="category-grid">
+                                ${catPosts.map(function(post) {
+                                    return `
+                                        <a href="${post.url}" class="story-card">
+                                            <img src="${post.cover}" alt="${post.title}" class="story-card-image" loading="lazy">
+                                            <div class="story-card-body">
+                                                <div class="story-card-meta">
+                                                    <span>${formatDate(post.date)}</span>
+                                                    <span class="category">${formatCategory(post.category)}</span>
+                                                    <span>${estimateReadTime(post.description)}</span>
+                                                </div>
+                                                <h3>${post.title}</h3>
+                                                <p class="story-card-excerpt">${post.description}</p>
+                                            </div>
+                                        </a>
+                                    `;
+                                }).join('')}
                             </div>
                         </div>
-                        <div class="posts-grid" id="category-${categoryName.replace(/\s+/g, '-')}">
-                            ${categoryPosts.map(post => `
-                                <article class="post-card" itemscope itemtype="https://schema.org/BlogPosting" onclick="window.location.href='${post.url}'">
-                                    <div class="post-card-image">
-                                        <img src="${post.cover}" alt="${post.title}" itemprop="image">
-                                    </div>
-                                    <div class="post-card-content">
-                                        <span class="post-category" itemprop="articleSection">${post.category}</span>
-                                        <h3 itemprop="headline">${post.title}</h3>
-                                        <p class="post-excerpt" itemprop="description">${post.description || stripHtml(post.content || '').substring(0, 120)}...</p>
-                                        <div class="post-meta">
-                                            <time datetime="${post.date}" itemprop="datePublished"><i class="fa-regular fa-calendar"></i> ${formatDate(post.date)}</time>
-                                            <span itemprop="author" itemscope itemtype="https://schema.org/Person"><i class="fa-regular fa-user"></i> <span itemprop="name">${post.author || 'Admin'}</span></span>
-                                        </div>
-                                    </div>
-                                </article>
-                            `).join('')}
-                        </div>
-                    </div>
+                    </section>
                 `;
             });
 
             container.innerHTML = html;
         }
 
-        // Render all posts section
+        // Render All Posts
         function renderAllPosts(posts) {
-            const container = document.getElementById('all-posts');
-            const nonPinnedPosts = posts.filter(post => !post.featured).slice(0, 20); // Limit to 20 posts
-            
-            const html = nonPinnedPosts.map((post, index) => `
-                <div class="all-posts-item">
-                    <span class="post-number">${String(index + 1).padStart(2, '0')}</span>
-                    <div class="post-info">
-                        <div class="post-title">
-                            <a href="${post.url}">${post.title}</a>
-                        </div>
-                        <div class="post-date">${formatDate(post.date)} • ${post.category}</div>
-                    </div>
-                </div>
-            `).join('');
-
-            container.innerHTML = html;
+            const container = document.getElementById('allPosts');
+            container.innerHTML = posts.map(function(post, index) {
+                return `
+                    <li class="all-post-item">
+                        <span class="all-post-number">${String(index + 1).padStart(2, '0')}</span>
+                        <a href="${post.url}" class="all-post-info">
+                            <h4>${post.title}</h4>
+                            <div class="post-meta">
+                                <span class="category">${formatCategory(post.category)}</span>
+                                <span>${post.author}</span>
+                                <span>${estimateReadTime(post.description)}</span>
+                            </div>
+                        </a>
+                        <span class="all-post-date">${formatDate(post.date)}</span>
+                    </li>
+                `;
+            }).join('');
         }
 
-        // Category navigation functions
-        function scrollCategory(categoryName, direction) {
-            console.log(`Scrolling ${categoryName} in direction ${direction}`);
-        }
-
-        function filterByCategory(categoryName) {
-            const posts = allPosts.filter(p => p.category === categoryName);
-            
-            document.getElementById('category-view-title').textContent = categoryName;
-            document.getElementById('category-view-posts').innerHTML = posts.map(post => `
-                <article class="post-card" itemscope itemtype="https://schema.org/BlogPosting" onclick="window.location.href='${post.url}'">
-                    <div class="post-card-image">
-                        <img src="${post.cover}" alt="${post.title}" itemprop="image">
-                    </div>
-                    <div class="post-card-content">
-                        <span class="post-category" itemprop="articleSection">${post.category}</span>
-                        <h3 itemprop="headline">${post.title}</h3>
-                        <p class="post-excerpt" itemprop="description">${post.description || stripHtml(post.content || '').substring(0, 120)}...</p>
-                        <div class="post-meta">
-                            <time datetime="${post.date}" itemprop="datePublished"><i class="fa-regular fa-calendar"></i> ${formatDate(post.date)}</time>
-                            <span itemprop="author"><i class="fa-regular fa-user"></i> ${post.author || 'Admin'}</span>
-                        </div>
-                    </div>
-                </article>
-            `).join('');
-
-            // Hide main, show category view
-            document.getElementById('main-content-featured').style.display = 'none';
-            document.getElementById('main-content-categories').style.display = 'none';
-            document.getElementById('main-content-allposts').style.display = 'none';
-            document.getElementById('category-view').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function closeCategoryView() {
-            document.getElementById('category-view').style.display = 'none';
-            document.getElementById('main-content-featured').style.display = '';
-            document.getElementById('main-content-categories').style.display = '';
-            document.getElementById('main-content-allposts').style.display = '';
-        }
-
-        // Global variables for search
-        let allPosts = [];
-        let searchTimeout;
-
-        // Render top categories
-        function renderTopCategories(posts) {
-            const container = document.getElementById('top-categories');
-            
-            // Count posts per category
-            const categoryCount = {};
-            posts.forEach(post => {
-                if (!post.featured) {
-                    categoryCount[post.category] = (categoryCount[post.category] || 0) + 1;
-                }
-            });
-
-            // Get top 5 categories
-            const topCategories = Object.entries(categoryCount)
-                .sort(([,a], [,b]) => b - a)
-                .slice(0, 5)
-                .map(([category]) => category);
-
-            const html = topCategories.map(category => 
-                `<span class="category-tag" onclick="filterByCategory('${category}')">${category}</span>`
-            ).join('');
-
-            container.innerHTML = html;
+        // Load Ad Banner
+        function loadAdBanner() {
+            fetch('sidebar-config.json')
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    if (data.ads && data.ads.length > 0) {
+                        const ad = data.ads.find(function(a) { return a.enabled; });
+                        if (ad) {
+                            document.getElementById('adBanner').innerHTML = `
+                                <a href="${ad.link}" target="_blank" rel="noopener">
+                                    <img src="${ad.image}" alt="${ad.alt}" style="width:${ad.width}; height:${ad.height};">
+                                </a>
+                            `;
+                        }
+                    }
+                })
+                .catch(function(err) {
+                    console.log('Ad banner not loaded:', err);
+                });
         }
 
         // Search functionality
-        function initSearch() {
-            const searchInput = document.getElementById('search-input');
-            const searchResults = document.getElementById('search-results');
-            const searchBtn = document.getElementById('search-btn');
+        function initSearch(posts) {
+            const headerInput = document.getElementById('headerSearchInput');
+            const overlay = document.getElementById('searchOverlay');
+            const searchInput = document.getElementById('searchInput');
+            const resultsContainer = document.getElementById('searchResults');
 
-            // Search on input
+            headerInput.addEventListener('focus', function() {
+                overlay.classList.add('active');
+                setTimeout(function() { searchInput.focus(); }, 100);
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                    headerInput.value = '';
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    overlay.classList.remove('active');
+                    headerInput.value = '';
+                }
+            });
+
             searchInput.addEventListener('input', function() {
-                clearTimeout(searchTimeout);
-                const query = this.value.trim();
-                
+                const query = this.value.toLowerCase().trim();
                 if (query.length < 2) {
-                    searchResults.classList.remove('show');
+                    resultsContainer.innerHTML = '';
                     return;
                 }
 
-                searchTimeout = setTimeout(() => {
-                    performSearch(query);
-                }, 300);
-            });
-
-            // Search on button click
-            searchBtn.addEventListener('click', function() {
-                const query = searchInput.value.trim();
-                if (query.length >= 2) {
-                    performSearch(query);
-                }
-            });
-
-            // Hide results when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.search-container')) {
-                    searchResults.classList.remove('show');
-                }
-            });
-
-            // Enter key search
-            searchInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    const query = this.value.trim();
-                    if (query.length >= 2) {
-                        performSearch(query);
-                    }
-                }
-            });
-        }
-
-        // Perform search
-        function performSearch(query) {
-            const searchResults = document.getElementById('search-results');
-            const results = allPosts.filter(post => {
-                const searchText = `${post.title} ${post.description || ''} ${post.category}`.toLowerCase();
-                return searchText.includes(query.toLowerCase());
-            });
-
-            if (results.length === 0) {
-                searchResults.innerHTML = '<div class="no-results">No articles found</div>';
-            } else {
-                const html = results.slice(0, 8).map(post => `
-                    <div class="search-result-item" onclick="window.location.href='${post.url}'">
-                        <div class="search-result-title">${post.title}</div>
-                        <div class="search-result-excerpt">${post.description || stripHtml(post.content || '').substring(0, 80)}...</div>
-                        <span class="search-result-category">${post.category}</span>
-                    </div>
-                `).join('');
-                searchResults.innerHTML = html;
-            }
-
-            searchResults.classList.add('show');
-        }
-
-        // Initialize the page
-        async function initPage() {
-            try {
-                const data = await fetchBlogData();
-                const posts = data.posts || [];
-                allPosts = posts; // Store for search
-                
-                // Sort posts: featured first, then by date
-                posts.sort((a, b) => {
-                    if (a.featured && !b.featured) return -1;
-                    if (!a.featured && b.featured) return 1;
-                    return new Date(b.date) - new Date(a.date);
+                const results = posts.filter(function(post) {
+                    return post.title.toLowerCase().includes(query) ||
+                           post.description.toLowerCase().includes(query) ||
+                           post.category.toLowerCase().includes(query);
                 });
 
-                // Find featured post
-                const featuredPost = posts.find(post => post.featured);
-                
-                // Render sections
-                renderTopCategories(posts);
-                renderFeaturedPost(featuredPost);
-                renderCategorySections(posts);
-                renderAllPosts(posts);
-                
-                // Initialize search
-                initSearch();
+                if (results.length === 0) {
+                    resultsContainer.innerHTML = '<div class="search-no-results">No articles found matching your search.</div>';
+                    return;
+                }
 
-                // Load sidebar config for promo banner
-                try {
-                    const cfgRes = await fetch('sidebar-config.json');
-                    const cfg = await cfgRes.json();
-                    if (cfg.ads && cfg.ads.length > 0) {
-                        const ad = cfg.ads[0];
-                        const banner = document.createElement('div');
-                        banner.style.cssText = 'max-width:1100px;margin:0 auto 40px;padding:0 24px;';
-                        banner.innerHTML = `<a href="${ad.link}" target="_blank" style="display:block;border-radius:14px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.06);transition:transform .2s;"><img src="${ad.image}" alt="${ad.alt}" style="width:100%;height:auto;display:block;"></a>`;
-                        const allPostsSection = document.getElementById('main-content-allposts');
-                        if (allPostsSection) allPostsSection.parentNode.insertBefore(banner, allPostsSection);
-                    }
-                } catch(e) {}
-                
-            } catch (error) {
-                console.error('Error initializing page:', error);
-            }
+                resultsContainer.innerHTML = results.map(function(post) {
+                    return `
+                        <a href="${post.url}" class="search-result-item">
+                            <h4>${post.title}</h4>
+                            <p>${post.description}</p>
+                        </a>
+                    `;
+                }).join('');
+            });
         }
 
-        // Initialize when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initPage);
+        // Main init
+        function init() {
+            fetch('posts-data.json')
+                .then(function(res) { return res.json(); })
+                .then(function(data) {
+                    const posts = data.posts || [];
+
+                    // Find featured post
+                    const featured = posts.find(function(p) { return p.featured === true; }) || posts[0];
+                    const nonFeatured = posts.filter(function(p) { return p.id !== featured.id; });
+
+                    // Render sections
+                    renderFeatured(featured);
+                    renderTopStories(nonFeatured.slice(0, 3));
+                    renderCategories(nonFeatured);
+                    renderAllPosts(posts);
+
+                    // Init search
+                    initSearch(posts);
+                })
+                .catch(function(err) {
+                    console.error('Failed to load posts:', err);
+                    document.getElementById('featuredStory').innerHTML = '<p style="text-align:center; color:#94a3b8; padding:40px;">Unable to load blog posts. Please try again later.</p>';
+                });
+
+            // Load ad banner
+            loadAdBanner();
+        }
+
+        // Start
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
     </script>
+
 </body>
 </html>
