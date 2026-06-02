@@ -1,32 +1,59 @@
 {
-  "ads": [
-    {
-      "image": "../assets/images/ads/hosting-promo.png",
-      "alt": "Get 73% OFF Web Hosting",
-      "link": "https://nutro.cloud/price",
-      "width": "100%",
-      "height": "auto"
+    "ads": [
+        {
+            "id": "ad-1",
+            "image": "https://i.postimg.cc/yNsQfW1h/al-Link-ally-naqs-albyzns-bta\u02bfk-wsl-Bizoo-me-adhkya\u02be-albrmjt-wqwt-alsyrfrat-fy-mkan-wahd-(2).png",
+            "link": "https://nutro.cloud/price",
+            "alt": "Get 73% OFF Web Hosting - Starting $2.99/mo",
+            "width": "100%",
+            "height": "auto",
+            "enabled": true
+        }
+    ],
+    "learningLab": {
+        "enabled": true,
+        "title": "Not sure where to start?",
+        "subtitle": "Find the right learning path for you.",
+        "buttonText": "Go to Learning Lab",
+        "buttonLink": "https://nutro.cloud/blog",
+        "icon": "fas fa-graduation-cap"
+    },
+    "publisher": {
+        "name": "Nutro Cloud",
+        "logo": "https://nutro.cloud/assets/images/logo/logo2.png",
+        "description": "Nutro Cloud is a global hosting platform powered by 7T Team. We help businesses build, launch, and grow their online presence with reliable hosting and AI-powered tools.",
+        "website": "https://nutro.cloud",
+        "socials": [
+            {
+                "icon": "fab fa-facebook-f",
+                "link": "https://www.facebook.com/profile.php?id=61556726948483",
+                "label": "Facebook"
+            },
+            {
+                "icon": "fab fa-x-twitter",
+                "link": "https://www.x.com/@7Tteame",
+                "label": "X"
+            },
+            {
+                "icon": "fab fa-instagram",
+                "link": "https://www.instagram.com/@7tteam.inc",
+                "label": "Instagram"
+            },
+            {
+                "icon": "fab fa-linkedin-in",
+                "link": "https://www.linkedin.com/in/7t-team-817073312/",
+                "label": "LinkedIn"
+            },
+            {
+                "icon": "fab fa-youtube",
+                "link": "https://www.youtube.com/@7tteam",
+                "label": "YouTube"
+            },
+            {
+                "icon": "fab fa-discord",
+                "link": "https://discord.gg/vJKKkaG8hm",
+                "label": "Discord"
+            }
+        ]
     }
-  ],
-  "learningLab": {
-    "title": "Not sure where to start?",
-    "subtitle": "Find the right learning path for you.",
-    "buttonText": "Go to Learning Lab",
-    "buttonLink": "https://nutro.cloud/blog",
-    "icon": "fas fa-graduation-cap"
-  },
-  "publisher": {
-    "name": "Nutro Cloud",
-    "logo": "../assets/images/logo/logo2.png",
-    "description": "Nutro Cloud is a global hosting platform powered by 7T Team. We help millions build, launch, and grow their online presence.",
-    "website": "https://nutro.cloud",
-    "socials": [
-      { "icon": "fab fa-facebook-f", "link": "https://www.facebook.com/profile.php?id=61556726948483", "label": "Facebook" },
-      { "icon": "fab fa-x-twitter", "link": "https://www.x.com/@7Tteame", "label": "X (Twitter)" },
-      { "icon": "fab fa-instagram", "link": "https://www.instagram.com/@7tteam.inc", "label": "Instagram" },
-      { "icon": "fab fa-linkedin-in", "link": "https://www.linkedin.com/in/7t-team-817073312/", "label": "LinkedIn" },
-      { "icon": "fab fa-youtube", "link": "https://www.youtube.com/@7tteam", "label": "YouTube" },
-      { "icon": "fab fa-discord", "link": "https://discord.gg/vJKKkaG8hm", "label": "Discord" }
-    ]
-  }
 }
