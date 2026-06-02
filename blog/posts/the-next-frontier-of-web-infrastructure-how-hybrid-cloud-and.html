@@ -74,7 +74,7 @@ body{background:#fff;margin:0;}
 .bp-content ul li::marker{color:#0774FF;}
 .bp-content ol li::marker{color:#0774FF;font-weight:700;}
 .bp-content pre{background:#1e293b;border-radius:12px;padding:20px;margin:24px 0;overflow-x:auto;position:relative;}
-.bp-content pre code{color:#e2e8f0;font-family:'JetBrains Mono',monospace;font-size:14px;line-height:1.6;}
+.bp-content pre code{color:#e2e8f0;font-family:'JetBrains Mono','Courier New',monospace;font-size:14px;line-height:1.8;white-space:pre;display:block;}
 .bp-content p code{background:#fee2e2;color:#dc2626;padding:2px 8px;border-radius:4px;font-size:15px;}
 .bp-content table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:10px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
 .bp-content th{background:#0774FF;color:#fff;padding:14px 16px;text-align:left;font-weight:600;}
@@ -327,8 +327,17 @@ fetch('../../header.html').then(r=>r.text()).then(d=>{document.getElementById('h
   
   // Convert code blocks (``` ... ```)
   html = html.replace(/<p>```(\w*)<\/p>([\s\S]*?)<p>```<\/p>/g, function(m, lang, code) {
-    code = code.replace(/<\/?p>/g, '\n').replace(/<br\s*\/?>/g, '\n').replace(/&nbsp;/g, ' ').trim();
-    return '<pre><code>' + code + '</code></pre>';
+    // Clean up: remove <p> tags, convert <br> to newlines, preserve spacing
+    code = code.replace(/<\/p>\s*<p>/g, '\n')
+               .replace(/<p>/g, '')
+               .replace(/<\/p>/g, '')
+               .replace(/<br\s*\/?>/g, '\n')
+               .replace(/&nbsp;/g, ' ')
+               .replace(/&amp;/g, '&')
+               .replace(/&lt;/g, '<')
+               .replace(/&gt;/g, '>')
+               .trim();
+    return '<pre><code class="language-' + (lang || 'plaintext') + '">' + code.replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</code></pre>';
   });
   
   // Convert * bullet points
