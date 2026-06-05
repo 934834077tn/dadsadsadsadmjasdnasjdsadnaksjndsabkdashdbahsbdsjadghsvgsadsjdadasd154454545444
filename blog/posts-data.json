@@ -1,6 +1,17 @@
 {
     "posts": [
         {
+            "id": "the-rise-of-autonomous-ai-agents-how-intelligent-swarms-are",
+            "title": "The Rise of Autonomous AI Agents: How Intelligent Swarms are Replacing Single-Prompt AI",
+            "description": "Explore the massive shift from passive AI chatbots to autonomous AI agents and multi-agent swarms. Learn how intelligent self-healing systems, tools integration, and secure sandboxing are redefining enterprise technology workflows.",
+            "category": "news",
+            "author": "NutroCloud Team",
+            "date": "2026-06-05 16:12:00",
+            "cover": "https:\/\/i.postimg.cc\/BbRgS9mf\/Untitled-design-(2).png",
+            "url": "posts\/the-rise-of-autonomous-ai-agents-how-intelligent-swarms-are.html",
+            "featured": false
+        },
+        {
             "id": "the-next-frontier-of-web-infrastructure-how-hybrid-cloud-and",
             "title": "The Next Frontier of Web Infrastructure: How Hybrid Cloud and Generative AI are Redefining Enterprise Hosting",
             "description": "Discover how Hybrid Cloud infrastructure and Generative AI are revolutionizing enterprise web hosting in 2026. Learn about autonomous self-healing servers, next-gen cybersecurity, and scalable microservices optimized for maximum efficiency, uptime, and cost savings on Nutro.Cloud.",
