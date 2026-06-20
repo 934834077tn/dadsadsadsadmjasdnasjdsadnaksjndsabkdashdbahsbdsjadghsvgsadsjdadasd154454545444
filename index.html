@@ -262,34 +262,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         html{scroll-behavior:smooth;}
 
         /* Scroll animations removed - sections render immediately */
-
-        .rts-hero-four {
-            
-            background-repeat: no-repeat;
-            background-position: right center;
-            background-color: #0a2540;
-
-        }
-
-        @media (max-width: 768px) {
-            .rts-hero-four {
-                background: #0a2540;
-            }
-            .hero-image {
-                position: static !important;
-                width: 100% !important;
-                height: 400px !important;
-                margin-top: 20px;
-                order: 2;
-            }
-            .rts-hero-four__content {
-                order: 1;
-            }
-            .rts-hero-four .row {
-                display: flex;
-                flex-direction: column;
-            }
-        }
        /* Cookie Consent Styles */
 .cookie-consent-overlay {
     position: fixed;
@@ -920,371 +892,290 @@ if (document.readyState === 'loading') {
 </script>
 
       <style>
-/* ===== HERO – Modern Redesign ===== */
-.hero{
-  position:relative;min-height:100vh;
-  display:flex;align-items:center;justify-content:center;text-align:center;
-  overflow:hidden;
-  background:radial-gradient(ellipse 120% 80% at 50% -10%,#0d2a5e 0%,#050d1f 55%,#020810 100%);
-}
-.hero-bg{position:absolute;inset:0;z-index:0;}
+/* ===== NEW HERO – Domain Search + Full-Width Slider ===== */
+.hero-new{position:relative;overflow:hidden;background:linear-gradient(180deg,#0a0a2a 0%,#1a1a5e 40%,#2020c0 100%);padding-bottom:10px;}
 
-/* Glows – stronger, brand-aligned */
-.hero-glow{position:absolute;border-radius:50%;filter:blur(120px);pointer-events:none;}
-.hero-glow-1{
-  width:700px;height:700px;
-  background:radial-gradient(circle,rgba(7,116,255,0.22) 0%,rgba(7,116,255,0.06) 60%,transparent 100%);
-  top:-20%;left:10%;
-  animation:hero-float-1 18s ease-in-out infinite alternate;
+/* -- Domain Search Bar (matching domain.html style) -- */
+.hero-search-bar{
+  background:transparent;padding:16px 24px;position:relative;z-index:10;
 }
-.hero-glow-2{
-  width:500px;height:500px;
-  background:radial-gradient(circle,rgba(45,60,88,0.35) 0%,rgba(7,116,255,0.08) 60%,transparent 100%);
-  bottom:-5%;right:5%;
-  animation:hero-float-2 14s ease-in-out infinite alternate;
+.hero-search-inner{
+  max-width:820px;margin:0 auto;
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center;
 }
-@keyframes hero-float-1{0%{transform:translate(0,0) scale(1)}100%{transform:translate(50px,35px) scale(1.05)}}
-@keyframes hero-float-2{0%{transform:translate(0,0) scale(1)}100%{transform:translate(-40px,-25px) scale(1.08)}}
+.hero-search-form{
+  flex:1;min-width:300px;max-width:600px;
+  background:#fff;border-radius:60px;
+  padding:6px 6px 6px 28px;display:flex;align-items:center;
+  box-shadow:0 4px 20px rgba(0,0,0,0.08),0 0 0 1.5px #e2e8f0;transition:all .3s;
+}
+.hero-search-form:focus-within{box-shadow:0 4px 24px rgba(7,116,255,0.15),0 0 0 2px #0774FF;}
+.hero-search-form input{
+  flex:1;border:none;outline:none;background:transparent;
+  font-size:17px;font-weight:500;color:#0d1b2e;padding:16px 0;min-width:0;
+}
+.hero-search-form input::placeholder{color:#94a3b8;font-weight:400;font-size:15px;}
+.hero-search-btn{
+  width:50px;height:50px;border-radius:50%;border:none;
+  background:#0774FF;color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:all .25s;box-shadow:0 4px 16px rgba(7,116,255,0.4);
+}
+.hero-search-btn:hover{background:#0553c7;transform:scale(1.08);box-shadow:0 6px 24px rgba(7,116,255,0.5);}
+.hero-search-btn i{font-size:18px;}
+.hero-search-tlds{display:flex;gap:16px;align-items:center;flex-wrap:wrap;}
+.hero-search-tld{color:rgba(255,255,255,0.6);font-size:14px;font-weight:600;cursor:default;}
+.hero-search-tld span{color:#fff;font-weight:800;font-size:15px;}
 
-/* Subtle dot grid */
-.hero-grid{
+/* -- Slider Area (rounded card, 10px from edges) -- */
+.hero-slider{
+  position:relative;height:680px;overflow:hidden;
+  margin:0 10px 10px;border-radius:16px;
+}
+.hero-slide{
+  position:absolute;inset:0;display:flex;align-items:center;
+  opacity:0;transition:opacity 1.2s ease;pointer-events:none;
+}
+.hero-slide.active{opacity:1;pointer-events:auto;}
+.hero-slide-bg{position:absolute;inset:0;}
+.hero-slide-bg img{
+  width:100%;height:100%;object-fit:cover;object-position:center;
+  image-rendering:auto;-webkit-image-rendering:auto;
+  transform:scale(1.02);
+}
+.hero-slide-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.hero-slide-overlay{
   position:absolute;inset:0;
-  background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);
-  background-size:40px 40px;
-  mask-image:radial-gradient(ellipse 80% 60% at 50% 40%,black 10%,transparent 75%);
+  background:linear-gradient(90deg,rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.1) 100%);
 }
-
-/* Top shimmer line */
-.hero-line{
-  position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent 10%,rgba(7,116,255,0.6) 50%,transparent 90%);
-  animation:hero-line-pulse 4s ease-in-out infinite;
+.hero-slide-content{
+  position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 56px;width:100%;
 }
-@keyframes hero-line-pulse{0%,100%{opacity:0.5}50%{opacity:1}}
-
-.hero-wrap{position:relative;z-index:2;max-width:800px;margin:0 auto;padding:0 24px;}
-
-/* Badge */
-.hero-badge{
+.hero-slide-text{max-width:560px;}
+.hero-slide-label{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(7,116,255,0.1);
-  border:1px solid rgba(7,116,255,0.28);
-  color:rgba(255,255,255,0.7);
-  font-size:13px;font-weight:500;
-  padding:7px 20px 7px 8px;
-  border-radius:100px;
-  text-decoration:none;
-  margin-bottom:32px;
-  transition:all .3s;
-  position:relative;overflow:hidden;
+  color:rgba(255,255,255,0.85);font-size:12px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:16px;
+  background:rgba(255,255,255,0.1);padding:6px 14px;border-radius:50px;
   backdrop-filter:blur(8px);
 }
-.hero-badge::before{
-  content:'';
-  position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(7,116,255,0.15),transparent);
-  animation:hero-badge-shimmer 3s ease-in-out infinite;
+.hero-slide-title{
+  font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;color:#fff;
+  line-height:1.12;margin:0 0 20px;letter-spacing:-1.5px;
 }
-@keyframes hero-badge-shimmer{0%{left:-100%}100%{left:200%}}
-.hero-badge:hover{border-color:rgba(7,116,255,0.55);background:rgba(7,116,255,0.16);color:rgba(255,255,255,0.9);transform:translateY(-1px);}
-.hero-badge-tag{
-  background:linear-gradient(135deg,#0774FF,#3b82f6);
-  color:#fff;font-size:10px;font-weight:700;
-  padding:3px 11px;border-radius:100px;letter-spacing:0.8px;
-  box-shadow:0 2px 8px rgba(7,116,255,0.4);
+.hero-slide-desc{
+  font-size:17px;color:rgba(255,255,255,0.85);line-height:1.7;margin:0 0 32px;max-width:480px;
 }
-
-/* Title */
-.hero-title{
-  font-size:clamp(2.5rem,5.8vw,4.8rem);
-  font-weight:800;color:#fff;
-  line-height:1.08;margin:0 0 22px;
-  letter-spacing:-2px;
-  text-shadow:0 2px 40px rgba(7,116,255,0.15);
-}
-.hero-title-grad{
-  display:inline-block;
-  background:linear-gradient(90deg,#60a5fa 0%,#93c5fd 30%,#0774FF 55%,#60a5fa 80%,#93c5fd 100%);
-  background-size:200% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:hero-grad 5s linear infinite;
-  filter:drop-shadow(0 0 20px rgba(7,116,255,0.3));
-}
-@keyframes hero-grad{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-
-/* Subtitle */
-.hero-sub{
-  font-size:clamp(1rem,1.7vw,1.15rem);
-  color:rgba(255,255,255,0.65);
-  max-width:520px;margin:0 auto 40px;
-  line-height:1.85;
-  font-weight:400;
-}
-
-/* AI Input box */
-.hero-input{max-width:600px;margin:0 auto 32px;cursor:pointer;}
-.hero-input-box{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:16px;
-  padding:14px 16px;
-  display:flex;align-items:center;gap:12px;
-  transition:all .35s;
-  backdrop-filter:blur(16px);
-  box-shadow:0 4px 24px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.06);
-}
-.hero-input-box:hover{
-  border-color:rgba(7,116,255,0.5);
-  box-shadow:0 0 0 3px rgba(7,116,255,0.1),0 8px 40px rgba(7,116,255,0.15),inset 0 1px 0 rgba(255,255,255,0.08);
-  background:rgba(7,116,255,0.04);
-}
-.hero-input-icon{flex-shrink:0;color:rgba(7,116,255,0.5);font-size:16px;}
-.hero-input-text{flex:1;text-align:left;}
-.hero-input-label{color:rgba(255,255,255,0.25);font-size:10px;margin-bottom:2px;letter-spacing:0.8px;text-transform:uppercase;}
-.hero-input-typing{display:flex;align-items:center;min-height:20px;}
-#h-type{color:rgba(255,255,255,0.8);font-size:14px;font-family:ui-monospace,SFMono-Regular,monospace;}
-#h-cur{display:inline-block;width:2px;height:15px;background:#0774FF;border-radius:1px;margin-left:1px;animation:h-blink .85s step-end infinite;box-shadow:0 0 6px rgba(7,116,255,0.8);}
-@keyframes h-blink{0%,100%{opacity:1}50%{opacity:0}}
-.hero-input-btn{
-  background:linear-gradient(135deg,#0774FF 0%,#3b82f6 100%);
-  border-radius:10px;color:#fff;
-  font-size:12px;font-weight:700;
-  padding:9px 20px;
-  flex-shrink:0;white-space:nowrap;
-  display:flex;align-items:center;gap:6px;
-  box-shadow:0 4px 16px rgba(7,116,255,0.35);
-  transition:all .25s;
-}
-.hero-input-box:hover .hero-input-btn{box-shadow:0 6px 24px rgba(7,116,255,0.5);transform:translateY(-1px);}
-
-/* Buttons */
-.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;}
-.hero-btn-p{
+.hero-slide-cta{
   display:inline-flex;align-items:center;gap:8px;
-  background:linear-gradient(135deg,#0774FF 0%,#3b82f6 100%);
-  color:#fff;padding:14px 30px;
-  border-radius:12px;font-size:14px;font-weight:700;
-  text-decoration:none;transition:all .3s;
-  box-shadow:0 4px 20px rgba(7,116,255,0.3);
-  position:relative;overflow:hidden;
+  background:#fff;color:#0d1b2e;padding:15px 32px;border-radius:10px;
+  font-size:15px;font-weight:700;text-decoration:none;transition:all .3s;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
 }
-.hero-btn-p::before{
-  content:'';
-  position:absolute;top:0;left:-100%;width:100%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);
-  transition:left .5s;
-}
-.hero-btn-p:hover::before{left:100%;}
-.hero-btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 36px rgba(7,116,255,0.45);color:#fff;}
-.hero-btn-s{
+.hero-slide-cta:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.25);color:#0d1b2e;}
+.hero-slide-cta-outline{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,0.05);
-  color:rgba(255,255,255,0.65);
-  padding:14px 30px;border-radius:12px;
-  font-size:14px;font-weight:500;
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,0.12);
-  transition:all .3s;
-  backdrop-filter:blur(8px);
+  background:transparent;color:#fff;padding:15px 24px;border-radius:10px;
+  font-size:15px;font-weight:500;text-decoration:none;transition:all .3s;
 }
-.hero-btn-s:hover{border-color:rgba(7,116,255,0.4);color:#fff;background:rgba(7,116,255,0.1);transform:translateY(-1px);}
+.hero-slide-cta-outline:hover{color:#fff;text-decoration:underline;}
+.hero-slide-cta-outline i{transition:transform .3s;}
+.hero-slide-cta-outline:hover i{transform:translateX(4px);}
+.hero-slide-note{margin-top:14px;font-size:12px;color:rgba(255,255,255,0.5);font-style:italic;}
 
-/* Trust bar */
-.hero-trust{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;margin-bottom:28px;}
-.hero-trust-item{
-  display:flex;align-items:center;gap:6px;
-  font-size:12px;color:rgba(255,255,255,0.55);
-  transition:color .2s;
+/* Slider Controls – bottom pills */
+.hero-slider-pills{
+  position:absolute;bottom:28px;left:56px;
+  display:flex;align-items:center;gap:8px;z-index:5;
 }
-.hero-trust-item:hover{color:rgba(255,255,255,0.8);}
-.hero-trust-item i{font-size:11px;}
-.hero-trust-sep{width:1px;height:14px;background:rgba(255,255,255,0.1);}
-
-/* Chips */
-.hero-chips{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:580px;margin:0 auto;}
-.hero-chip{
-  background:rgba(255,255,255,0.05);
-  border:1px solid rgba(255,255,255,0.12);
-  color:rgba(255,255,255,0.55);
-  padding:6px 16px;border-radius:100px;
-  font-size:11.5px;text-decoration:none;
-  transition:all .3s;white-space:nowrap;
-  backdrop-filter:blur(4px);
+.hero-slider-pill{
+  background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);
+  color:#fff;padding:8px 18px;border-radius:50px;
+  font-size:12px;font-weight:600;cursor:pointer;
+  transition:all .3s;backdrop-filter:blur(6px);
 }
-.hero-chip:hover{
-  border-color:rgba(7,116,255,0.5);
-  color:#93c5fd;
-  background:rgba(7,116,255,0.1);
-  transform:translateY(-2px);
-  box-shadow:0 4px 16px rgba(7,116,255,0.12);
-}
-
-/* Scroll indicator */
-.hero-scroll{
-  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
-  color:rgba(255,255,255,0.15);font-size:14px;
-  animation:hero-scroll-b 2.5s ease-in-out infinite;
-}
-@keyframes hero-scroll-b{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-
-/* Live dot (used inline in social proof) */
-.hero-live-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:#26CF4B;
-  box-shadow:0 0 8px rgba(38,207,75,0.6);
-  animation:hero-live-pulse 2s ease-in-out infinite;
-}
-@keyframes hero-live-pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.7);}}
-
-/* Social proof avatars */
-.hero-social-proof{
-  display:flex;align-items:center;gap:14px;justify-content:center;
-  margin-bottom:24px;animation:h-up .55s .4s ease both;
-  flex-wrap:wrap;
-}
-.hero-avatars{display:flex;}
-.hero-avatar{
-  width:32px;height:32px;border-radius:50%;
+.hero-slider-pill.active{background:#fff;color:#0d1b2e;border-color:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+.hero-slider-pill:hover:not(.active){background:rgba(255,255,255,0.25);}
+.hero-slider-pause{
+  background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.3);
+  width:36px;height:36px;min-width:36px;min-height:36px;border-radius:50%;
+  color:#fff;cursor:pointer;font-size:12px;
   display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:12px;font-weight:700;
-  border:2px solid rgba(5,13,31,0.8);
-  margin-left:-8px;
-  transition:transform .2s;
+  transition:all .25s;margin-left:6px;backdrop-filter:blur(6px);
+  padding:0;line-height:1;box-sizing:border-box;
 }
-.hero-avatar:first-child{margin-left:0;}
-.hero-social-proof:hover .hero-avatar{transform:translateY(-2px);}
-.hero-social-text{font-size:13px;color:rgba(255,255,255,0.5);}
-.hero-social-text strong{color:#fff;}
-.hero-social-sep{width:1px;height:16px;background:rgba(255,255,255,0.15);}
-.hero-live-inline{display:flex;align-items:center;gap:6px;font-size:12px;color:rgba(255,255,255,0.5);}
-.hero-live-inline strong,.hero-live-inline #liveCount{color:#fff;font-weight:700;}
-
-/* Entrance animations */
-@keyframes h-up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-@keyframes h-scale{from{opacity:0;transform:scale(.95) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
-.hero-badge-wrap{animation:h-up .5s ease both;}
-.hero-title{animation:h-up .65s .08s ease both;}
-.hero-sub{animation:h-up .65s .18s ease both;}
-.hero-input{animation:h-scale .65s .28s ease both;}
-.hero-btns{animation:h-up .65s .36s ease both;}
-.hero-social-proof{animation:h-up .55s .4s ease both;}
-.hero-trust{animation:h-up .55s .48s ease both;}
-.hero-chips{animation:h-up .55s .56s ease both;}
+.hero-slider-pause:hover{background:rgba(255,255,255,0.3);}
 
 @media(max-width:768px){
-  .hero{min-height:100svh;}
-  .hero-wrap{padding:90px 16px 56px;}
-  .hero-chip{font-size:11px;padding:5px 12px;}
-  .hero-trust{gap:12px;}
-  .hero-trust-sep{display:none;}
-  .hero-btns{flex-direction:column;align-items:center;}
-  .hero-title{letter-spacing:-1px;}
-  .hero-live-badge{top:12px;right:12px;font-size:11px;padding:6px 12px;}
-  .hero-social-proof{flex-direction:column;gap:8px;}
+  .hero-search-inner{flex-direction:column;gap:12px;}
+  .hero-search-tlds{justify-content:center;}
+  .hero-slider{height:500px;margin:0 10px 10px;border-radius:14px;}
+  .hero-slide-content{padding:50px 24px;}
+  .hero-slide-title{font-size:1.9rem;letter-spacing:-1px;}
+  .hero-slider-pills{left:24px;bottom:18px;flex-wrap:wrap;}
+  .hero-slide-cta-outline{display:none;}
 }
-</style>
+@media(max-width:480px){
+  .hero-slider{height:440px;margin:0 10px 10px;border-radius:12px;}
+  .hero-slide-title{font-size:1.6rem;}
+  .hero-slide-desc{font-size:15px;}
+  .hero-search-bar{padding:12px 14px;}
+  .hero-search-form{padding:4px 4px 4px 18px;}
+  .hero-search-form input{font-size:15px;padding:12px 0;}
+  .hero-search-btn{width:44px;height:44px;}
+  .hero-slider-pills{gap:6px;}
+  .hero-slider-pill{padding:6px 12px;font-size:11px;}
+}
+  </style>
 
-<section class="hero" id="astro-hero">
-  <div class="hero-bg">
-    <div class="hero-glow hero-glow-1"></div>
-    <div class="hero-glow hero-glow-2"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-line"></div>
-    <!-- Floating particles removed for cleaner look -->
+<section class="hero-new" id="astro-hero">
+  <!-- Domain Search Bar (same design as domain.html) -->
+  <div class="hero-search-bar">
+    <div class="hero-search-inner">
+      <form class="hero-search-form" id="heroSearchForm" onsubmit="heroDomainSearch(event)">
+        <input type="text" id="heroDomainInput" placeholder="Type your domain name..." autocomplete="off" required>
+        <button type="submit" class="hero-search-btn" aria-label="Search Domains"><i class="fas fa-arrow-right"></i></button>
+      </form>
+      <div class="hero-search-tlds">
+        <span class="hero-search-tld"><span>.com</span> $2.99</span>
+        <span class="hero-search-tld"><span>.online</span> $0.99</span>
+        <span class="hero-search-tld"><span>.shop</span> $0.99</span>
+        <span class="hero-search-tld"><span>.xyz</span> $1.99</span>
+      </div>
+    </div>
   </div>
 
-  <!-- Live visitors moved to social proof section below -->
-
-  <div class="hero-wrap">
-    <div class="hero-badge-wrap">
-      <a href="ai" class="hero-badge">
-        <span class="hero-badge-tag">NEW</span>
-        Trusted by 12K+ websites worldwide <i class="fas fa-arrow-right" style="opacity:0.4;font-size:11px;margin-left:4px;"></i>
-      </a>
+  <!-- Rounded Card Slider (90% width) -->
+  <div class="hero-slider" id="heroSlider">
+    <!-- Slide 1: Website Builder -->
+    <div class="hero-slide active" data-category="Website Builder">
+      <div class="hero-slide-bg">
+        <img src="assets/images/slidehero/sliwebbulider.png" alt="Website Builder">
+      </div>
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-slide-content">
+        <div class="hero-slide-text">
+          <span class="hero-slide-label">Website Builder</span>
+          <h2 class="hero-slide-title">Your free website is just the beginning</h2>
+          <p class="hero-slide-desc">Build stunning websites with our drag-and-drop AI builder. No coding needed — launch in minutes.</p>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <a href="ai" class="hero-slide-cta">Start for Free</a>
+            <a href="about" class="hero-slide-cta-outline">Learn More <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="hero-slide-note">No credit card required.**</div>
+        </div>
+      </div>
     </div>
 
-    <h1 class="hero-title">Where great ideas<br><span class="hero-title-grad">come to life.</span></h1>
-
-    <p class="hero-sub">Thousands trust Nutro.cloud to power their online presence. AI-driven performance, enterprise security, and human support &mdash; all in one platform.</p>
-
-    <div class="hero-input" onclick="window.location.href='ai'">
-      <div class="hero-input-box">
-        <i class="fas fa-search hero-input-icon"></i>
-        <div class="hero-input-text">
-          <div class="hero-input-label">What will you build today?</div>
-          <div class="hero-input-typing">
-            <span id="h-type"></span><span id="h-cur"></span>
+    <!-- Slide 2: Domains -->
+    <div class="hero-slide" data-category="Domains">
+ <div class="hero-slide-bg">
+        <img src="assets/images/slidehero/slidomain.png" alt="Domain Names">
+      </div>      <div class="hero-slide-overlay" style="background:linear-gradient(90deg,rgba(10,37,64,0.9) 0%,rgba(10,37,64,0.5) 60%,rgba(10,37,64,0.3) 100%);"></div>
+      <div class="hero-slide-content">
+        <div class="hero-slide-text">
+          <span class="hero-slide-label">Domain Names</span>
+          <h2 class="hero-slide-title">Claim your online identity for as low as $0.99</h2>
+          <p class="hero-slide-desc">Get the perfect domain with free WHOIS privacy, SSL certificate, and DNS management included.</p>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <a href="domain" class="hero-slide-cta"><i class="fas fa-globe"></i> Find Your Domain</a>
+            <a href="domain" class="hero-slide-cta-outline">Browse TLDs <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-        <div class="hero-input-btn"><i class="fas fa-paper-plane"></i> Ask AI</div>
       </div>
     </div>
 
-    <div class="hero-btns">
-      <a href="ai" class="hero-btn-p"><i class="fas fa-bolt"></i> Get started free</a>
-      <a href="#deal" class="hero-btn-s"><i class="fas fa-tag"></i> View plans &mdash; Up to 73% OFF</a>
-    </div>
-
-    <!-- Social proof counter -->
-    <div class="hero-social-proof">
-      <div class="hero-avatars">
-        <div class="hero-avatar" style="background:#0774FF;z-index:5;">S</div>
-        <div class="hero-avatar" style="background:#26CF4B;z-index:4;">M</div>
-        <div class="hero-avatar" style="background:#f59e0b;z-index:3;">A</div>
-        <div class="hero-avatar" style="background:#8b5cf6;z-index:2;">L</div>
-        <div class="hero-avatar" style="background:#ef4444;z-index:1;">J</div>
+    <!-- Slide 3: Hosting -->
+    <div class="hero-slide" data-category="Hosting">
+      <div class="hero-slide-bg">
+        <img src="assets/images/slidehero/slihosting.png" alt="Web Hosting">
       </div>
-      <div class="hero-social-text">
-        <strong>+5400</strong> businesses signed up this month
-      </div>
-      <span class="hero-social-sep"></span>
-      <div class="hero-live-inline">
-        <span class="hero-live-dot"></span>
-        <span id="liveCount">2,847</span> viewing now
+      <div class="hero-slide-overlay"></div>
+      <div class="hero-slide-content">
+        <div class="hero-slide-text">
+          <span class="hero-slide-label">Web Hosting</span>
+          <h2 class="hero-slide-title">Lightning-fast hosting with 99.9% uptime</h2>
+          <p class="hero-slide-desc">SSD-powered servers, LiteSpeed cache, free SSL, and 24/7 expert support. Plans starting at $0/mo.</p>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <a href="shared-hosting" class="hero-slide-cta"><i class="fas fa-bolt"></i> View Plans — 73% OFF</a>
+            <a href="shared-hosting" class="hero-slide-cta-outline">Compare Plans <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="hero-trust">
-      <div class="hero-trust-item"><i class="fas fa-check-circle" style="color:#26CF4B;"></i> 99.9% Uptime</div>
-      <div class="hero-trust-sep"></div>
-      <div class="hero-trust-item"><i class="fas fa-shield-alt" style="color:#4493f8;"></i> DDoS Protected</div>
-      <div class="hero-trust-sep"></div>
-      <div class="hero-trust-item"><i class="fas fa-bolt" style="color:#FFC107;"></i> LiteSpeed Powered</div>
-      <div class="hero-trust-sep"></div>
-      <div class="hero-trust-item"><i class="fas fa-globe" style="color:#a5d6ff;"></i> Global CDN</div>
-      <div class="hero-trust-sep"></div>
-      <div class="hero-trust-item"><i class="fas fa-star" style="color:#FFC107;"></i> 4.8 / 5 Rating</div>
+    <!-- Slide 4: AI Tools -->
+    <div class="hero-slide" data-category="AI Tools">
+ <div class="hero-slide-bg">
+        <img src="assets/images/slidehero/sliai.png" alt="AI Tools">
+      </div>      <div class="hero-slide-overlay" style="background:linear-gradient(90deg,rgba(15,23,42,0.85) 0%,rgba(15,23,42,0.4) 60%,transparent 100%);"></div>
+      <div class="hero-slide-content">
+        <div class="hero-slide-text">
+          <span class="hero-slide-label">AI-Powered</span>
+          <h2 class="hero-slide-title">Build, optimize &amp; grow with AI tools</h2>
+          <p class="hero-slide-desc">Our AI assistant helps you build websites, write content, optimize SEO, and solve technical issues instantly.</p>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <a href="ai" class="hero-slide-cta"><i class="fas fa-wand-magic-sparkles"></i> Try AI Free</a>
+            <a href="ai" class="hero-slide-cta-outline">See what AI can do <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="hero-chips">
-      <a href="ai" class="hero-chip">Boost my website speed</a>
-      <a href="ai" class="hero-chip">Protect my business</a>
-      <a href="ai" class="hero-chip">Find my perfect plan</a>
-      <a href="ai" class="hero-chip">Get professional email</a>
-      <a href="ai" class="hero-chip">Secure my site free</a>
+    <!-- Slider Controls: Category pills + pause -->
+    <div class="hero-slider-pills">
+      <button class="hero-slider-pill active" data-slide="0">Website Builder</button>
+      <button class="hero-slider-pill" data-slide="1">Domains</button>
+      <button class="hero-slider-pill" data-slide="2">Hosting</button>
+      <button class="hero-slider-pill" data-slide="3">AI Tools</button>
+      <button class="hero-slider-pause" id="heroSliderPause" aria-label="Pause slider"><i class="fas fa-pause"></i></button>
     </div>
   </div>
-
-  <div class="hero-scroll"><i class="fas fa-chevron-down"></i></div>
 </section>
 
 <script>
-var _p=['How do I speed up my WordPress site?','I need hosting for my online store','Which plan gives me the best value?','How to get a free domain with hosting?','Help me migrate my site — zero downtime','Build me a website with AI in 60 seconds'],
-    _i=0,_c=0,_d=false,_el=document.getElementById('h-type');
-function _tl(){if(!_el)return;var w=_p[_i];if(!_d){_el.textContent=w.slice(0,++_c);if(_c===w.length){_d=true;setTimeout(_tl,2400);return;}setTimeout(_tl,50);}else{_el.textContent=w.slice(0,--_c);if(_c===0){_d=false;_i=(_i+1)%_p.length;setTimeout(_tl,500);return;}setTimeout(_tl,22);}}
-setTimeout(_tl,900);
+// Domain search from hero bar
+function heroDomainSearch(e){
+  e.preventDefault();
+  var val=document.getElementById('heroDomainInput').value.trim();
+  if(!val)return;
+  window.location.href='domain.html?search='+encodeURIComponent(val);
+}
 
-// Live visitor counter with realistic fluctuation
+// Hero Slider
 (function(){
-  var el=document.getElementById('liveCount');
-  if(!el)return;
-  var base=2847;
-  function update(){
-    var delta=Math.floor(Math.random()*40)-20;
-    base=Math.max(2200,Math.min(3400,base+delta));
-    el.textContent=base.toLocaleString();
+  var slides=document.querySelectorAll('#heroSlider .hero-slide');
+  var pills=document.querySelectorAll('.hero-slider-pill[data-slide]');
+  var pauseBtn=document.getElementById('heroSliderPause');
+  var current=0,timer=null,paused=false;
+  var INTERVAL=5500;
+
+  function go(idx){
+    slides[current].classList.remove('active');
+    pills[current].classList.remove('active');
+    current=idx%slides.length;
+    slides[current].classList.add('active');
+    pills[current].classList.add('active');
   }
-  setInterval(update,3000+Math.random()*2000);
+  function next(){go(current+1);}
+  function start(){if(!paused)timer=setInterval(next,INTERVAL);}
+  function stop(){clearInterval(timer);}
+
+  pills.forEach(function(pill){
+    pill.addEventListener('click',function(){
+      stop();go(parseInt(this.dataset.slide));start();
+    });
+  });
+
+  if(pauseBtn){
+    pauseBtn.addEventListener('click',function(){
+      paused=!paused;
+      if(paused){stop();this.innerHTML='<i class="fas fa-play"></i>';}
+      else{start();this.innerHTML='<i class="fas fa-pause"></i>';}
+    });
+  }
+
+  start();
 })();
 </script>
 
@@ -2696,55 +2587,55 @@ setTimeout(_tl,900);
 
     <div class="csites2-row row1">
 
-      <div class="csite2"><img src="https://i.postimg.cc/J0jDLMCg/Screenshot-2026-06-01-165326.png" alt=""><div class="csite2-label">Travel</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/YjHyy2wk/Screenshot-12-5-2026-15107-gvtbooking-com.jpg" alt=""><div class="csite2-label">Travel</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/nzGfbPwh/Screenshot-2026-06-01-165600.png" alt=""><div class="csite2-label">eCommerce</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/bdhFFYf3/Screenshot-12-5-2026-151643-younestours-com.jpg" alt=""><div class="csite2-label">eCommerce</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/fW81cXG1/Screenshot-2026-06-01-165800.png" alt=""><div class="csite2-label">Contracting</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/PNjFFfnM/Screenshot-12-5-2026-151727-ramsbat-com.jpg" alt=""><div class="csite2-label">Contracting</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/ryHQyJX4/Screenshot-2026-06-01-165952.png" alt=""><div class="csite2-label">Restaurant</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/Cn78cspK/Screenshot-12-5-2026-151747-wajhat3030-com.jpg" alt=""><div class="csite2-label">Restaurant</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/C1XP2HwB/Screenshot-2026-06-01-170109.png" alt=""><div class="csite2-label">Agency</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/grWBBcb1/Screenshot-12-5-2026-15111-alfares-mcs-com.jpg" alt=""><div class="csite2-label">Agency</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/Xv9gsSpr/Screenshot-2026-06-01-164942.png" alt=""><div class="csite2-label">lms</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/Th6HH2vF/Screenshot-12-5-2026-151150-academy-7tteam-com.jpg" alt=""><div class="csite2-label">lms</div></div>
 
       <!-- duplicate -->
-     <div class="csite2"><img src="https://i.postimg.cc/J0jDLMCg/Screenshot-2026-06-01-165326.png" alt=""><div class="csite2-label">Travel </div></div>
+     <div class="csite2"><img src="https://i.postimg.cc/YjHyy2wk/Screenshot-12-5-2026-15107-gvtbooking-com.jpg" alt=""><div class="csite2-label">Travel </div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/nzGfbPwh/Screenshot-2026-06-01-165600.png" alt=""><div class="csite2-label">eCommerce</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/bdhFFYf3/Screenshot-12-5-2026-151643-younestours-com.jpg" alt=""><div class="csite2-label">eCommerce</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/fW81cXG1/Screenshot-2026-06-01-165800.png" alt=""><div class="csite2-label">Contracting</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/PNjFFfnM/Screenshot-12-5-2026-151727-ramsbat-com.jpg" alt=""><div class="csite2-label">Contracting</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/ryHQyJX4/Screenshot-2026-06-01-165952.png" alt=""><div class="csite2-label">Restaurant</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/Cn78cspK/Screenshot-12-5-2026-151747-wajhat3030-com.jpg" alt=""><div class="csite2-label">Restaurant</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/C1XP2HwB/Screenshot-2026-06-01-170109.png" alt=""><div class="csite2-label">Agency</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/grWBBcb1/Screenshot-12-5-2026-15111-alfares-mcs-com.jpg" alt=""><div class="csite2-label">Agency</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/Xv9gsSpr/Screenshot-2026-06-01-164942.png" alt=""><div class="csite2-label">lms</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/Th6HH2vF/Screenshot-12-5-2026-151150-academy-7tteam-com.jpg" alt=""><div class="csite2-label">lms</div></div>
 
     </div>
 
     <div class="csites2-row row2">
 
-      <div class="csite2"><img src="https://i.postimg.cc/G98cCjDR/Screenshot-2026-06-01-170429.png" alt=""><div class="csite2-label">Corporate</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/gLshgHbL/Screenshot-12-5-2026-15172-villa90-com.jpg" alt=""><div class="csite2-label">Corporate</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/yYdxjmkR/Screenshot-2026-06-01-170544.png" alt=""><div class="csite2-label">LMS</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/p5CjsJMh/Screenshot-12-5-2026-151737-elzelzal-com.jpg" alt=""><div class="csite2-label">LMS</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/J0jDLMCg/Screenshot-2026-06-01-165326.png" alt=""><div class="csite2-label">travel</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/F14nnFQN/screenshot-1778587833267.png" alt=""><div class="csite2-label">Tech</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/1RM4DC5B/Screenshot-2026-06-01-170616.png" alt=""><div class="csite2-label">Dashboard</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/dtZqb5PL/Screenshot-12-5-2026-152610-alfares-mcs-com.jpg" alt=""><div class="csite2-label">Store</div></div>
 
 
 
       <!-- duplicate -->
 
       
-      <div class="csite2"><img src="https://i.postimg.cc/L4vhjC6J/Screenshot-2026-06-01-170429.png" alt=""><div class="csite2-label">Corporate</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/gLshgHbL/Screenshot-12-5-2026-15172-villa90-com.jpg" alt=""><div class="csite2-label">Corporate</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/yYdxjmkR/Screenshot-2026-06-01-170544.png" alt=""><div class="csite2-label">LMS</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/p5CjsJMh/Screenshot-12-5-2026-151737-elzelzal-com.jpg" alt=""><div class="csite2-label">LMS</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/J0jDLMCg/Screenshot-2026-06-01-165326.png" alt=""><div class="csite2-label">travel</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/F14nnFQN/screenshot-1778587833267.png" alt=""><div class="csite2-label">Tech</div></div>
 
-      <div class="csite2"><img src="https://i.postimg.cc/1RM4DC5B/Screenshot-2026-06-01-170616.png" alt=""><div class="csite2-label">Dashboard</div></div>
+      <div class="csite2"><img src="https://i.postimg.cc/dtZqb5PL/Screenshot-12-5-2026-152610-alfares-mcs-com.jpg" alt=""><div class="csite2-label"> Store</div></div>
 
 
 
@@ -3199,7 +3090,7 @@ setTimeout(_tl,900);
 
         <div class="cp-mockup-screen">
 
-          <img src="https://i.postimg.cc/V6RdN4VS/Screenshot-2026-06-01-164135.png" alt="Nutro Pro Dashboard" onerror="this.style.display='none';this.parentElement.querySelector('.cp-mockup-fallback').style.display='flex';">
+          <img src="https://nutro.cloud/assets/images/nutropropanel.png" alt="Nutro Pro Dashboard" onerror="this.style.display='none';this.parentElement.querySelector('.cp-mockup-fallback').style.display='flex';">
 
           <div class="cp-mockup-fallback">
 
