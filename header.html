@@ -330,9 +330,15 @@
                                     </div>
                                 </div>
                             </li>
-                      
+                            <li class="menu-item hostie-has-dropdown">
+                                <a href="#" class="hostie-dropdown-main-element">Free Hosting</a>
+                                <ul class="hostie-submenu list-unstyled menu-pages">
+                                    <li class="nav-item"><a class="nav-link" href="https://free.nutro.cloud/">Get Started</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="https://nutro.cloud/free-hosting">Learn More</a></li>
+                                </ul>
+                            </li>
                               <li class="menu-item hostie-has-dropdown">
-                                <a href="https://nutro.cloud/openclaw-hosting" class="hostie-dropdown-main-element">OpenClaw Host</a>  
+                                <a href="https://nutro.cloud/openclaw-hosting" class="hostie-dropdown-main-element">OpenClaw Hosting</a>  
                             </li>
                             <li class="menu-item hostie-has-dropdown">
                                 <a href="#" class="hostie-dropdown-main-element">
@@ -358,10 +364,28 @@
                 </nav>
                 <!-- FOR HEADER RIGHT -->
                 <div class="rts-header__right">
-                    <a href="https://console.nutro.cloud" class="login__btn" target="_blank" style="background:#0774FF;color:#fff;padding:10px 22px;border-radius:8px;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:7px;transition:all .2s;box-shadow:0 2px 8px rgba(7,116,255,0.2);border:none;"><i class="fa-solid fa-grid-2" style="font-size:12px;"></i> Console</a>
+                    <a href="https://console.nutro.cloud" class="header-account-btn" target="_blank"><i class="fa-solid fa-user"></i> <span class="header-account-text">Account</span></a>
                     <button id="menu-btn" aria-label="Menu" class="mobile__active menu-btn"><i
                             class="fa-sharp fa-solid fa-bars"></i></button>
                 </div>
+                <style>
+                .header-account-btn{
+                  background:#0774FF;color:#fff;padding:10px 22px;border-radius:8px;
+                  font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+                  transition:all .2s;box-shadow:0 2px 8px rgba(7,116,255,0.2);border:none;
+                  text-decoration:none;
+                }
+                .header-account-btn:hover{background:#0553c7;color:#fff;transform:translateY(-1px);}
+                .header-account-btn i{font-size:13px;}
+                @media(max-width:991px){
+                  .header-account-btn{
+                    width:38px;height:38px;padding:0;border-radius:50%;
+                    justify-content:center;font-size:15px;
+                  }
+                  .header-account-btn .header-account-text{display:none;}
+                  .header-account-btn i{font-size:15px;margin:0;}
+                }
+                </style>
             </div>
         </div>
     </div>
