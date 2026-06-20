@@ -1010,18 +1010,19 @@ if (document.readyState === 'loading') {
   .hero-search-inner{flex-direction:column;gap:12px;}
   .hero-search-tlds{justify-content:center;}
   .hero-slider{height:500px;margin:0 10px 10px;border-radius:14px;}
-  .hero-slide-content{padding:20px 20px 20px;display:flex;flex-direction:column;justify-content:flex-end;height:100%;box-sizing:border-box;}
-  .hero-slide-text{max-width:100%;display:flex;flex-direction:column;align-items:flex-start;}
-  .hero-slide-title{font-size:1.5rem;letter-spacing:-0.5px;margin-bottom:10px;}
-  .hero-slide-desc{display:none;}
-  .hero-slide-label{font-size:11px;padding:5px 12px;margin-bottom:10px;}
-  .hero-slide-cta{
-    padding:11px 20px;font-size:13px;border-radius:8px;
-    background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);
+  .hero-slide-content{
+    padding:20px;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;
+    height:100%;box-sizing:border-box;text-align:center;
   }
-  .hero-slide-cta-outline{display:none;}
-  .hero-slide-note{display:none;}
-  .hero-slide-overlay{background:linear-gradient(0deg,rgba(0,0,0,0.75) 0%,rgba(0,0,0,0.15) 55%,transparent 100%) !important;}
+  .hero-slide-text{max-width:100%;display:flex;flex-direction:column;align-items:center;}
+  .hero-slide-title{font-size:1.5rem;letter-spacing:-0.5px;text-align:center;}
+  .hero-slide-desc{font-size:13px;text-align:center;max-width:90%;margin-bottom:20px;color:rgba(255,255,255,0.8);}
+  .hero-slide-label{font-size:11px;padding:5px 12px;margin-bottom:10px;}
+  .hero-slide-cta{padding:11px 20px;font-size:13px;border-radius:8px;}
+  .hero-slide-cta-outline{font-size:13px;padding:11px 16px;}
+  .hero-slide-note{font-size:11px;margin-top:10px;}
+  .hero-slide-overlay{background:rgba(0,0,0,0.5) !important;}
   .hero-slider-pills{
     left:0;right:0;bottom:0;
     justify-content:center;
@@ -1036,8 +1037,10 @@ if (document.readyState === 'loading') {
 @media(max-width:480px){
   .hero-slider{height:420px;margin:0 8px 8px;border-radius:12px;}
   .hero-slide-title{font-size:1.3rem;}
-  .hero-slide-content{padding:16px 16px 16px;}
+  .hero-slide-desc{font-size:12px;}
+  .hero-slide-content{padding:16px;}
   .hero-slide-cta{padding:10px 18px;font-size:12px;}
+  .hero-slide-cta-outline{font-size:12px;padding:10px 14px;}
   .hero-search-bar{padding:12px 14px;}
   .hero-search-form{padding:4px 4px 4px 18px;}
   .hero-search-form input{font-size:15px;padding:12px 0;}
