@@ -1,0 +1,390 @@
+<!-- HEADER AREA -->
+<header class="rts-header style-five header__default">
+    <!-- HEADER TOP AREA -->
+    <div class="rts-ht rts-ht__bg">
+        <div class="container">
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="rts-header__wrapper">
+                <!-- FOR LOGO -->
+                <div class="rts-header__logo">
+                    <a href="https://nutro.cloud/index" class="site-logo">
+                        <img class="logo-white" src="https://nutro.cloud/assets/images/logo/logo.png" alt="nutrocloudlogo">
+                        <img class="logo-dark" src="https://nutro.cloud/assets/images/logo/logo2.png" alt="nutrobluelogo">
+                    </a>
+                </div>
+                <!-- FOR NAVIGATION MENU -->
+
+                <nav class="rts-header__menu" id="mobile-menu">
+                    <div class="hostie-menu">
+                        <ul class="list-unstyled hostie-desktop-menu">
+                            <li class="menu-item hostie-has-dropdown mega-menu">
+                                <a href="#" class="hostie-dropdown-main-element">Services</a>
+                                <div class="rts-mega-menu" style="max-width: 1200px;">
+                                    <div class="wrapper">
+                                        <div class="row g-0">
+                                            <div class="col-lg-3">
+                                                <div style="padding: 10px 20px; margin-bottom: 10px;">
+                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">HOSTING</h6>
+                                                </div>
+                                                <ul class="mega-menu-item">
+                                                    <li>
+                                                        <a href="https://nutro.cloud/wordpress-hosting">
+                                                            <span class="menu-icon" style="background:#f0e6ff;color:#673AB7;"><i class="fab fa-wordpress"></i></span>
+                                                            <div class="info">
+                                                                <p>WordPress Hosting <span style="background: #673AB7; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">AI</span></p>
+                                                                <span>Optimized for WordPress</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/shared-hosting">
+                                                            <span class="menu-icon" style="background:#e8f5e9;color:#4CAF50;"><i class="fas fa-globe"></i></span>
+                                                            <div class="info">
+                                                                <p>Web Hosting <span style="background: #4CAF50; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">POPULAR</span></p>
+                                                                <span>Fast & Reliable Hosting</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="vps-hosting">
+                                                            <span class="menu-icon" style="background:#fff3e0;color:#FF9800;"><i class="fas fa-server"></i></span>
+                                                            <div class="info">
+                                                                <p>VPS Hosting <span style="background: #FF9800; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">TOP</span></p>
+                                                                <span>Full Power & Control</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/dedicated-hosting">
+                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1976D2;"><i class="fas fa-hdd"></i></span>
+                                                            <div class="info">
+                                                                <p>Dedicated Server</p>
+                                                                <span>Ultimate Performance</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/game">
+                                                            <span class="menu-icon" style="background:#fce4ec;color:#E91E63;"><i class="fas fa-gamepad"></i></span>
+                                                            <div class="info">
+                                                                <p>Game Hosting</p>
+                                                                <span>Low Latency Performance</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="padding: 10px 20px; margin-bottom: 10px;">
+                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">DOMAINS & EMAIL</h6>
+                                                </div>
+                                                <ul class="mega-menu-item">
+                                                    <li>
+                                                        <a href="https://nutro.cloud/domain">
+                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-at"></i></span>
+                                                            <div class="info">
+                                                                <p>Domain Names</p>
+                                                                <span>Register your perfect domain</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/email">
+                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1565c0;"><i class="fas fa-envelope"></i></span>
+                                                            <div class="info">
+                                                                <p>Business Email</p>
+                                                                <span>Professional email addresses</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/migration">
+                                                            <span class="menu-icon" style="background:#f3e5f5;color:#7b1fa2;"><i class="fas fa-truck-moving"></i></span>
+                                                            <div class="info">
+                                                                <p>Website Migration</p>
+                                                                <span>Migrate fast and free</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <div style="padding: 10px 20px; margin-top: 20px; margin-bottom: 10px;">
+                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">TOOLS</h6>
+                                                </div>
+                                                <ul class="mega-menu-item">
+                                                    <li>
+                                                        <a href="https://nutro.cloud/tools?nbemo">
+                                                            <span class="menu-icon" style="background:#ede7f6;color:#5e35b1;"><i class="fas fa-robot"></i></span>
+                                                            <div class="info">
+                                                                <p>Astro AI</p>
+                                                                <span>Nutro AI & Migration</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/tools?7n">
+                                                            <span class="menu-icon" style="background:#e0f7fa;color:#00838f;"><i class="fas fa-tools"></i></span>
+                                                            <div class="info">
+                                                                <p>Astro AI Tools</p>
+                                                                <span>Developer Tools Suite</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/tools?builder">
+                                                            <span class="menu-icon" style="background:#fff8e1;color:#f57f17;"><i class="fas fa-palette"></i></span>
+                                                            <div class="info">
+                                                                <p>Astro Website Builder</p>
+                                                                <span>Build sites in 3 easy steps</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="padding: 10px 20px; margin-bottom: 10px;">
+                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">ADVANCED</h6>
+                                                </div>
+                                                <ul class="mega-menu-item">
+                                                <li>
+                                                    <a href="https://nutro.cloud/openclaw-hosting">
+                                                            <span class="menu-icon" style="background:#fce4ec;color:#c62828;"><i class="fas fa-dragon"></i></span>
+                                                            <div class="info">
+                                                                <p>OpenClaw<span style="background: #E91E63; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">NEW</span></p>
+                                                                <span>The AI that actually does things</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/price#gpu">
+                                                            <span class="menu-icon" style="background:#fce4ec;color:#ad1457;"><i class="fas fa-microchip"></i></span>
+                                                            <div class="info">
+                                                                <p>GPU Hosting <span style="background: #E91E63; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">NEW</span></p>
+                                                                <span>AI-Ready Performance</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/price#deepseek">
+                                                            <span class="menu-icon" style="background:#ede7f6;color:#4527a0;"><i class="fas fa-brain"></i></span>
+                                                            <div class="info">
+                                                                <p>DeepSeek Hosting <span style="background: #673AB7; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">AI</span></p>
+                                                                <span>AI-Powered GPU Cloud</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/n8n">
+                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-project-diagram"></i></span>
+                                                            <div class="info">
+                                                                <p>Self-hosted n8n</p>
+                                                                <span>AI workflow automation</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/price#s3">
+                                                            <span class="menu-icon" style="background:#fff3e0;color:#e65100;"><i class="fas fa-database"></i></span>
+                                                            <div class="info">
+                                                                <p>Nutro S3</p>
+                                                                <span>Next-Gen Storage Cloud</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/price#nodejs">
+                                                            <span class="menu-icon" style="background:#e8f5e9;color:#388e3c;"><i class="fab fa-node-js"></i></span>
+                                                            <div class="info">
+                                                                <p>Nutro JS</p>
+                                                                <span>Fast Node.js Hosting</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <div style="padding: 20px; background: linear-gradient(135deg, #0a1628 0%, #0774FF 100%); border-radius: 12px; margin: 20px; text-align: center;">
+                                                    <a href="price" style="display: block; text-decoration: none; color: white;">
+                                                        <img src="https://i.postimg.cc/FRN6LxXP/www-com-6.png" alt="Nutro Services" style="width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                                                        <div style="font-weight: bold; margin-bottom: 8px; font-size: 20px; color: white;">View All Services</div>
+                                                        <div style="font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 15px;">Explore our complete hosting solutions</div>
+                                                        <div style="background: white; color: #0774FF; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block;">Learn More →</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                            <li class="menu-item hostie-has-dropdown mega-menu">
+                                <a href="#" class="hostie-dropdown-main-element">Company</a>
+                                <div class="rts-mega-menu" style="max-width: 800px;">
+                                    <div class="wrapper">
+                                        <div class="row g-0">
+                                            <div class="col-lg-6">
+                                                <ul class="mega-menu-item">
+                                                    <li>
+                                                        <a href="https://nutro.cloud/about">
+                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1565c0;"><i class="fas fa-building"></i></span>
+                                                            <div class="info">
+                                                                <p>About Us</p>
+                                                                <span>Learn more about Nutro Cloud</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/data-center">
+                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-network-wired"></i></span>
+                                                            <div class="info">
+                                                                <p>Data Centers</p>
+                                                                <span>Our global infrastructure</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/technology">
+                                                            <span class="menu-icon" style="background:#fff3e0;color:#e65100;"><i class="fas fa-cogs"></i></span>
+                                                            <div class="info">
+                                                                <p>Technology</p>
+                                                                <span>Cutting-edge solutions</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div style="padding: 20px;">
+                                                    <a href="about" style="display: block; text-decoration: none; color: inherit;">
+                                                        <img src="https://7tteam.com/assets/img/portfolio/3.png" alt="About Nutro Cloud" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                                                        <div style="font-weight: bold; margin-bottom: 5px; font-size: 20px;">Why Choose Us?</div>
+                                                        <div style="font-size: 15px; color: #666;">Discover what makes Nutro Cloud different</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="menu-item hostie-has-dropdown mega-menu">
+                                <a href="#" class="hostie-dropdown-main-element">Help Center</a>
+                                <div class="rts-mega-menu" style="max-width: 800px;">
+                                    <div class="wrapper">
+                                        <div class="row g-0">
+                                            <div class="col-lg-6">
+                                                <ul class="mega-menu-item">
+                                                    <li>
+                                                        <a href="https://nutro.cloud/support">
+                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1565c0;"><i class="fas fa-book-open"></i></span>
+                                                            <div class="info">
+                                                                <p>Knowledge Base</p>
+                                                                <span>Advice and answers to all of your FAQs</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://status.nutro.cloud/">
+                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-signal"></i></span>
+                                                            <div class="info">
+                                                                <p>Status</p>
+                                                                <span>Check our system status</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://nutro.cloud/blog/">
+                                                            <span class="menu-icon" style="background:#fff3e0;color:#e65100;"><i class="fas fa-newspaper"></i></span>
+                                                            <div class="info">
+                                                                <p>Blog</p>
+                                                                <span>Latest news and updates</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="https://discord.gg/vJKKkaG8hm">
+                                                            <span class="menu-icon" style="background:#ede7f6;color:#5e35b1;"><i class="fab fa-discord"></i></span>
+                                                            <div class="info">
+                                                                <p>Discord</p>
+                                                                <span>Join our community</span>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div style="padding: 20px;">
+                                                    <a href="support" style="display: block; text-decoration: none; color: inherit;">
+                                                        <img src="https://i.postimg.cc/FRN6LxXP/www-com-6.png" alt="Nutro Cloud Support" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
+                                                        <div style="font-weight: bold; margin-bottom: 5px; font-size: 20px;">24/7 Support Available</div>
+                                                        <div style="font-size: 15px; color: #666;">Get help anytime with our expert support team</div>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="menu-item hostie-has-dropdown">
+                                <a href="https://nutro.cloud/openclaw-hosting" class="hostie-dropdown-main-element">OpenClaw Hosting</a>  
+                            </li>
+                            <li class="menu-item hostie-has-dropdown">
+                                <a href="#" class="hostie-dropdown-main-element" id="currentLangBtn">
+                                    <img src="https://flagcdn.com/w40/us.png" alt="EN" id="currentLangFlag" style="width: 20px; height: 14px; border-radius: 2px; margin-right: 5px; vertical-align: middle;"><span id="currentLangCode">EN</span>
+                                </a>
+                                <ul class="hostie-submenu list-unstyled menu-pages">
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="en" data-flag="us" data-currency="USD" data-rate="1" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/us.png" alt="EN" style="width:20px;height:14px;border-radius:2px;">English</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="ar" data-flag="sa" data-currency="EGP" data-rate="53" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/eg.png" alt="AR" style="width:20px;height:14px;border-radius:2px;">العربية</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="es" data-flag="es" data-currency="EUR" data-rate="0.92" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/es.png" alt="ES" style="width:20px;height:14px;border-radius:2px;">Español</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="fr" data-flag="fr" data-currency="EUR" data-rate="0.92" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:20px;height:14px;border-radius:2px;">Français</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="de" data-flag="de" data-currency="EUR" data-rate="0.92" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/de.png" alt="DE" style="width:20px;height:14px;border-radius:2px;">Deutsch</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="pt" data-flag="br" data-currency="BRL" data-rate="5.5" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/br.png" alt="PT" style="width:20px;height:14px;border-radius:2px;">Português</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="hi" data-flag="in" data-currency="INR" data-rate="83" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/in.png" alt="HI" style="width:20px;height:14px;border-radius:2px;">हिन्दी</a></li>
+                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="zh" data-flag="cn" data-currency="CNY" data-rate="7.2" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" style="width:20px;height:14px;border-radius:2px;">中文</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- FOR HEADER RIGHT -->
+                <div class="rts-header__right">
+                    <a href="https://console.nutro.cloud" class="header-account-btn" target="_blank"><i class="fa-solid fa-user"></i> <span class="header-account-text">Account</span></a>
+                    <button id="menu-btn" aria-label="Menu" class="mobile__active menu-btn"><i
+                            class="fa-sharp fa-solid fa-bars"></i></button>
+                </div>
+                <style>
+                .menu-icon{
+                  width:32px;height:32px;border-radius:8px;
+                  display:inline-flex;align-items:center;justify-content:center;
+                  font-size:14px;flex-shrink:0;transition:transform .2s;
+                  margin-right:4px;
+                }
+                .mega-menu-item li a:hover .menu-icon{transform:scale(1.08);}
+                .header-account-btn{
+                  background:#0774FF;color:#fff;padding:10px 22px;border-radius:8px;
+                  font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
+                  transition:all .2s;box-shadow:0 2px 8px rgba(7,116,255,0.2);border:none;
+                  text-decoration:none;
+                }
+                .header-account-btn:hover{background:#0553c7;color:#fff;transform:translateY(-1px);}
+                .header-account-btn i{font-size:13px;}
+                @media(max-width:991px){
+                  .header-account-btn{
+                    width:38px;height:38px;padding:0;border-radius:50%;
+                    justify-content:center;font-size:15px;
+                  }
+                  .header-account-btn .header-account-text{display:none;}
+                  .header-account-btn i{font-size:15px;margin:0;}
+                }
+                </style>
+            </div>
+        </div>
+    </div>
+
+</header>
+<!-- HEADER AREA END -->
