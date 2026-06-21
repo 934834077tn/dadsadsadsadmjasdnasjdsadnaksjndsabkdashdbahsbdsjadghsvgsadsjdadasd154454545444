@@ -6397,6 +6397,35 @@
 
   </script>
   <!-- CTA AREA END  -->
+
+  <!-- Fix marquee cloning for reviews and customer sites -->
+  <script>
+  (function(){
+    // Ensure marquee elements are properly cloned for seamless loop
+    function fixMarquee(selector){
+      var el = document.querySelector(selector);
+      if(!el) return;
+      var children = el.children;
+      var totalWidth = 0;
+      for(var i=0; i<children.length; i++) totalWidth += children[i].offsetWidth + 20;
+      var viewWidth = el.parentElement.offsetWidth;
+      // If content isn't at least 2x viewport, clone more
+      if(totalWidth < viewWidth * 2){
+        var html = el.innerHTML;
+        el.innerHTML = html + html;
+      }
+    }
+    // Run after page load
+    window.addEventListener('load', function(){
+      setTimeout(function(){
+        fixMarquee('.rv-marquee');
+        fixMarquee('.csites2-row.row1');
+        fixMarquee('.csites2-row.row2');
+      }, 500);
+    });
+  })();
+  </script>
+
   <div id="footer"></div>
 
 
