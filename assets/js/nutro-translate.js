@@ -1,390 +1,191 @@
-<!-- HEADER AREA -->
-<header class="rts-header style-five header__default">
-    <!-- HEADER TOP AREA -->
-    <div class="rts-ht rts-ht__bg">
-        <div class="container">
-            <div class="row">
+/**
+ * Nutro Cloud Auto-Translation + Currency Conversion
+ * Works on ALL pages. Watches AJAX-loaded prices via MutationObserver.
+ * Called by main.js after header is loaded into DOM.
+ */
+(function(){
+  'use strict';
 
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="rts-header__wrapper">
-                <!-- FOR LOGO -->
-                <div class="rts-header__logo">
-                    <a href="https://nutro.cloud/index" class="site-logo">
-                        <img class="logo-white" src="https://nutro.cloud/assets/images/logo/logo.png" alt="nutrocloudlogo">
-                        <img class="logo-dark" src="https://nutro.cloud/assets/images/logo/logo2.png" alt="nutrobluelogo">
-                    </a>
-                </div>
-                <!-- FOR NAVIGATION MENU -->
+  var LANGS = {
+    en: {flag:'us', currency:'USD', symbol:'$', rate:1, dir:'ltr', name:'English'},
+    ar: {flag:'eg', currency:'EGP', symbol:'ج.م', rate:53, dir:'rtl', name:'العربية'},
+    es: {flag:'es', currency:'EUR', symbol:'€', rate:0.92, dir:'ltr', name:'Español'},
+    fr: {flag:'fr', currency:'EUR', symbol:'€', rate:0.92, dir:'ltr', name:'Français'},
+    de: {flag:'de', currency:'EUR', symbol:'€', rate:0.92, dir:'ltr', name:'Deutsch'},
+    pt: {flag:'br', currency:'BRL', symbol:'R$', rate:5.5, dir:'ltr', name:'Português'},
+    hi: {flag:'in', currency:'INR', symbol:'₹', rate:83, dir:'ltr', name:'हिन्दी'},
+    zh: {flag:'cn', currency:'CNY', symbol:'¥', rate:7.2, dir:'ltr', name:'中文'}
+  };
 
-                <nav class="rts-header__menu" id="mobile-menu">
-                    <div class="hostie-menu">
-                        <ul class="list-unstyled hostie-desktop-menu">
-                            <li class="menu-item hostie-has-dropdown mega-menu">
-                                <a href="#" class="hostie-dropdown-main-element">Services</a>
-                                <div class="rts-mega-menu" style="max-width: 1200px;">
-                                    <div class="wrapper">
-                                        <div class="row g-0">
-                                            <div class="col-lg-3">
-                                                <div style="padding: 10px 20px; margin-bottom: 10px;">
-                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">HOSTING</h6>
-                                                </div>
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/wordpress-hosting">
-                                                            <span class="menu-icon" style="background:#f0e6ff;color:#673AB7;"><i class="fab fa-wordpress"></i></span>
-                                                            <div class="info">
-                                                                <p>WordPress Hosting <span style="background: #673AB7; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">AI</span></p>
-                                                                <span>Optimized for WordPress</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/shared-hosting">
-                                                            <span class="menu-icon" style="background:#e8f5e9;color:#4CAF50;"><i class="fas fa-globe"></i></span>
-                                                            <div class="info">
-                                                                <p>Web Hosting <span style="background: #4CAF50; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">POPULAR</span></p>
-                                                                <span>Fast & Reliable Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="vps-hosting">
-                                                            <span class="menu-icon" style="background:#fff3e0;color:#FF9800;"><i class="fas fa-server"></i></span>
-                                                            <div class="info">
-                                                                <p>VPS Hosting <span style="background: #FF9800; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">TOP</span></p>
-                                                                <span>Full Power & Control</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/dedicated-hosting">
-                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1976D2;"><i class="fas fa-hdd"></i></span>
-                                                            <div class="info">
-                                                                <p>Dedicated Server</p>
-                                                                <span>Ultimate Performance</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/game">
-                                                            <span class="menu-icon" style="background:#fce4ec;color:#E91E63;"><i class="fas fa-gamepad"></i></span>
-                                                            <div class="info">
-                                                                <p>Game Hosting</p>
-                                                                <span>Low Latency Performance</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="padding: 10px 20px; margin-bottom: 10px;">
-                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">DOMAINS & EMAIL</h6>
-                                                </div>
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/domain">
-                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-at"></i></span>
-                                                            <div class="info">
-                                                                <p>Domain Names</p>
-                                                                <span>Register your perfect domain</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/email">
-                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1565c0;"><i class="fas fa-envelope"></i></span>
-                                                            <div class="info">
-                                                                <p>Business Email</p>
-                                                                <span>Professional email addresses</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/migration">
-                                                            <span class="menu-icon" style="background:#f3e5f5;color:#7b1fa2;"><i class="fas fa-truck-moving"></i></span>
-                                                            <div class="info">
-                                                                <p>Website Migration</p>
-                                                                <span>Migrate fast and free</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                                <div style="padding: 10px 20px; margin-top: 20px; margin-bottom: 10px;">
-                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">TOOLS</h6>
-                                                </div>
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/tools?nbemo">
-                                                            <span class="menu-icon" style="background:#ede7f6;color:#5e35b1;"><i class="fas fa-robot"></i></span>
-                                                            <div class="info">
-                                                                <p>Astro AI</p>
-                                                                <span>Nutro AI & Migration</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/tools?7n">
-                                                            <span class="menu-icon" style="background:#e0f7fa;color:#00838f;"><i class="fas fa-tools"></i></span>
-                                                            <div class="info">
-                                                                <p>Astro AI Tools</p>
-                                                                <span>Developer Tools Suite</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/tools?builder">
-                                                            <span class="menu-icon" style="background:#fff8e1;color:#f57f17;"><i class="fas fa-palette"></i></span>
-                                                            <div class="info">
-                                                                <p>Astro Website Builder</p>
-                                                                <span>Build sites in 3 easy steps</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="padding: 10px 20px; margin-bottom: 10px;">
-                                                    <h6 style="font-size: 12px; text-transform: uppercase; color: #999; font-weight: 600; margin: 0;">ADVANCED</h6>
-                                                </div>
-                                                <ul class="mega-menu-item">
-                                                <li>
-                                                    <a href="https://nutro.cloud/openclaw-hosting">
-                                                            <span class="menu-icon" style="background:#fce4ec;color:#c62828;"><i class="fas fa-dragon"></i></span>
-                                                            <div class="info">
-                                                                <p>OpenClaw<span style="background: #E91E63; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">NEW</span></p>
-                                                                <span>The AI that actually does things</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#gpu">
-                                                            <span class="menu-icon" style="background:#fce4ec;color:#ad1457;"><i class="fas fa-microchip"></i></span>
-                                                            <div class="info">
-                                                                <p>GPU Hosting <span style="background: #E91E63; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">NEW</span></p>
-                                                                <span>AI-Ready Performance</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#deepseek">
-                                                            <span class="menu-icon" style="background:#ede7f6;color:#4527a0;"><i class="fas fa-brain"></i></span>
-                                                            <div class="info">
-                                                                <p>DeepSeek Hosting <span style="background: #673AB7; color: white; padding: 2px 6px; border-radius: 3px; font-size: 10px; margin-left: 5px;">AI</span></p>
-                                                                <span>AI-Powered GPU Cloud</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/n8n">
-                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-project-diagram"></i></span>
-                                                            <div class="info">
-                                                                <p>Self-hosted n8n</p>
-                                                                <span>AI workflow automation</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#s3">
-                                                            <span class="menu-icon" style="background:#fff3e0;color:#e65100;"><i class="fas fa-database"></i></span>
-                                                            <div class="info">
-                                                                <p>Nutro S3</p>
-                                                                <span>Next-Gen Storage Cloud</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/price#nodejs">
-                                                            <span class="menu-icon" style="background:#e8f5e9;color:#388e3c;"><i class="fab fa-node-js"></i></span>
-                                                            <div class="info">
-                                                                <p>Nutro JS</p>
-                                                                <span>Fast Node.js Hosting</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <div style="padding: 20px; background: linear-gradient(135deg, #0a1628 0%, #0774FF 100%); border-radius: 12px; margin: 20px; text-align: center;">
-                                                    <a href="price" style="display: block; text-decoration: none; color: white;">
-                                                        <img src="https://i.postimg.cc/FRN6LxXP/www-com-6.png" alt="Nutro Services" style="width: 100%; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
-                                                        <div style="font-weight: bold; margin-bottom: 8px; font-size: 20px; color: white;">View All Services</div>
-                                                        <div style="font-size: 14px; color: rgba(255,255,255,0.9); margin-bottom: 15px;">Explore our complete hosting solutions</div>
-                                                        <div style="background: white; color: #0774FF; padding: 10px 20px; border-radius: 6px; font-weight: 600; display: inline-block;">Learn More →</div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
+  var currentLang = 'en';
+  var observer = null;
+  var langCache = {};
+  var priceRegex = /\$(\d+(?:\.\d{1,2})?)/g;
 
+  // ========== CURRENCY ==========
+  function convertPrice(usdStr, lang){
+    var info = LANGS[lang];
+    if(!info || lang === 'en') return '$' + usdStr;
+    var usd = parseFloat(usdStr);
+    var converted = usd * info.rate;
+    if(converted >= 1000) converted = Math.round(converted);
+    else if(converted === Math.floor(converted)) converted = Math.floor(converted);
+    else converted = converted.toFixed(2);
+    return info.symbol + converted;
+  }
 
-                            <li class="menu-item hostie-has-dropdown mega-menu">
-                                <a href="#" class="hostie-dropdown-main-element">Company</a>
-                                <div class="rts-mega-menu" style="max-width: 800px;">
-                                    <div class="wrapper">
-                                        <div class="row g-0">
-                                            <div class="col-lg-6">
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/about">
-                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1565c0;"><i class="fas fa-building"></i></span>
-                                                            <div class="info">
-                                                                <p>About Us</p>
-                                                                <span>Learn more about Nutro Cloud</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/data-center">
-                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-network-wired"></i></span>
-                                                            <div class="info">
-                                                                <p>Data Centers</p>
-                                                                <span>Our global infrastructure</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/technology">
-                                                            <span class="menu-icon" style="background:#fff3e0;color:#e65100;"><i class="fas fa-cogs"></i></span>
-                                                            <div class="info">
-                                                                <p>Technology</p>
-                                                                <span>Cutting-edge solutions</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div style="padding: 20px;">
-                                                    <a href="about" style="display: block; text-decoration: none; color: inherit;">
-                                                        <img src="https://7tteam.com/assets/img/portfolio/3.png" alt="About Nutro Cloud" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
-                                                        <div style="font-weight: bold; margin-bottom: 5px; font-size: 20px;">Why Choose Us?</div>
-                                                        <div style="font-size: 15px; color: #666;">Discover what makes Nutro Cloud different</div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="menu-item hostie-has-dropdown mega-menu">
-                                <a href="#" class="hostie-dropdown-main-element">Help Center</a>
-                                <div class="rts-mega-menu" style="max-width: 800px;">
-                                    <div class="wrapper">
-                                        <div class="row g-0">
-                                            <div class="col-lg-6">
-                                                <ul class="mega-menu-item">
-                                                    <li>
-                                                        <a href="https://nutro.cloud/support">
-                                                            <span class="menu-icon" style="background:#e3f2fd;color:#1565c0;"><i class="fas fa-book-open"></i></span>
-                                                            <div class="info">
-                                                                <p>Knowledge Base</p>
-                                                                <span>Advice and answers to all of your FAQs</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://status.nutro.cloud/">
-                                                            <span class="menu-icon" style="background:#e8f5e9;color:#2e7d32;"><i class="fas fa-signal"></i></span>
-                                                            <div class="info">
-                                                                <p>Status</p>
-                                                                <span>Check our system status</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://nutro.cloud/blog/">
-                                                            <span class="menu-icon" style="background:#fff3e0;color:#e65100;"><i class="fas fa-newspaper"></i></span>
-                                                            <div class="info">
-                                                                <p>Blog</p>
-                                                                <span>Latest news and updates</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="https://discord.gg/vJKKkaG8hm">
-                                                            <span class="menu-icon" style="background:#ede7f6;color:#5e35b1;"><i class="fab fa-discord"></i></span>
-                                                            <div class="info">
-                                                                <p>Discord</p>
-                                                                <span>Join our community</span>
-                                                            </div>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div style="padding: 20px;">
-                                                    <a href="support" style="display: block; text-decoration: none; color: inherit;">
-                                                        <img src="https://i.postimg.cc/FRN6LxXP/www-com-6.png" alt="Nutro Cloud Support" style="width: 100%; border-radius: 8px; margin-bottom: 10px;">
-                                                        <div style="font-weight: bold; margin-bottom: 5px; font-size: 20px;">24/7 Support Available</div>
-                                                        <div style="font-size: 15px; color: #666;">Get help anytime with our expert support team</div>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="https://nutro.cloud/openclaw-hosting" class="hostie-dropdown-main-element">OpenClaw Hosting</a>  
-                            </li>
-                            <li class="menu-item hostie-has-dropdown">
-                                <a href="#" class="hostie-dropdown-main-element" id="currentLangBtn">
-                                    <img src="https://flagcdn.com/w40/us.png" alt="EN" id="currentLangFlag" style="width: 20px; height: 14px; border-radius: 2px; margin-right: 5px; vertical-align: middle;"><span id="currentLangCode">EN</span>
-                                </a>
-                                <ul class="hostie-submenu list-unstyled menu-pages">
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="en" data-flag="us" data-currency="USD" data-rate="1" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/us.png" alt="EN" style="width:20px;height:14px;border-radius:2px;">English</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="ar" data-flag="sa" data-currency="EGP" data-rate="53" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/eg.png" alt="AR" style="width:20px;height:14px;border-radius:2px;">العربية</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="es" data-flag="es" data-currency="EUR" data-rate="0.92" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/es.png" alt="ES" style="width:20px;height:14px;border-radius:2px;">Español</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="fr" data-flag="fr" data-currency="EUR" data-rate="0.92" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/fr.png" alt="FR" style="width:20px;height:14px;border-radius:2px;">Français</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="de" data-flag="de" data-currency="EUR" data-rate="0.92" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/de.png" alt="DE" style="width:20px;height:14px;border-radius:2px;">Deutsch</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="pt" data-flag="br" data-currency="BRL" data-rate="5.5" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/br.png" alt="PT" style="width:20px;height:14px;border-radius:2px;">Português</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="hi" data-flag="in" data-currency="INR" data-rate="83" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/in.png" alt="HI" style="width:20px;height:14px;border-radius:2px;">हिन्दी</a></li>
-                                    <li class="nav-item"><a class="nav-link nutro-lang-btn" data-lang="zh" data-flag="cn" data-currency="CNY" data-rate="7.2" href="#" style="display:flex;align-items:center;gap:8px;"><img src="https://flagcdn.com/w40/cn.png" alt="ZH" style="width:20px;height:14px;border-radius:2px;">中文</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-                <!-- FOR HEADER RIGHT -->
-                <div class="rts-header__right">
-                    <a href="https://console.nutro.cloud" class="header-account-btn" target="_blank"><i class="fa-solid fa-user"></i> <span class="header-account-text">Account</span></a>
-                    <button id="menu-btn" aria-label="Menu" class="mobile__active menu-btn"><i
-                            class="fa-sharp fa-solid fa-bars"></i></button>
-                </div>
-                <style>
-                .menu-icon{
-                  width:32px;height:32px;border-radius:8px;
-                  display:inline-flex;align-items:center;justify-content:center;
-                  font-size:14px;flex-shrink:0;transition:transform .2s;
-                  margin-right:4px;
-                }
-                .mega-menu-item li a:hover .menu-icon{transform:scale(1.08);}
-                .header-account-btn{
-                  background:#0774FF;color:#fff;padding:10px 22px;border-radius:8px;
-                  font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:7px;
-                  transition:all .2s;box-shadow:0 2px 8px rgba(7,116,255,0.2);border:none;
-                  text-decoration:none;
-                }
-                .header-account-btn:hover{background:#0553c7;color:#fff;transform:translateY(-1px);}
-                .header-account-btn i{font-size:13px;}
-                @media(max-width:991px){
-                  .header-account-btn{
-                    width:38px;height:38px;padding:0;border-radius:50%;
-                    justify-content:center;font-size:15px;
-                  }
-                  .header-account-btn .header-account-text{display:none;}
-                  .header-account-btn i{font-size:15px;margin:0;}
-                }
-                </style>
-            </div>
-        </div>
-    </div>
+  function processTextNode(node){
+    if(!node || !node.nodeValue) return;
+    var text = node.nodeValue;
+    if(!priceRegex.test(text)) return;
+    priceRegex.lastIndex = 0;
+    if(!node._nutroOrig) node._nutroOrig = text;
+    if(currentLang === 'en'){
+      node.nodeValue = node._nutroOrig;
+    } else {
+      node.nodeValue = node._nutroOrig.replace(priceRegex, function(m, num){
+        return convertPrice(num, currentLang);
+      });
+    }
+  }
 
-</header>
-<!-- HEADER AREA END -->
+  function walkAndConvert(root){
+    if(!root) root = document.body;
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+      acceptNode: function(node){
+        var p = node.parentElement;
+        if(!p) return NodeFilter.FILTER_REJECT;
+        var t = p.tagName;
+        if(t==='SCRIPT'||t==='STYLE'||t==='NOSCRIPT'||t==='CODE') return NodeFilter.FILTER_REJECT;
+        if(p.classList && p.classList.contains('notranslate')) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    });
+    while(walker.nextNode()) processTextNode(walker.currentNode);
+  }
+
+  // ========== i18n DICT ==========
+  function loadLang(lang, cb){
+    if(langCache[lang]) return cb(langCache[lang]);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/assets/lang/' + lang + '.json?v=3', true);
+    xhr.onload = function(){
+      try{ langCache[lang] = JSON.parse(xhr.responseText); } catch(e){ langCache[lang] = {}; }
+      cb(langCache[lang]);
+    };
+    xhr.onerror = function(){ langCache[lang] = {}; cb({}); };
+    xhr.send();
+  }
+
+  function applyDict(dict){
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if(!dict[key]) return;
+      if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder = dict[key];
+      else el.textContent = dict[key];
+    });
+  }
+
+  // ========== DIRECTION + HEADER ==========
+  function setDirection(lang){
+    var info = LANGS[lang];
+    document.documentElement.dir = info.dir;
+    document.documentElement.lang = lang;
+  }
+
+  function updateHeader(lang){
+    var info = LANGS[lang];
+    var flag = document.getElementById('currentLangFlag');
+    var code = document.getElementById('currentLangCode');
+    if(flag) flag.src = 'https://flagcdn.com/w40/' + info.flag + '.png';
+    if(code) code.textContent = lang.toUpperCase();
+  }
+
+  // ========== SEO hreflang ==========
+  function injectHreflang(){
+    document.querySelectorAll('link[data-nutro-hl]').forEach(function(el){ el.remove(); });
+    var base = location.origin + location.pathname;
+    Object.keys(LANGS).forEach(function(l){
+      var link = document.createElement('link');
+      link.rel='alternate'; link.hreflang=l;
+      link.href = base + (l==='en'?'':'?lang='+l);
+      link.setAttribute('data-nutro-hl','1');
+      document.head.appendChild(link);
+    });
+    var xd = document.createElement('link');
+    xd.rel='alternate'; xd.hreflang='x-default'; xd.href=base;
+    xd.setAttribute('data-nutro-hl','1');
+    document.head.appendChild(xd);
+  }
+
+  // ========== OBSERVER ==========
+  function startObserver(){
+    if(observer) observer.disconnect();
+    observer = new MutationObserver(function(mutations){
+      if(currentLang === 'en') return;
+      mutations.forEach(function(m){
+        m.addedNodes.forEach(function(node){
+          if(node.nodeType === 3) processTextNode(node);
+          else if(node.nodeType === 1) walkAndConvert(node);
+        });
+      });
+    });
+    observer.observe(document.body, {childList:true, subtree:true, characterData:true});
+  }
+
+  // ========== SWITCH ==========
+  function switchLang(lang){
+    if(!LANGS[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('nutro_lang', lang);
+    var url = new URL(location);
+    if(lang==='en') url.searchParams.delete('lang');
+    else url.searchParams.set('lang', lang);
+    history.replaceState({}, '', url);
+
+    setDirection(lang);
+    updateHeader(lang);
+    loadLang(lang, function(dict){
+      if(Object.keys(dict).length > 0) applyDict(dict);
+    });
+    walkAndConvert(document.body);
+  }
+
+  // ========== DETECT ==========
+  function detect(){
+    var p = new URLSearchParams(location.search);
+    var u = p.get('lang');
+    if(u && LANGS[u]) return u;
+    var s = localStorage.getItem('nutro_lang');
+    if(s && LANGS[s]) return s;
+    return 'en';
+  }
+
+  // ========== INIT (called after header is in DOM) ==========
+  function init(){
+    // Bind language buttons in header
+    document.querySelectorAll('.nutro-lang-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        switchLang(this.getAttribute('data-lang'));
+      });
+    });
+
+    injectHreflang();
+    var lang = detect();
+    currentLang = lang;
+    updateHeader(lang);
+    if(lang !== 'en') switchLang(lang);
+    startObserver();
+  }
+
+  // Expose init for main.js to call after header loads
+  window.nutroTranslateInit = init;
+
+  // Also expose manual API
+  window.nutroTranslate = {
+    switchLang: switchLang,
+    getLang: function(){ return currentLang; },
+    LANGS: LANGS
+  };
+})();
