@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(data => {
                 headerElement.innerHTML = data;
+                // Execute scripts inside loaded header
+                headerElement.querySelectorAll('script').forEach(function(oldScript){
+                    var newScript = document.createElement('script');
+                    if(oldScript.src) newScript.src = oldScript.src;
+                    else newScript.textContent = oldScript.textContent;
+                    oldScript.parentNode.replaceChild(newScript, oldScript);
+                });
+                // Init translation system after header is in DOM
+                if(window.nutroTranslateInit) window.nutroTranslateInit();
             })
             .catch(error => console.log('Header could not be loaded:', error));
     }
