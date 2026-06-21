@@ -1,8 +1,7 @@
 /**
- * Nutro Cloud Auto-Translation + Currency Conversion v3
- * Handles: $X.XX, US$X.XX, US$ X.XX, USD X.XX patterns
- * MutationObserver for AJAX-loaded content
- * Proper revert to original on language switch back to EN
+ * Nutro Cloud Auto-Translation + Currency Conversion v4
+ * Handles ALL price formats: US$1.98, US$ 288.52, $2.99, USD 5.99
+ * Aggressive MutationObserver + periodic re-scan for AJAX content
  */
 (function(){
   'use strict';
@@ -21,89 +20,84 @@
   var currentLang = 'en';
   var observer = null;
   var langCache = {};
-  // Store originals: Map<node, originalText>
   var originals = new Map();
+  var scanInterval = null;
 
-  // ========== PRICE REGEX ==========
+  // ========== PRICE PATTERNS ==========
   // Matches: US$1.98, US$ 288.52, $2.99, USD 5.99, US$95.52
-  var pricePattern = /(?:US\$\s?|USD\s?|\$)\s?(\d{1,6}(?:[.,]\d{1,2})?)/g;
+  var pricePattern = /(?:US\s?\$\s?|USD\s?|\$)\s?(\d{1,6}(?:[,]\d{3})*(?:\.\d{1,2})?)/g;
 
-  function convertMatch(fullMatch, numStr, lang){
-    var info = LANGS[lang];
-    if(!info || lang === 'en') return fullMatch;
-    var num = parseFloat(numStr.replace(',', '.'));
-    if(isNaN(num)) return fullMatch;
-    var converted = num * info.rate;
-    var formatted;
-    if(converted >= 100 && converted === Math.floor(converted)){
-      formatted = Math.floor(converted).toLocaleString();
-    } else if(converted >= 100){
-      formatted = Math.round(converted).toLocaleString();
-    } else {
-      formatted = converted.toFixed(2);
-    }
-    return info.symbol + formatted;
+  function formatConverted(num, info){
+    if(num >= 1000) return info.symbol + Math.round(num).toLocaleString('en');
+    if(num === Math.floor(num)) return info.symbol + Math.floor(num);
+    return info.symbol + num.toFixed(2);
   }
 
   // ========== PROCESS TEXT NODES ==========
-
-  function hasPrice(text){
-    pricePattern.lastIndex = 0;
-    return pricePattern.test(text);
-  }
-
   function processNode(node){
     if(!node || node.nodeType !== 3) return;
     var text = node.nodeValue;
-    if(!text || !hasPrice(text)) return;
+    if(!text || text.trim().length === 0) return;
 
-    // Save original on first encounter
+    // Skip if parent is script/style
+    var parent = node.parentElement;
+    if(!parent) return;
+    var tag = parent.tagName;
+    if(tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA') return;
+
+    // Check if has price
+    pricePattern.lastIndex = 0;
+    if(!pricePattern.test(text)) return;
+    pricePattern.lastIndex = 0;
+
+    // Save original ONLY once
     if(!originals.has(node)){
       originals.set(node, text);
     }
 
     var original = originals.get(node);
+    var info = LANGS[currentLang];
 
     if(currentLang === 'en'){
       node.nodeValue = original;
     } else {
       pricePattern.lastIndex = 0;
-      node.nodeValue = original.replace(pricePattern, function(match, num){
-        return convertMatch(match, num, currentLang);
+      node.nodeValue = original.replace(pricePattern, function(match, numStr){
+        var num = parseFloat(numStr.replace(/,/g, ''));
+        if(isNaN(num)) return match;
+        var converted = num * info.rate;
+        return formatConverted(converted, info);
       });
     }
   }
 
   function walkDOM(root){
-    if(!root) root = document.body;
     if(!root) return;
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: function(node){
-        var p = node.parentElement;
-        if(!p) return NodeFilter.FILTER_REJECT;
-        var tag = p.tagName;
-        if(tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA')
-          return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
     while(walker.nextNode()){
       processNode(walker.currentNode);
     }
   }
 
-  function convertAllPrices(){
+  function fullScan(){
+    if(!document.body) return;
     walkDOM(document.body);
   }
 
   // ========== i18n DICTIONARY ==========
-
   function loadLang(lang, cb){
     if(langCache[lang]) return cb(langCache[lang]);
-    fetch('/assets/lang/' + lang + '.json?v=3')
-      .then(function(r){ return r.ok ? r.json() : {}; })
-      .then(function(data){ langCache[lang] = data; cb(data); })
-      .catch(function(){ langCache[lang] = {}; cb({}); });
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/assets/lang/' + lang + '.json?v=4', true);
+    xhr.onload = function(){
+      if(xhr.status === 200){
+        try{ langCache[lang] = JSON.parse(xhr.responseText); }
+        catch(e){ langCache[lang] = {}; }
+      } else { langCache[lang] = {}; }
+      cb(langCache[lang]);
+    };
+    xhr.onerror = function(){ langCache[lang] = {}; cb({}); };
+    xhr.send();
   }
 
   function applyDict(dict){
@@ -119,7 +113,6 @@
   }
 
   // ========== DIRECTION + HEADER ==========
-
   function setDirection(lang){
     var info = LANGS[lang];
     document.documentElement.dir = info.dir;
@@ -135,7 +128,6 @@
   }
 
   // ========== SEO ==========
-
   function injectHreflang(){
     document.querySelectorAll('link[data-nutro-hl]').forEach(function(el){ el.remove(); });
     var base = location.origin + location.pathname;
@@ -154,28 +146,37 @@
   }
 
   // ========== MUTATION OBSERVER ==========
-
   function startObserver(){
     if(observer) observer.disconnect();
     observer = new MutationObserver(function(muts){
       if(currentLang === 'en') return;
       muts.forEach(function(m){
-        if(m.type === 'characterData'){
-          processNode(m.target);
-        }
         if(m.addedNodes){
           m.addedNodes.forEach(function(n){
             if(n.nodeType === 3) processNode(n);
             else if(n.nodeType === 1) walkDOM(n);
           });
         }
+        if(m.type === 'characterData') processNode(m.target);
       });
     });
     observer.observe(document.body, {childList:true, subtree:true, characterData:true});
   }
 
-  // ========== SWITCH ==========
+  // Periodic re-scan for AJAX content that MutationObserver might miss
+  function startPeriodicScan(){
+    if(scanInterval) clearInterval(scanInterval);
+    if(currentLang === 'en') return;
+    var count = 0;
+    scanInterval = setInterval(function(){
+      fullScan();
+      count++;
+      // Stop after 20 scans (10 seconds)
+      if(count >= 20) clearInterval(scanInterval);
+    }, 500);
+  }
 
+  // ========== SWITCH ==========
   function switchLang(lang){
     if(!LANGS[lang]) return;
     currentLang = lang;
@@ -194,12 +195,14 @@
       if(Object.keys(dict).length > 0) applyDict(dict);
     });
 
-    // Prices (including revert to original for EN)
-    convertAllPrices();
+    // Price conversion - full scan
+    fullScan();
+
+    // Start periodic re-scan for AJAX-loaded prices
+    startPeriodicScan();
   }
 
   // ========== DETECT ==========
-
   function detect(){
     var p = new URLSearchParams(location.search);
     var u = p.get('lang');
@@ -210,7 +213,6 @@
   }
 
   // ========== INIT ==========
-
   function init(){
     document.querySelectorAll('.nutro-lang-btn').forEach(function(btn){
       btn.addEventListener('click', function(e){
@@ -224,7 +226,9 @@
     var lang = detect();
     currentLang = lang;
     updateHeader(lang);
-    if(lang !== 'en') switchLang(lang);
+    if(lang !== 'en'){
+      switchLang(lang);
+    }
 
     startObserver();
   }
@@ -235,5 +239,10 @@
     init();
   }
 
-  window.nutroTranslate = {switchLang:switchLang, getLang:function(){return currentLang;}, LANGS:LANGS};
+  window.nutroTranslate = {
+    switchLang: switchLang,
+    getLang: function(){ return currentLang; },
+    rescan: fullScan,
+    LANGS: LANGS
+  };
 })();
