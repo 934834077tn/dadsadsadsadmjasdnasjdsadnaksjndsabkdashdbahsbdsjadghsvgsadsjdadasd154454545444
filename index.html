@@ -6465,62 +6465,6 @@
     }
     loadFooter();
   </script>
-  <script>
-    // لغة الصفحة الأصلية
-    const sourceLang = "en";
-    const originalTexts = new WeakMap();
-    const cache = new Map();
-
-    // ترجمة نص باستخدام Lingva
-    async function translateTextLingva(text, targetLang) {
-      if (!text) return "";
-      if (cache.has(text + targetLang)) return cache.get(text + targetLang);
-
-      try {
-        const url = `https://lingva.ml/api/v1/${sourceLang}/${targetLang}/${encodeURIComponent(text)}`;
-        const res = await fetch(url);
-        if (!res.ok) throw new Error("Lingva API error");
-        const data = await res.json();
-        cache.set(text + targetLang, data.translation);
-        return data.translation;
-      } catch (e) {
-        console.error("Translation error:", e);
-        return text + " (Error)";
-      }
-    }
-
-    // ترجمة النصوص داخل nodes بدون المساس بالـ HTML أو CSS
-    async function translateNode(node, targetLang) {
-      for (let child of node.childNodes) {
-        if (child.nodeType === Node.TEXT_NODE) {
-          const original = child.textContent.trim();
-          if (original) {
-            if (!originalTexts.has(child)) originalTexts.set(child, original);
-            const translated = await translateTextLingva(original, targetLang);
-            child.textContent = translated;
-          }
-        } else if (child.nodeType === Node.ELEMENT_NODE) {
-          await translateNode(child, targetLang); // recursion
-        }
-      }
-    }
-
-    // ترجمة الصفحة كلها
-    async function translatePage(targetLang) {
-      const body = document.body;
-      await translateNode(body, targetLang);
-    }
-
-    // إعادة النصوص الأصلية
-    function resetPage() {
-      for (let [node, text] of originalTexts) {
-        node.textContent = text;
-      }
-    }
-  </script>
-
-
-
 
   <script src="https://bemo.7tteam.com/aias/assets/widget.js?v=2.2.1" data-site="admin" data-chatcolor="#5c3df5"
     data-headercolor="#f0f0f0" data-username="Astro" data-status="Available to help you now!" data-help="/support : https://nutro.cloud/support
