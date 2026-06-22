@@ -513,29 +513,6 @@
     }
   </style>
   <script defer src="main.js"></script>
-  <script src="assets/js/nutro-translate.js"></script>
-  <!-- translate.js for full page AI translation -->
-  <script src="https://cdn.staticfile.net/translate.js/3.18.66/translate.js"></script>
-  <script>
-    translate.language.setLocal('english');
-    translate.service.use('client.edge');
-    translate.listener.start();
-    translate.ignore.tag.push('script','style');
-    translate.setAutoDiscriminateLocalLanguage();
-    // Auto-switch based on URL ?lang= parameter
-    (function(){
-      var langMap = {ar:'arabic',es:'spanish',fr:'french',de:'german',pt:'portuguese',hi:'hindi',zh:'chinese_simplified'};
-      var p = new URLSearchParams(location.search);
-      var lang = p.get('lang') || localStorage.getItem('nutro_lang') || 'en';
-      if(lang !== 'en' && langMap[lang]){
-        translate.language.setLocal('english');
-        translate.execute();
-        translate.changeLanguage(langMap[lang]);
-      } else {
-        translate.execute();
-      }
-    })();
-  </script>
 </head>
 
 
