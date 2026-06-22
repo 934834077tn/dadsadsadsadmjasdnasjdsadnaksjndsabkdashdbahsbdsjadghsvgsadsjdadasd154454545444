@@ -9,14 +9,14 @@
   'use strict';
 
   var LANGS = {
-    en: {flag:'us', symbol:'$', rate:1, dir:'ltr'},
-    ar: {flag:'eg', symbol:'ج.م', rate:53, dir:'rtl'},
-    es: {flag:'es', symbol:'€', rate:0.92, dir:'ltr'},
-    fr: {flag:'fr', symbol:'€', rate:0.92, dir:'ltr'},
-    de: {flag:'de', symbol:'€', rate:0.92, dir:'ltr'},
-    pt: {flag:'br', symbol:'R$', rate:5.5, dir:'ltr'},
-    hi: {flag:'in', symbol:'₹', rate:83, dir:'ltr'},
-    zh: {flag:'cn', symbol:'¥', rate:7.2, dir:'ltr'}
+    en: {flag:'us', symbol:'$', rate:1, dir:'ltr', welcome:'Welcome to Nutro', flagImg:'🇺🇸'},
+    ar: {flag:'eg', symbol:'ج.م', rate:53, dir:'rtl', welcome:'أهلاً بك في نيترو', flagImg:'🇪🇬'},
+    es: {flag:'es', symbol:'€', rate:0.92, dir:'ltr', welcome:'Bienvenido a Nutro', flagImg:'🇪🇸'},
+    fr: {flag:'fr', symbol:'€', rate:0.92, dir:'ltr', welcome:'Bienvenue sur Nutro', flagImg:'🇫🇷'},
+    de: {flag:'de', symbol:'€', rate:0.92, dir:'ltr', welcome:'Willkommen bei Nutro', flagImg:'🇩🇪'},
+    pt: {flag:'br', symbol:'R$', rate:5.5, dir:'ltr', welcome:'Bem-vindo ao Nutro', flagImg:'🇧🇷'},
+    hi: {flag:'in', symbol:'₹', rate:83, dir:'ltr', welcome:'नूट्रो में आपका स्वागत है', flagImg:'🇮🇳'},
+    zh: {flag:'cn', symbol:'¥', rate:7.2, dir:'ltr', welcome:'欢迎来到 Nutro', flagImg:'🇨🇳'}
   };
 
   var currentLang = 'en';
@@ -159,53 +159,106 @@
     if(c) c.textContent = lang.toUpperCase();
   }
 
+  // ===== LOADING OVERLAY =====
+  function showLangLoader(lang){
+    var info = LANGS[lang];
+    if(!info || lang === 'en') return Promise.resolve();
+    
+    var overlay = document.createElement('div');
+    overlay.id = 'nutro-lang-loader';
+    overlay.innerHTML = '<div class="nll-content">' +
+      '<div class="nll-flag">' + info.flagImg + '</div>' +
+      '<div class="nll-welcome">' + info.welcome + '</div>' +
+      '<div class="nll-bar"><div class="nll-bar-fill"></div></div>' +
+      '</div>';
+    
+    var style = document.createElement('style');
+    style.textContent = '#nutro-lang-loader{position:fixed;inset:0;z-index:999999;' +
+      'background:linear-gradient(135deg,#0a0a2a 0%,#1a1a5e 50%,#2020c0 100%);' +
+      'display:flex;align-items:center;justify-content:center;' +
+      'opacity:0;transition:opacity .3s;direction:ltr;}' +
+      '#nutro-lang-loader.show{opacity:1;}' +
+      '.nll-content{text-align:center;animation:nll-in .5s ease both;}' +
+      '@keyframes nll-in{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}' +
+      '.nll-flag{font-size:64px;margin-bottom:20px;animation:nll-bounce 1s ease infinite alternate;}' +
+      '@keyframes nll-bounce{from{transform:translateY(0)}to{transform:translateY(-10px)}}' +
+      '.nll-welcome{color:#fff;font-size:24px;font-weight:700;margin-bottom:24px;letter-spacing:-0.5px;}' +
+      '.nll-bar{width:200px;height:4px;background:rgba(255,255,255,0.15);border-radius:4px;margin:0 auto;overflow:hidden;}' +
+      '.nll-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#60a5fa,#fff);border-radius:4px;' +
+      'animation:nll-fill 1.8s ease-in-out forwards;}' +
+      '@keyframes nll-fill{0%{width:0%}60%{width:80%}100%{width:100%}}';
+    
+    document.head.appendChild(style);
+    document.body.appendChild(overlay);
+    
+    // Trigger animation
+    requestAnimationFrame(function(){
+      overlay.classList.add('show');
+    });
+    
+    return new Promise(function(resolve){
+      setTimeout(function(){
+        overlay.style.opacity = '0';
+        setTimeout(function(){
+          if(overlay.parentNode) overlay.remove();
+          if(style.parentNode) style.remove();
+          resolve();
+        }, 300);
+      }, 2000);
+    });
+  }
+
   // ===== MAIN SWITCH =====
-  function switchLang(lang){
+  function switchLang(lang, showLoader){
     if(!LANGS[lang]) return;
 
-    // Revert everything first
-    originals.forEach(function(original, node){
-      if(node.parentNode) node.nodeValue = original;
-    });
-    revertTextMap();
+    function doSwitch(){
+      // Revert everything first
+      originals.forEach(function(original, node){
+        if(node.parentNode) node.nodeValue = original;
+      });
+      revertTextMap();
 
-    currentLang = lang;
-    localStorage.setItem('nutro_lang', lang);
-    var u = new URL(location);
-    if(lang==='en') u.searchParams.delete('lang');
-    else u.searchParams.set('lang', lang);
-    history.replaceState({}, '', u);
+      currentLang = lang;
+      localStorage.setItem('nutro_lang', lang);
+      var u = new URL(location);
+      if(lang==='en') u.searchParams.delete('lang');
+      else u.searchParams.set('lang', lang);
+      history.replaceState({}, '', u);
 
-    setDir(lang);
-    updateBtn(lang);
+      setDir(lang);
+      updateBtn(lang);
 
-    if(lang === 'en'){
-      // Reset translate.js to original
-      if(window.translate && window.translate.changeLanguage){
-        translate.changeLanguage('english');
+      if(lang === 'en'){
+        if(window.translate && window.translate.changeLanguage){
+          translate.changeLanguage('english');
+        }
+        return;
       }
-      return;
+
+      loadDict(lang, function(d){
+        if(Object.keys(d).length) applyDict(d);
+        scanPrices();
+        startRescan();
+
+        // Trigger translate.js for remaining English text
+        setTimeout(function(){
+          if(window.translate && window.translate.changeLanguage){
+            var langMap = {
+              ar:'arabic', es:'spanish', fr:'french',
+              de:'german', pt:'portuguese', hi:'hindi', zh:'chinese_simplified'
+            };
+            if(langMap[lang]) translate.changeLanguage(langMap[lang]);
+          }
+        }, 200);
+      });
     }
 
-    loadDict(lang, function(d){
-      if(Object.keys(d).length) applyDict(d);
-      scanPrices();
-      startRescan();
-
-      // Trigger translate.js as fallback for remaining English text
-      setTimeout(function(){
-        if(window._initTranslateJs) window._initTranslateJs();
-        if(window.translate && window.translate.changeLanguage){
-          var langMap = {
-            ar:'arabic', es:'spanish', fr:'french',
-            de:'german', pt:'portuguese', hi:'hindi', zh:'chinese_simplified'
-          };
-          if(langMap[lang]){
-            translate.changeLanguage(langMap[lang]);
-          }
-        }
-      }, 300);
-    });
+    if(showLoader && lang !== 'en'){
+      showLangLoader(lang).then(doSwitch);
+    } else {
+      doSwitch();
+    }
   }
 
   function startRescan(){
@@ -240,7 +293,7 @@
       btn.addEventListener('click', function(e){
         e.preventDefault();
         e.stopPropagation();
-        switchLang(this.getAttribute('data-lang'));
+        switchLang(this.getAttribute('data-lang'), true); // true = show loader
       });
     });
     return true;
@@ -269,7 +322,7 @@
     function onReady(){
       waitForHeader();
       updateBtn(lang);
-      if(lang !== 'en') switchLang(lang);
+      if(lang !== 'en') switchLang(lang, false); // false = no loader on auto-detect
 
       // Watch for AJAX content
       if(window.MutationObserver){
@@ -298,5 +351,5 @@
   }
 
   init();
-  window.nutroTranslate = {switchLang:switchLang, getLang:function(){return currentLang;}, rescan:scanPrices};
+  window.nutroTranslate = {switchLang:function(l){switchLang(l,true);}, getLang:function(){return currentLang;}, rescan:scanPrices};
 })();
