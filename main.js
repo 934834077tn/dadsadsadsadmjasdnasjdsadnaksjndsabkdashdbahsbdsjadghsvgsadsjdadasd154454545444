@@ -64,3 +64,31 @@ document.addEventListener("click", function(event) {
         }
     }
 });
+
+// ===== AUTO TRANSLATION LOADER (works on ALL pages) =====
+(function(){
+  // Detect language
+  var params = new URLSearchParams(location.search);
+  var lang = params.get('lang') || localStorage.getItem('nutro_lang') || 'en';
+  var langMap = {ar:'arabic',es:'spanish',fr:'french',de:'german',pt:'portuguese',hi:'hindi',zh:'chinese_simplified'};
+
+  // Load nutro-translate.js (currency + loader + buttons)
+  var ntScript = document.createElement('script');
+  ntScript.src = '/assets/js/nutro-translate.js';
+  document.head.appendChild(ntScript);
+
+  // Load translate.js and initialize
+  if(lang !== 'en' && langMap[lang]){
+    var tScript = document.createElement('script');
+    tScript.src = 'https://cdn.staticfile.net/translate.js/3.18.66/translate.js';
+    tScript.onload = function(){
+      translate.language.setLocal('english');
+      translate.service.use('client.edge');
+      translate.listener.start();
+      translate.ignore.tag.push('script','style');
+      translate.execute();
+      translate.changeLanguage(langMap[lang]);
+    };
+    document.head.appendChild(tScript);
+  }
+})();
