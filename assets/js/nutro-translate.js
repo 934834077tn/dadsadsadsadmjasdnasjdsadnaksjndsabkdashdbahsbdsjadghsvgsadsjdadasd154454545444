@@ -179,12 +179,32 @@
     setDir(lang);
     updateBtn(lang);
 
-    if(lang === 'en') return; // Already reverted
+    if(lang === 'en'){
+      // Reset translate.js to original
+      if(window.translate && window.translate.changeLanguage){
+        translate.changeLanguage('english');
+      }
+      return;
+    }
 
     loadDict(lang, function(d){
       if(Object.keys(d).length) applyDict(d);
       scanPrices();
       startRescan();
+
+      // Trigger translate.js as fallback for remaining English text
+      setTimeout(function(){
+        if(window._initTranslateJs) window._initTranslateJs();
+        if(window.translate && window.translate.changeLanguage){
+          var langMap = {
+            ar:'arabic', es:'spanish', fr:'french',
+            de:'german', pt:'portuguese', hi:'hindi', zh:'chinese_simplified'
+          };
+          if(langMap[lang]){
+            translate.changeLanguage(langMap[lang]);
+          }
+        }
+      }, 300);
     });
   }
 
