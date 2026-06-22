@@ -521,7 +521,20 @@
     translate.service.use('client.edge');
     translate.listener.start();
     translate.ignore.tag.push('script','style');
-    translate.execute();
+    translate.setAutoDiscriminateLocalLanguage();
+    // Auto-switch based on URL ?lang= parameter
+    (function(){
+      var langMap = {ar:'arabic',es:'spanish',fr:'french',de:'german',pt:'portuguese',hi:'hindi',zh:'chinese_simplified'};
+      var p = new URLSearchParams(location.search);
+      var lang = p.get('lang') || localStorage.getItem('nutro_lang') || 'en';
+      if(lang !== 'en' && langMap[lang]){
+        translate.language.setLocal('english');
+        translate.execute();
+        translate.changeLanguage(langMap[lang]);
+      } else {
+        translate.execute();
+      }
+    })();
   </script>
 </head>
 
