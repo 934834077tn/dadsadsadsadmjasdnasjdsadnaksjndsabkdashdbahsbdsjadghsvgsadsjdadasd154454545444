@@ -67,6 +67,10 @@ document.addEventListener("click", function(event) {
 
 // ===== AUTO TRANSLATION LOADER (works on ALL pages) =====
 (function(){
+  // Prevent double-loading
+  if(window._nutroTranslateLoaded) return;
+  window._nutroTranslateLoaded = true;
+
   // Detect language
   var params = new URLSearchParams(location.search);
   var lang = params.get('lang') || localStorage.getItem('nutro_lang') || 'en';
@@ -77,11 +81,12 @@ document.addEventListener("click", function(event) {
   ntScript.src = '/assets/js/nutro-translate.js';
   document.head.appendChild(ntScript);
 
-  // Load translate.js and initialize
-  if(lang !== 'en' && langMap[lang]){
+  // Load translate.js only once and only if needed
+  if(lang !== 'en' && langMap[lang] && !window.translate){
     var tScript = document.createElement('script');
     tScript.src = 'https://cdn.staticfile.net/translate.js/3.18.66/translate.js';
     tScript.onload = function(){
+      if(!window.translate) return;
       translate.language.setLocal('english');
       translate.service.use('client.edge');
       translate.listener.start();
