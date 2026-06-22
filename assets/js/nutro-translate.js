@@ -83,12 +83,30 @@
   }
 
   function applyDict(d){
+    // 1. Apply to data-i18n elements
     document.querySelectorAll('[data-i18n]').forEach(function(el){
       var k=el.getAttribute('data-i18n');
       if(!d[k])return;
       if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=d[k];
       else el.textContent=d[k];
     });
+
+    // 2. Broad text replacement for sections without data-i18n
+    if(!d._textMap) return;
+    var map = d._textMap;
+    var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    while(walker.nextNode()){
+      var node = walker.currentNode;
+      var p = node.parentElement;
+      if(!p) continue;
+      var tag = p.tagName;
+      if(tag==='SCRIPT'||tag==='STYLE'||tag==='NOSCRIPT') continue;
+      var txt = node.nodeValue.trim();
+      if(txt && map[txt]){
+        if(!originals.has(node)) originals.set(node, node.nodeValue);
+        node.nodeValue = node.nodeValue.replace(txt, map[txt]);
+      }
+    }
   }
 
   function setDir(lang){
