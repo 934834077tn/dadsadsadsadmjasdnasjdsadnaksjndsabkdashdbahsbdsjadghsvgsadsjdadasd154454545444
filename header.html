@@ -358,6 +358,15 @@
                             class="fa-sharp fa-solid fa-bars"></i></button>
                 </div>
                 <style>
+                /* Force header to stay LTR even in RTL mode */
+                .rts-header, .rts-header *,
+                .rts-mega-menu, .rts-mega-menu *,
+                .hostie-submenu, .hostie-submenu *,
+                .hostie-desktop-menu, .hostie-desktop-menu *,
+                .rts-header__wrapper{
+                  direction: ltr !important;
+                  text-align: left !important;
+                }
                 .menu-icon{
                   width:32px;height:32px;border-radius:8px;
                   display:inline-flex;align-items:center;justify-content:center;
