@@ -514,20 +514,14 @@
   </style>
   <script defer src="main.js"></script>
   <script src="assets/js/nutro-translate.js"></script>
-  <!-- translate.js fallback for full page AI translation -->
+  <!-- translate.js for full page AI translation -->
   <script src="https://cdn.staticfile.net/translate.js/3.18.66/translate.js"></script>
   <script>
-    // translate.js will be triggered by our nutro-translate when language changes
-    window._translateJsReady = false;
-    window._initTranslateJs = function(){
-      if(window._translateJsReady) return;
-      window._translateJsReady = true;
-      translate.language.setLocal('english');
-      translate.service.use('client.edge');
-      translate.listener.start();
-      translate.ignore.class.push('notranslate','hero-search-tld','pr-price-currency','pr-price-amount');
-      translate.ignore.tag.push('script','style','code');
-    };
+    translate.language.setLocal('english');
+    translate.service.use('client.edge');
+    translate.listener.start();
+    translate.ignore.tag.push('script','style');
+    translate.execute();
   </script>
 </head>
 
