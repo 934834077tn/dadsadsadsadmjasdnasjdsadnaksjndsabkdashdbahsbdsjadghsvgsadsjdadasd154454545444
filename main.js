@@ -91,6 +91,8 @@ document.addEventListener("click", function(event) {
       translate.service.use('client.edge');
       translate.listener.start();
       translate.ignore.tag.push('script','style');
+      // Ignore pricing sections - we handle them ourselves
+      translate.ignore.class.push('pr-card','pr-price','pr-price-amount','pr-price-currency','pr-price-period','pr-price-details','pr-price-renew','pr-bonus','card-plan__pricing','card-plan__price','pr-popular-badge','pr-discount');
       translate.execute();
       translate.changeLanguage(langMap[lang]);
     };
