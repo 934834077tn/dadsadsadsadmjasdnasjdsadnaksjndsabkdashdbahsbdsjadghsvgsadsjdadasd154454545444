@@ -1,248 +1,212 @@
 /**
- * Nutro Cloud Auto-Translation + Currency Conversion v4
- * Handles ALL price formats: US$1.98, US$ 288.52, $2.99, USD 5.99
- * Aggressive MutationObserver + periodic re-scan for AJAX content
+ * Nutro Cloud i18n + Currency v5
+ * Fixes: waits for header to load before binding language buttons
+ * Periodic rescan for AJAX prices
  */
 (function(){
   'use strict';
 
   var LANGS = {
-    en: {flag:'us', currency:'USD', symbol:'$', rate:1, dir:'ltr', name:'English'},
-    ar: {flag:'eg', currency:'EGP', symbol:'ج.م', rate:53, dir:'rtl', name:'العربية'},
-    es: {flag:'es', currency:'EUR', symbol:'€', rate:0.92, dir:'ltr', name:'Español'},
-    fr: {flag:'fr', currency:'EUR', symbol:'€', rate:0.92, dir:'ltr', name:'Français'},
-    de: {flag:'de', currency:'EUR', symbol:'€', rate:0.92, dir:'ltr', name:'Deutsch'},
-    pt: {flag:'br', currency:'BRL', symbol:'R$', rate:5.5, dir:'ltr', name:'Português'},
-    hi: {flag:'in', currency:'INR', symbol:'₹', rate:83, dir:'ltr', name:'हिन्दी'},
-    zh: {flag:'cn', currency:'CNY', symbol:'¥', rate:7.2, dir:'ltr', name:'中文'}
+    en: {flag:'us', symbol:'$', rate:1, dir:'ltr'},
+    ar: {flag:'eg', symbol:'ج.م', rate:53, dir:'rtl'},
+    es: {flag:'es', symbol:'€', rate:0.92, dir:'ltr'},
+    fr: {flag:'fr', symbol:'€', rate:0.92, dir:'ltr'},
+    de: {flag:'de', symbol:'€', rate:0.92, dir:'ltr'},
+    pt: {flag:'br', symbol:'R$', rate:5.5, dir:'ltr'},
+    hi: {flag:'in', symbol:'₹', rate:83, dir:'ltr'},
+    zh: {flag:'cn', symbol:'¥', rate:7.2, dir:'ltr'}
   };
 
   var currentLang = 'en';
-  var observer = null;
-  var langCache = {};
   var originals = new Map();
-  var scanInterval = null;
+  var langCache = {};
+  var scanTimer = null;
 
-  // ========== PRICE PATTERNS ==========
-  // Matches: US$1.98, US$ 288.52, $2.99, USD 5.99, US$95.52
-  var pricePattern = /(?:US\s?\$\s?|USD\s?|\$)\s?(\d{1,6}(?:[,]\d{3})*(?:\.\d{1,2})?)/g;
+  // Price regex: US$1.98, US$ 288, $2.99, USD 5.99
+  var RE = /(?:US\s?\$\s?|USD\s?|\$)\s?(\d[\d,]*(?:\.\d{1,2})?)/g;
 
-  function formatConverted(num, info){
-    if(num >= 1000) return info.symbol + Math.round(num).toLocaleString('en');
-    if(num === Math.floor(num)) return info.symbol + Math.floor(num);
-    return info.symbol + num.toFixed(2);
-  }
-
-  // ========== PROCESS TEXT NODES ==========
-  function processNode(node){
-    if(!node || node.nodeType !== 3) return;
-    var text = node.nodeValue;
-    if(!text || text.trim().length === 0) return;
-
-    // Skip if parent is script/style
-    var parent = node.parentElement;
-    if(!parent) return;
-    var tag = parent.tagName;
-    if(tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT' || tag === 'TEXTAREA') return;
-
-    // Check if has price
-    pricePattern.lastIndex = 0;
-    if(!pricePattern.test(text)) return;
-    pricePattern.lastIndex = 0;
-
-    // Save original ONLY once
-    if(!originals.has(node)){
-      originals.set(node, text);
-    }
-
-    var original = originals.get(node);
+  function convert(numStr){
     var info = LANGS[currentLang];
-
-    if(currentLang === 'en'){
-      node.nodeValue = original;
-    } else {
-      pricePattern.lastIndex = 0;
-      node.nodeValue = original.replace(pricePattern, function(match, numStr){
-        var num = parseFloat(numStr.replace(/,/g, ''));
-        if(isNaN(num)) return match;
-        var converted = num * info.rate;
-        return formatConverted(converted, info);
-      });
-    }
+    var n = parseFloat(numStr.replace(/,/g,''));
+    if(isNaN(n)) return null;
+    if(currentLang==='en') return null; // keep original
+    var c = n * info.rate;
+    if(c>=100) c = Math.round(c);
+    else c = Math.round(c*100)/100;
+    var formatted = c>=1000 ? c.toLocaleString('en') : (c===Math.floor(c)?c.toString():c.toFixed(2));
+    return info.symbol + formatted;
   }
 
-  function walkDOM(root){
-    if(!root) return;
-    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
-    while(walker.nextNode()){
-      processNode(walker.currentNode);
+  function processNode(node){
+    if(!node||node.nodeType!==3) return;
+    var p = node.parentElement;
+    if(!p) return;
+    var t = p.tagName;
+    if(t==='SCRIPT'||t==='STYLE'||t==='NOSCRIPT'||t==='TEXTAREA') return;
+
+    var text = node.nodeValue;
+    if(!text) return;
+    RE.lastIndex=0;
+    if(!RE.test(text)) return;
+    RE.lastIndex=0;
+
+    if(!originals.has(node)) originals.set(node, text);
+
+    if(currentLang==='en'){
+      node.nodeValue = originals.get(node);
+      return;
     }
+
+    node.nodeValue = originals.get(node).replace(RE, function(match, num){
+      var r = convert(num);
+      return r || match;
+    });
   }
 
-  function fullScan(){
+  function scanAll(){
     if(!document.body) return;
-    walkDOM(document.body);
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+    while(w.nextNode()) processNode(w.currentNode);
   }
 
-  // ========== i18n DICTIONARY ==========
-  function loadLang(lang, cb){
+  // Dictionary
+  function loadDict(lang, cb){
     if(langCache[lang]) return cb(langCache[lang]);
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/assets/lang/' + lang + '.json?v=4', true);
-    xhr.onload = function(){
-      if(xhr.status === 200){
-        try{ langCache[lang] = JSON.parse(xhr.responseText); }
-        catch(e){ langCache[lang] = {}; }
-      } else { langCache[lang] = {}; }
+    var x = new XMLHttpRequest();
+    x.open('GET','/assets/lang/'+lang+'.json?v=5',true);
+    x.onload=function(){
+      try{langCache[lang]=JSON.parse(x.responseText);}catch(e){langCache[lang]={};}
       cb(langCache[lang]);
     };
-    xhr.onerror = function(){ langCache[lang] = {}; cb({}); };
-    xhr.send();
+    x.onerror=function(){langCache[lang]={};cb({});};
+    x.send();
   }
 
-  function applyDict(dict){
+  function applyDict(d){
     document.querySelectorAll('[data-i18n]').forEach(function(el){
-      var key = el.getAttribute('data-i18n');
-      if(!dict[key]) return;
-      if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA'){
-        el.placeholder = dict[key];
-      } else {
-        el.textContent = dict[key];
-      }
+      var k=el.getAttribute('data-i18n');
+      if(!d[k])return;
+      if(el.tagName==='INPUT'||el.tagName==='TEXTAREA') el.placeholder=d[k];
+      else el.textContent=d[k];
     });
   }
 
-  // ========== DIRECTION + HEADER ==========
-  function setDirection(lang){
-    var info = LANGS[lang];
-    document.documentElement.dir = info.dir;
-    document.documentElement.lang = lang;
+  function setDir(lang){
+    document.documentElement.dir=LANGS[lang].dir;
+    document.documentElement.lang=lang;
   }
 
-  function updateHeader(lang){
-    var info = LANGS[lang];
-    var flag = document.getElementById('currentLangFlag');
-    var code = document.getElementById('currentLangCode');
-    if(flag) flag.src = 'https://flagcdn.com/w40/' + info.flag + '.png';
-    if(code) code.textContent = lang.toUpperCase();
+  function updateBtn(lang){
+    var f=document.getElementById('currentLangFlag');
+    var c=document.getElementById('currentLangCode');
+    if(f) f.src='https://flagcdn.com/w40/'+LANGS[lang].flag+'.png';
+    if(c) c.textContent=lang.toUpperCase();
   }
 
-  // ========== SEO ==========
-  function injectHreflang(){
-    document.querySelectorAll('link[data-nutro-hl]').forEach(function(el){ el.remove(); });
-    var base = location.origin + location.pathname;
-    Object.keys(LANGS).forEach(function(l){
-      var link = document.createElement('link');
-      link.rel = 'alternate';
-      link.hreflang = l;
-      link.href = base + (l === 'en' ? '' : '?lang=' + l);
-      link.setAttribute('data-nutro-hl', '1');
-      document.head.appendChild(link);
-    });
-    var xd = document.createElement('link');
-    xd.rel = 'alternate'; xd.hreflang = 'x-default'; xd.href = base;
-    xd.setAttribute('data-nutro-hl', '1');
-    document.head.appendChild(xd);
-  }
-
-  // ========== MUTATION OBSERVER ==========
-  function startObserver(){
-    if(observer) observer.disconnect();
-    observer = new MutationObserver(function(muts){
-      if(currentLang === 'en') return;
-      muts.forEach(function(m){
-        if(m.addedNodes){
-          m.addedNodes.forEach(function(n){
-            if(n.nodeType === 3) processNode(n);
-            else if(n.nodeType === 1) walkDOM(n);
-          });
-        }
-        if(m.type === 'characterData') processNode(m.target);
-      });
-    });
-    observer.observe(document.body, {childList:true, subtree:true, characterData:true});
-  }
-
-  // Periodic re-scan for AJAX content that MutationObserver might miss
-  function startPeriodicScan(){
-    if(scanInterval) clearInterval(scanInterval);
-    if(currentLang === 'en') return;
-    var count = 0;
-    scanInterval = setInterval(function(){
-      fullScan();
-      count++;
-      // Stop after 20 scans (10 seconds)
-      if(count >= 20) clearInterval(scanInterval);
-    }, 500);
-  }
-
-  // ========== SWITCH ==========
   function switchLang(lang){
     if(!LANGS[lang]) return;
-    currentLang = lang;
-    localStorage.setItem('nutro_lang', lang);
-
-    var url = new URL(location);
-    if(lang === 'en') url.searchParams.delete('lang');
-    else url.searchParams.set('lang', lang);
-    history.replaceState({}, '', url);
-
-    setDirection(lang);
-    updateHeader(lang);
-
-    // Dictionary
-    loadLang(lang, function(dict){
-      if(Object.keys(dict).length > 0) applyDict(dict);
-    });
-
-    // Price conversion - full scan
-    fullScan();
-
-    // Start periodic re-scan for AJAX-loaded prices
-    startPeriodicScan();
+    currentLang=lang;
+    localStorage.setItem('nutro_lang',lang);
+    var u=new URL(location);
+    if(lang==='en') u.searchParams.delete('lang');
+    else u.searchParams.set('lang',lang);
+    history.replaceState({},'',u);
+    setDir(lang);
+    updateBtn(lang);
+    loadDict(lang,function(d){if(Object.keys(d).length)applyDict(d);});
+    scanAll();
+    startRescan();
   }
 
-  // ========== DETECT ==========
+  function startRescan(){
+    if(scanTimer) clearInterval(scanTimer);
+    if(currentLang==='en') return;
+    var c=0;
+    scanTimer=setInterval(function(){
+      scanAll(); c++;
+      if(c>=30) clearInterval(scanTimer);
+    },500);
+  }
+
   function detect(){
-    var p = new URLSearchParams(location.search);
-    var u = p.get('lang');
-    if(u && LANGS[u]) return u;
-    var s = localStorage.getItem('nutro_lang');
-    if(s && LANGS[s]) return s;
+    var p=new URLSearchParams(location.search);
+    var u=p.get('lang'); if(u&&LANGS[u]) return u;
+    var s=localStorage.getItem('nutro_lang'); if(s&&LANGS[s]) return s;
     return 'en';
   }
 
-  // ========== INIT ==========
-  function init(){
-    document.querySelectorAll('.nutro-lang-btn').forEach(function(btn){
-      btn.addEventListener('click', function(e){
+  // Bind language buttons - with retry for dynamically loaded header
+  function bindButtons(){
+    var btns = document.querySelectorAll('.nutro-lang-btn');
+    if(btns.length===0) return false;
+    btns.forEach(function(btn){
+      btn.addEventListener('click',function(e){
         e.preventDefault();
+        e.stopPropagation();
         switchLang(this.getAttribute('data-lang'));
       });
     });
+    return true;
+  }
 
-    injectHreflang();
+  function waitForHeader(){
+    // Try immediately
+    if(bindButtons()) return;
+    // Retry every 300ms for up to 5 seconds (header loads via AJAX)
+    var attempts=0;
+    var check=setInterval(function(){
+      if(bindButtons()||attempts>=16){
+        clearInterval(check);
+      }
+      attempts++;
+    },300);
+  }
 
-    var lang = detect();
-    currentLang = lang;
-    updateHeader(lang);
-    if(lang !== 'en'){
-      switchLang(lang);
+  // Also use MutationObserver to catch when header is injected
+  function observeHeaderLoad(){
+    var headerDiv = document.getElementById('header');
+    if(!headerDiv) return;
+    var obs = new MutationObserver(function(){
+      bindButtons();
+      obs.disconnect();
+    });
+    obs.observe(headerDiv, {childList:true, subtree:true});
+  }
+
+  function init(){
+    var lang=detect();
+    currentLang=lang;
+
+    // Wait for DOM
+    function onReady(){
+      waitForHeader();
+      observeHeaderLoad();
+      updateBtn(lang);
+      if(lang!=='en') switchLang(lang);
+
+      // Watch for dynamically added content (AJAX plans etc)
+      if(window.MutationObserver){
+        var mo=new MutationObserver(function(muts){
+          if(currentLang==='en') return;
+          muts.forEach(function(m){
+            if(m.addedNodes) m.addedNodes.forEach(function(n){
+              if(n.nodeType===1){
+                var w=document.createTreeWalker(n,NodeFilter.SHOW_TEXT,null);
+                while(w.nextNode()) processNode(w.currentNode);
+              } else if(n.nodeType===3) processNode(n);
+            });
+          });
+        });
+        mo.observe(document.body,{childList:true,subtree:true});
+      }
     }
 
-    startObserver();
+    if(document.readyState==='loading')
+      document.addEventListener('DOMContentLoaded',onReady);
+    else onReady();
   }
 
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
+  init();
 
-  window.nutroTranslate = {
-    switchLang: switchLang,
-    getLang: function(){ return currentLang; },
-    rescan: fullScan,
-    LANGS: LANGS
-  };
+  window.nutroTranslate={switchLang:switchLang,getLang:function(){return currentLang;},rescan:scanAll};
 })();
