@@ -93,6 +93,28 @@
         return info.symbol + f;
       });
     }
+
+    // Fix /mo → /شهر and other unit texts
+    var unitMap = {
+      '/mo':'/شهر', '/month':'/شهر', '/yr':'/سنة', '/year':'/سنة',
+      'Renews at':'يتجدد بـ', 'for the first':'لأول',
+      'months':'شهر', 'US$':'', 'USD':'', 'MOST POPULAR':'الأكثر شعبية'
+    };
+    if(currentLang === 'ar'){
+      document.querySelectorAll('.pr-card, .card-plan, .pr-section, .card-plan-bg').forEach(function(card){
+        var tw = document.createTreeWalker(card, NodeFilter.SHOW_TEXT, null);
+        while(tw.nextNode()){
+          var nd = tw.currentNode;
+          var txt = nd.nodeValue;
+          if(!txt) continue;
+          Object.keys(unitMap).forEach(function(en){
+            if(txt.indexOf(en) !== -1){
+              nd.nodeValue = nd.nodeValue.split(en).join(unitMap[en]);
+            }
+          });
+        }
+      });
+    }
   }
 
   // ===== HEADER BUTTON =====
