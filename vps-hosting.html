@@ -151,7 +151,7 @@
 document.addEventListener("DOMContentLoaded",function(){
 window.addEventListener("load",function(){
 setTimeout(function(){
-fetch("https://user.7tteam.com/admin/nutrocloud/plan.php")
+fetch("https://console.nutro.cloud/api/plans?type=vps&key=ntc_pk_live_a7f2c9d4e8b1f6a3c5d7e9f2a4b6c8d0")
 .then(function(r){return r.json();})
 .then(function(plans){
 var g=document.getElementById("vps-plans-grid");g.innerHTML='';
