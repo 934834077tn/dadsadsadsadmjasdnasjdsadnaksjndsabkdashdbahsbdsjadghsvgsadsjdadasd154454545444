@@ -402,20 +402,29 @@ const API_BASE = 'https://console.nutro.cloud/api/domain-check';
 const API_KEY = 'ntc_pk_live_a7f2c9d4e8b1f6a3c5d7e9f2a4b6c8d0';
 let cachedPricing = null;
 
-function apiHeaders() {
-  return {'X-Api-Key': API_KEY, 'Content-Type': 'application/json'};
+// Build URL with key as query param
+function apiUrl(params) {
+  return API_BASE + '?' + params + '&key=' + API_KEY;
 }
 
 // Load pricing from API
 async function loadPricingData() {
   try {
-    const res = await fetch(API_BASE + '?action=pricing', {headers: apiHeaders()});
+    const url = apiUrl('action=pricing');
+    console.log('[Domain API] Fetching pricing:', url);
+    const res = await fetch(url);
+    if (!res.ok) { console.error('[Domain API] Pricing failed:', res.status, res.statusText); return null; }
     const data = await res.json();
     if (data.success) {
       cachedPricing = data.pricing;
+      console.log('[Domain API] Pricing loaded:', Object.keys(data.pricing).length, 'TLDs');
       return data.pricing;
+    } else {
+      console.error('[Domain API] Pricing error:', data.error || data);
     }
-  } catch (e) {}
+  } catch (e) {
+    console.error('[Domain API] Pricing fetch error:', e.message);
+  }
   return null;
 }
 
@@ -458,7 +467,7 @@ async function loadPricing() {
   `).join('');
 }
 
-// Search domain via GET
+// Search domain
 async function searchDomain(e) {
   e.preventDefault();
   let input = document.getElementById('domain-input').value.toLowerCase().trim();
@@ -474,16 +483,24 @@ async function searchDomain(e) {
   document.getElementById('dm-results').style.display = 'none';
 
   try {
-    const res = await fetch(API_BASE + '?action=search&domain=' + encodeURIComponent(input), {headers: apiHeaders()});
+    const url = apiUrl('action=search&domain=' + encodeURIComponent(input));
+    console.log('[Domain API] Searching:', url);
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error('[Domain API] Search failed:', res.status, res.statusText);
+      throw new Error('HTTP ' + res.status + ': ' + res.statusText);
+    }
     const data = await res.json();
+    console.log('[Domain API] Search result:', data);
     document.getElementById('dm-loading').style.display = 'none';
     document.getElementById('dm-results').style.display = 'block';
     if (data.success) renderResult(data);
     else document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">' + (data.error || 'Error checking domain') + '</p>';
   } catch (err) {
+    console.error('[Domain API] Search error:', err);
     document.getElementById('dm-loading').style.display = 'none';
     document.getElementById('dm-results').style.display = 'block';
-    document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">Connection error. Please try again.</p>';
+    document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">Connection error: ' + err.message + '</p>';
   }
 }
 
@@ -516,7 +533,7 @@ function renderResult(data) {
     </div>
   `;
 
-  // Render suggestions — verify each one via API before showing
+  // Render suggestions — verify each one
   const sugEl = document.getElementById('dm-suggestions');
   if (suggestions && suggestions.length > 0) {
     sugEl.innerHTML = `
@@ -531,14 +548,12 @@ function renderResult(data) {
   setTimeout(function() { document.getElementById('dm-results').scrollIntoView({behavior:'smooth',block:'start'}); }, 150);
 }
 
-// Verify suggestion via POST — only show if API confirms valid with pricing
+// Verify suggestion — only show if API confirms valid with pricing
 async function verifySuggestion(s) {
   try {
-    const res = await fetch(API_BASE, {
-      method: 'POST',
-      headers: apiHeaders(),
-      body: JSON.stringify({domain: s.domain})
-    });
+    const url = apiUrl('action=search&domain=' + encodeURIComponent(s.domain));
+    const res = await fetch(url);
+    if (!res.ok) { console.warn('[Domain API] Suggestion check failed for', s.domain, res.status); return; }
     const data = await res.json();
     if (!data.success || !data.pricing) return;
 
@@ -569,7 +584,9 @@ async function verifySuggestion(s) {
       </div>
     `;
     grid.appendChild(item);
-  } catch (e) {}
+  } catch (e) {
+    console.warn('[Domain API] Suggestion error for', s.domain, e.message);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
