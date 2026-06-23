@@ -214,12 +214,12 @@ body{background:#fff;margin:0;font-size:16px;}
       <button type="submit" aria-label="Search"><i class="fas fa-arrow-right"></i></button>
     </div>
   </form>
-  <div class="dm-tlds">
-    <span class="dm-tld"><span>.com</span> $2.99</span>
-    <span class="dm-tld"><span>.online</span> $0.99</span>
-    <span class="dm-tld"><span>.shop</span> $0.99</span>
-    <span class="dm-tld"><span>.xyz</span> $1.99</span>
-    <span class="dm-tld"><span>.io</span> $24.99</span>
+  <div class="dm-tlds" id="dm-hero-tlds">
+    <span class="dm-tld" style="opacity:0.5;"><span>.com</span> <span class="dm-tld-price">...</span></span>
+    <span class="dm-tld" style="opacity:0.5;"><span>.online</span> <span class="dm-tld-price">...</span></span>
+    <span class="dm-tld" style="opacity:0.5;"><span>.shop</span> <span class="dm-tld-price">...</span></span>
+    <span class="dm-tld" style="opacity:0.5;"><span>.xyz</span> <span class="dm-tld-price">...</span></span>
+    <span class="dm-tld" style="opacity:0.5;"><span>.io</span> <span class="dm-tld-price">...</span></span>
   </div>
 </section>
 
@@ -292,7 +292,7 @@ body{background:#fff;margin:0;font-size:16px;}
       </div>
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px 20px;backdrop-filter:blur(8px);">
         <div style="font-size:3rem;font-weight:800;color:#f59e0b;margin-bottom:8px;line-height:1;">&lt;2min</div>
-        <div style="font-size:14px;color:rgba(255,255,255,0.6);font-weight:500;">Avg. Setup Time</div>
+        <div style="font-size:14px;color:rgba(134, 59, 59, 0.6);font-weight:500;">Avg. Setup Time</div>
       </div>
       <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:32px 20px;backdrop-filter:blur(8px);">
         <div style="font-size:3rem;font-weight:800;color:#8b5cf6;margin-bottom:8px;line-height:1;">4.8<i class="fas fa-star" style="font-size:1.2rem;color:#fbbf24;margin-left:4px;"></i></div>
@@ -398,9 +398,67 @@ body{background:#fff;margin:0;font-size:16px;}
 <script defer src="assets/js/plugins.min.js"></script>
 <script defer src="assets/js/main.js"></script>
 <script>
-const API = 'https://user.7tteam.com/admin/domain-check.php';
+const API_BASE = 'https://console.nutro.cloud/api/domain-check';
+const API_KEY = 'ntc_pk_live_a7f2c9d4e8b1f6a3c5d7e9f2a4b6c8d0';
+let cachedPricing = null;
 
-// Search domain
+function apiHeaders() {
+  return {'X-Api-Key': API_KEY, 'Content-Type': 'application/json'};
+}
+
+// Load pricing from API
+async function loadPricingData() {
+  try {
+    const res = await fetch(API_BASE + '?action=pricing', {headers: apiHeaders()});
+    const data = await res.json();
+    if (data.success) {
+      cachedPricing = data.pricing;
+      return data.pricing;
+    }
+  } catch (e) {}
+  return null;
+}
+
+// Update hero TLD pills with real prices
+async function updateHeroTLDs() {
+  const pricing = cachedPricing || await loadPricingData();
+  if (!pricing) return;
+  const container = document.getElementById('dm-hero-tlds');
+  const pills = container.querySelectorAll('.dm-tld');
+  pills.forEach(function(pill) {
+    const tldEl = pill.querySelector('span:first-child');
+    const priceEl = pill.querySelector('.dm-tld-price');
+    const tld = tldEl.textContent;
+    if (pricing[tld]) {
+      priceEl.textContent = '$' + pricing[tld].register.toFixed(2);
+      pill.style.opacity = '1';
+    } else {
+      pill.style.display = 'none';
+    }
+  });
+}
+
+// Load pricing grid
+async function loadPricing() {
+  const pricing = cachedPricing || await loadPricingData();
+  if (!pricing) return;
+  const grid = document.getElementById('dm-pricing-grid');
+  const entries = Object.entries(pricing).filter(([_,v]) => v.popular).slice(0, 8);
+  if (entries.length === 0) {
+    grid.innerHTML = '<p style="text-align:center;color:#94a3b8;">No pricing available.</p>';
+    return;
+  }
+  grid.innerHTML = entries.map(([tld, info]) => `
+    <div class="dm-price-card" onclick="document.getElementById('domain-input').value='example${tld}';document.getElementById('domain-input').focus();">
+      <div class="tld">${tld}</div>
+      <div class="price">$${info.register.toFixed(2)}</div>
+      <div class="period">/1st year</div>
+      ${info.save > 0 ? '<div class="save">Save ' + info.save + '%</div>' : ''}
+    </div>
+  `).join('');
+}
+
+// Search domain via GET
 async function searchDomain(e) {
   e.preventDefault();
   let input = document.getElementById('domain-input').value.toLowerCase().trim();
@@ -416,12 +474,12 @@ async function searchDomain(e) {
   document.getElementById('dm-results').style.display = 'none';
 
   try {
-    const res = await fetch(API + '?domain=' + encodeURIComponent(input));
+    const res = await fetch(API_BASE + '?action=search&domain=' + encodeURIComponent(input), {headers: apiHeaders()});
     const data = await res.json();
     document.getElementById('dm-loading').style.display = 'none';
     document.getElementById('dm-results').style.display = 'block';
     if (data.success) renderResult(data);
-    else document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">' + (data.error || 'Error') + '</p>';
+    else document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">' + (data.error || 'Error checking domain') + '</p>';
   } catch (err) {
     document.getElementById('dm-loading').style.display = 'none';
     document.getElementById('dm-results').style.display = 'block';
@@ -458,101 +516,79 @@ function renderResult(data) {
     </div>
   `;
 
-  // Render suggestions and check each one
+  // Render suggestions — verify each one via API before showing
   const sugEl = document.getElementById('dm-suggestions');
   if (suggestions && suggestions.length > 0) {
     sugEl.innerHTML = `
       <div class="dm-sug-title"><i class="fas fa-globe" style="color:#0774FF;"></i> More options</div>
-      <div class="dm-sug-grid">
-        ${suggestions.map((s, i) => `
-          <div class="dm-sug-item checking" id="sug-${i}">
-            <div class="dm-sug-left">
-              <span class="dm-sug-name">${s.domain}</span>
-              <span class="dm-sug-badge loading" id="sug-badge-${i}">Checking...</span>
-            </div>
-            <div class="dm-sug-right">
-              <div class="dm-sug-price">
-                <div class="now">$${s.price.toFixed(2)}<span style="font-size:11px;font-weight:400;color:#64748b;">/yr</span></div>
-                ${s.save > 0 ? '<div class="was">$' + s.renew.toFixed(2) + '</div>' : ''}
-              </div>
-              <a href="https://pro.nutro.cloud/checkout/?pay=domain&domain=${s.domain}" class="dm-sug-btn" id="sug-btn-${i}" style="pointer-events:none;opacity:0.5;">
-                <i class="fas fa-cart-plus"></i> Get
-              </a>
-            </div>
-          </div>
-        `).join('')}
-      </div>
+      <div class="dm-sug-grid" id="dm-sug-grid"></div>
     `;
-    // Check availability for each suggestion
-    suggestions.forEach((s, i) => checkSuggestion(s.domain, i));
+    suggestions.forEach(function(s) { verifySuggestion(s); });
   } else {
     sugEl.innerHTML = '';
   }
 
-  setTimeout(() => document.getElementById('dm-results').scrollIntoView({behavior:'smooth',block:'start'}), 150);
+  setTimeout(function() { document.getElementById('dm-results').scrollIntoView({behavior:'smooth',block:'start'}); }, 150);
 }
 
-// Check single suggestion availability
-async function checkSuggestion(domain, idx) {
-  const item = document.getElementById('sug-' + idx);
-  const badge = document.getElementById('sug-badge-' + idx);
-  const btn = document.getElementById('sug-btn-' + idx);
+// Verify suggestion via POST — only show if API confirms valid with pricing
+async function verifySuggestion(s) {
   try {
-    const res = await fetch(API + '?domain=' + encodeURIComponent(domain));
+    const res = await fetch(API_BASE, {
+      method: 'POST',
+      headers: apiHeaders(),
+      body: JSON.stringify({domain: s.domain})
+    });
     const data = await res.json();
-    item.classList.remove('checking');
-    if (data.available === true) {
-      badge.textContent = 'Available';
-      badge.className = 'dm-sug-badge';
-      btn.style.pointerEvents = 'auto';
-      btn.style.opacity = '1';
-    } else if (data.available === false) {
-      badge.textContent = 'Taken';
-      badge.className = 'dm-sug-badge taken';
-      item.classList.add('unavailable');
-      btn.disabled = true;
-    } else {
-      badge.textContent = 'Try it';
-      badge.className = 'dm-sug-badge';
-      btn.style.pointerEvents = 'auto';
-      btn.style.opacity = '1';
-    }
-  } catch (e) {
-    item.classList.remove('checking');
-    badge.textContent = 'Try it';
-    badge.className = 'dm-sug-badge';
-    btn.style.pointerEvents = 'auto';
-    btn.style.opacity = '1';
-  }
-}
+    if (!data.success || !data.pricing) return;
 
-// Load pricing grid
-async function loadPricing() {
-  try {
-    const res = await fetch(API + '?action=pricing');
-    const data = await res.json();
-    if (!data.success) return;
-    const grid = document.getElementById('dm-pricing-grid');
-    const entries = Object.entries(data.pricing).filter(([_,v]) => v.popular).slice(0, 8);
-    grid.innerHTML = entries.map(([tld, info]) => `
-      <div class="dm-price-card" onclick="document.getElementById('domain-input').value='example${tld}';document.getElementById('domain-input').focus();">
-        <div class="tld">${tld}</div>
-        <div class="price">$${info.register.toFixed(2)}</div>
-        <div class="period">/1st year</div>
-        ${info.save > 0 ? '<div class="save">Save ' + info.save + '%</div>' : ''}
+    const grid = document.getElementById('dm-sug-grid');
+    if (!grid) return;
+
+    const avail = data.available;
+    const price = data.pricing.register;
+    const renew = data.pricing.renew;
+    const save = data.pricing.save || 0;
+    const checkout = data.checkout_url || ('https://pro.nutro.cloud/checkout?pay=domain&domain=' + s.domain);
+
+    const item = document.createElement('div');
+    item.className = 'dm-sug-item' + (avail === false ? ' unavailable' : '');
+    item.innerHTML = `
+      <div class="dm-sug-left">
+        <span class="dm-sug-name">${data.domain}</span>
+        <span class="dm-sug-badge ${avail === true ? '' : avail === false ? 'taken' : ''}">${avail === true ? 'Available' : avail === false ? 'Taken' : 'Try it'}</span>
       </div>
-    `).join('');
+      <div class="dm-sug-right">
+        <div class="dm-sug-price">
+          <div class="now">$${price.toFixed(2)}<span style="font-size:11px;font-weight:400;color:#64748b;">/yr</span></div>
+          ${save > 0 ? '<div class="was">$' + renew.toFixed(2) + '</div>' : ''}
+        </div>
+        <a href="${checkout}" class="dm-sug-btn" ${avail === false ? 'disabled' : ''}>
+          <i class="fas fa-cart-plus"></i> Get
+        </a>
+      </div>
+    `;
+    grid.appendChild(item);
   } catch (e) {}
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  loadPricing();
-  // Video rotation - fast switch every 4 seconds
+  loadPricingData().then(function() {
+    updateHeroTLDs();
+    loadPricing();
+  });
+
+  var urlParams = new URLSearchParams(window.location.search);
+  var searchParam = urlParams.get('search');
+  if (searchParam) {
+    document.getElementById('domain-input').value = searchParam;
+    searchDomain(new Event('submit'));
+  }
+
   const videos = document.querySelectorAll('.dm-hero-video video');
   if (videos.length > 1) {
     let current = 0;
-    // Force all videos to start loading/playing
-    videos.forEach(v => { v.play().catch(()=>{}); });
+    videos.forEach(function(v) { v.play().catch(function(){}); });
     setInterval(function() {
       videos[current].classList.remove('active');
       current = (current + 1) % videos.length;
