@@ -58,6 +58,12 @@
 <style>*{font-family:'Inter',sans-serif;box-sizing:border-box;}body{margin:0;background:#fff;}</style>
 </head>
 <body id="main-body">
+<!-- Page Loader -->
+<div id="vps-page-loader" style="position:fixed;inset:0;z-index:9999;background:#fff;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;transition:opacity .4s,visibility .4s;">
+<div style="width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:#0774FF;border-radius:50%;animation:vps-spin .7s linear infinite;"></div>
+<span style="font-size:13px;color:#64748b;font-weight:500;">Loading...</span>
+</div>
+<script>window.addEventListener('load',function(){var l=document.getElementById('vps-page-loader');if(l){l.style.opacity='0';l.style.visibility='hidden';setTimeout(function(){l.remove();},400);}});</script>
 <div id="header"></div>
 
 <!-- ===== HERO ===== -->
