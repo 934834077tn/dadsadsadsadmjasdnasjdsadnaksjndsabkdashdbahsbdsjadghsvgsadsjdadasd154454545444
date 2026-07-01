@@ -5470,7 +5470,7 @@
     document.addEventListener("DOMContentLoaded", function () {
       window.addEventListener("load", function () {
         setTimeout(function () {
-          fetch("https://user.7tteam.com/admin/nutrocloud/wpplan.php")
+          fetch("https://console.nutro.cloud/api/plans?type=wordpress&key=ntc_pk_live_a7f2c9d4e8b1f6a3c5d7e9f2a4b6c8d0")
             .then(function (res) {
               if (!res.ok) throw new Error('Network error');
               return res.json();
