@@ -398,221 +398,224 @@ body{background:#fff;margin:0;font-size:16px;}
 <script defer src="assets/js/plugins.min.js"></script>
 <script defer src="assets/js/main.js"></script>
 <script>
-const API_BASE = 'https://console.nutro.cloud/api/domain-check';
-const API_KEY = 'ntc_pk_live_a7f2c9d4e8b1f6a3c5d7e9f2a4b6c8d0';
-let cachedPricing = null;
+(function() {
+  const API_BASE = 'https://console.nutro.cloud/api/domain-check';
+  const API_KEY  = 'ntc_pk_live_a7f2c9d4e8b1f6a3c5d7e9f2a4b6c8d0';
+  let cachedPricing = null;
+  let searching = false;
 
-// Build URL with key as query param
-function apiUrl(params) {
-  return API_BASE + '?' + params + '&key=' + API_KEY;
-}
-
-// Load pricing from API
-async function loadPricingData() {
-  try {
-    const url = apiUrl('action=pricing');
-    console.log('[Domain API] Fetching pricing:', url);
-    const res = await fetch(url);
-    if (!res.ok) { console.error('[Domain API] Pricing failed:', res.status, res.statusText); return null; }
-    const data = await res.json();
-    if (data.success) {
-      cachedPricing = data.pricing;
-      console.log('[Domain API] Pricing loaded:', Object.keys(data.pricing).length, 'TLDs');
-      return data.pricing;
-    } else {
-      console.error('[Domain API] Pricing error:', data.error || data);
-    }
-  } catch (e) {
-    console.error('[Domain API] Pricing fetch error:', e.message);
-  }
-  return null;
-}
-
-// Update hero TLD pills with real prices
-async function updateHeroTLDs() {
-  const pricing = cachedPricing || await loadPricingData();
-  if (!pricing) return;
-  const container = document.getElementById('dm-hero-tlds');
-  const pills = container.querySelectorAll('.dm-tld');
-  pills.forEach(function(pill) {
-    const tldEl = pill.querySelector('span:first-child');
-    const priceEl = pill.querySelector('.dm-tld-price');
-    const tld = tldEl.textContent;
-    if (pricing[tld]) {
-      priceEl.textContent = '$' + pricing[tld].register.toFixed(2);
-      pill.style.opacity = '1';
-    } else {
-      pill.style.display = 'none';
-    }
-  });
-}
-
-// Load pricing grid
-async function loadPricing() {
-  const pricing = cachedPricing || await loadPricingData();
-  if (!pricing) return;
-  const grid = document.getElementById('dm-pricing-grid');
-  const entries = Object.entries(pricing).filter(([_,v]) => v.popular).slice(0, 8);
-  if (entries.length === 0) {
-    grid.innerHTML = '<p style="text-align:center;color:#94a3b8;">No pricing available.</p>';
-    return;
-  }
-  grid.innerHTML = entries.map(([tld, info]) => `
-    <div class="dm-price-card" onclick="document.getElementById('domain-input').value='example${tld}';document.getElementById('domain-input').focus();">
-      <div class="tld">${tld}</div>
-      <div class="price">$${info.register.toFixed(2)}</div>
-      <div class="period">/1st year</div>
-      ${info.save > 0 ? '<div class="save">Save ' + info.save + '%</div>' : ''}
-    </div>
-  `).join('');
-}
-
-// Search domain
-async function searchDomain(e) {
-  e.preventDefault();
-  let input = document.getElementById('domain-input').value.toLowerCase().trim();
-  input = input.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '');
-  if (!input.includes('.')) input += '.com';
-  if (!/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z]{2,20})+$/.test(input)) {
-    alert('Please enter a valid domain (e.g. mysite.com)');
-    return;
+  function apiUrl(params) {
+    return API_BASE + '?' + params + '&key=' + API_KEY;
   }
 
-  document.getElementById('dm-pricing-section').style.display = 'none';
-  document.getElementById('dm-loading').style.display = 'block';
-  document.getElementById('dm-results').style.display = 'none';
-
-  try {
-    const url = apiUrl('action=search&domain=' + encodeURIComponent(input));
-    console.log('[Domain API] Searching:', url);
-    const res = await fetch(url);
-    if (!res.ok) {
-      console.error('[Domain API] Search failed:', res.status, res.statusText);
-      throw new Error('HTTP ' + res.status + ': ' + res.statusText);
-    }
-    const data = await res.json();
-    console.log('[Domain API] Search result:', data);
-    document.getElementById('dm-loading').style.display = 'none';
-    document.getElementById('dm-results').style.display = 'block';
-    if (data.success) renderResult(data);
-    else document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">' + (data.error || 'Error checking domain') + '</p>';
-  } catch (err) {
-    console.error('[Domain API] Search error:', err);
-    document.getElementById('dm-loading').style.display = 'none';
-    document.getElementById('dm-results').style.display = 'block';
-    document.getElementById('dm-result-main').innerHTML = '<p style="color:#ef4444;text-align:center;">Connection error: ' + err.message + '</p>';
-  }
-}
-
-// Render main result
-function renderResult(data) {
-  const { domain, available, pricing, suggestions, checkout_url } = data;
-  const mainEl = document.getElementById('dm-result-main');
-  const cls = available === true ? 'available' : available === false ? 'taken' : '';
-  
-  mainEl.innerHTML = `
-    <div class="dm-result-main ${cls}">
-      <div class="dm-result-row">
-        <div>
-          <div class="dm-result-domain">${domain}</div>
-          <div class="dm-result-status ${available === true ? 'avail' : 'unavail'}">
-            ${available === true ? '<i class="fas fa-check-circle"></i> Available' : available === false ? '<i class="fas fa-exclamation-circle"></i> Likely registered' : '<i class="fas fa-question-circle"></i> Unconfirmed'}
-          </div>
-        </div>
-        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
-          <div class="dm-result-price">
-            <span class="price">$${pricing.register.toFixed(2)}</span>
-            <span class="period">/1st yr</span>
-            ${pricing.save > 0 ? '<span class="old">$' + pricing.renew.toFixed(2) + '</span>' : ''}
-          </div>
-          <a href="${checkout_url}" class="dm-result-btn">
-            <i class="fas fa-shopping-cart"></i> ${available === true ? 'Register Now' : 'Try to Register'}
-          </a>
-        </div>
-      </div>
-    </div>
-  `;
-
-  // Render suggestions — verify each one
-  const sugEl = document.getElementById('dm-suggestions');
-  if (suggestions && suggestions.length > 0) {
-    sugEl.innerHTML = `
-      <div class="dm-sug-title"><i class="fas fa-globe" style="color:#0774FF;"></i> More options</div>
-      <div class="dm-sug-grid" id="dm-sug-grid"></div>
-    `;
-    suggestions.forEach(function(s) { verifySuggestion(s); });
-  } else {
-    sugEl.innerHTML = '';
+  // ─── Load TLD Pricing (one request, cached) ───
+  async function loadPricingData() {
+    if (cachedPricing) return cachedPricing;
+    try {
+      const res = await fetch(apiUrl('action=pricing'));
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (data.success && data.pricing) {
+        cachedPricing = data.pricing;
+        return cachedPricing;
+      }
+    } catch (e) {}
+    return null;
   }
 
-  setTimeout(function() { document.getElementById('dm-results').scrollIntoView({behavior:'smooth',block:'start'}); }, 150);
-}
+  // ─── Update hero TLD pills ───
+  async function updateHeroTLDs() {
+    const pricing = await loadPricingData();
+    if (!pricing) return;
+    const pills = document.querySelectorAll('#dm-hero-tlds .dm-tld');
+    pills.forEach(function(pill) {
+      const tldEl = pill.querySelector('span:first-child');
+      const priceEl = pill.querySelector('.dm-tld-price');
+      if (!tldEl || !priceEl) return;
+      const tld = tldEl.textContent.trim();
+      if (pricing[tld]) {
+        priceEl.textContent = '$' + pricing[tld].register.toFixed(2);
+      } else {
+        pill.style.display = 'none';
+      }
+    });
+  }
 
-// Verify suggestion — only show if API confirms valid with pricing
-async function verifySuggestion(s) {
-  try {
-    const url = apiUrl('action=search&domain=' + encodeURIComponent(s.domain));
-    const res = await fetch(url);
-    if (!res.ok) { console.warn('[Domain API] Suggestion check failed for', s.domain, res.status); return; }
-    const data = await res.json();
-    if (!data.success || !data.pricing) return;
-
-    const grid = document.getElementById('dm-sug-grid');
+  // ─── Load pricing grid ───
+  async function loadPricing() {
+    const pricing = await loadPricingData();
+    if (!pricing) return;
+    const grid = document.getElementById('dm-pricing-grid');
     if (!grid) return;
-
-    const avail = data.available;
-    const price = data.pricing.register;
-    const renew = data.pricing.renew;
-    const save = data.pricing.save || 0;
-    const checkout = data.checkout_url || ('https://pro.nutro.cloud/checkout?pay=domain&domain=' + s.domain);
-
-    const item = document.createElement('div');
-    item.className = 'dm-sug-item' + (avail === false ? ' unavailable' : '');
-    item.innerHTML = `
-      <div class="dm-sug-left">
-        <span class="dm-sug-name">${data.domain}</span>
-        <span class="dm-sug-badge ${avail === true ? '' : avail === false ? 'taken' : ''}">${avail === true ? 'Available' : avail === false ? 'Taken' : 'Try it'}</span>
-      </div>
-      <div class="dm-sug-right">
-        <div class="dm-sug-price">
-          <div class="now">$${price.toFixed(2)}<span style="font-size:11px;font-weight:400;color:#64748b;">/yr</span></div>
-          ${save > 0 ? '<div class="was">$' + renew.toFixed(2) + '</div>' : ''}
-        </div>
-        <a href="${checkout}" class="dm-sug-btn" ${avail === false ? 'disabled' : ''}>
-          <i class="fas fa-cart-plus"></i> Get
-        </a>
-      </div>
-    `;
-    grid.appendChild(item);
-  } catch (e) {
-    console.warn('[Domain API] Suggestion error for', s.domain, e.message);
+    const entries = Object.entries(pricing)
+      .filter(([_, v]) => v.popular)
+      .sort((a, b) => a[1].register - b[1].register)
+      .slice(0, 8);
+    if (!entries.length) {
+      grid.innerHTML = '<p style="text-align:center;color:#94a3b8;">No pricing available.</p>';
+      return;
+    }
+    grid.innerHTML = entries.map(([tld, info]) =>
+      '<div class="dm-price-card" onclick="document.getElementById(\'domain-input\').value=\'example' + tld + '\';document.getElementById(\'domain-input\').focus();">' +
+        '<div class="tld">' + tld + '</div>' +
+        '<div class="price">$' + info.register.toFixed(2) + '</div>' +
+        '<div class="period">/1st year</div>' +
+        (info.save > 0 ? '<div class="save">Save ' + info.save + '%</div>' : '') +
+      '</div>'
+    ).join('');
   }
-}
 
-document.addEventListener('DOMContentLoaded', function() {
-  loadPricingData().then(function() {
+  // ─── Search Domain ───
+  async function searchDomain(e) {
+    if (e) e.preventDefault();
+    if (searching) return;
+
+    let input = document.getElementById('domain-input').value.toLowerCase().trim();
+    input = input.replace(/^(https?:\/\/)?(www\.)?/, '').replace(/\/$/, '');
+    if (!input) return;
+    if (!input.includes('.')) input += '.com';
+    if (!/^[a-z0-9]([a-z0-9\-]*[a-z0-9])?(\.[a-z]{2,20})+$/.test(input)) {
+      alert('Please enter a valid domain (e.g. mysite.com)');
+      return;
+    }
+
+    searching = true;
+    var pricingSection = document.getElementById('dm-pricing-section');
+    var loadingEl = document.getElementById('dm-loading');
+    var resultsEl = document.getElementById('dm-results');
+
+    if (pricingSection) pricingSection.style.display = 'none';
+    if (loadingEl) loadingEl.style.display = 'block';
+    if (resultsEl) resultsEl.style.display = 'none';
+
+    try {
+      const res = await fetch(apiUrl('action=search&domain=' + encodeURIComponent(input)));
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (resultsEl) resultsEl.style.display = 'block';
+
+      if (data.success) {
+        renderResult(data);
+      } else {
+        document.getElementById('dm-result-main').innerHTML =
+          '<p style="color:#ef4444;text-align:center;">' + (data.error || 'Error checking domain') + '</p>';
+      }
+    } catch (err) {
+      if (loadingEl) loadingEl.style.display = 'none';
+      if (resultsEl) resultsEl.style.display = 'block';
+      document.getElementById('dm-result-main').innerHTML =
+        '<p style="color:#ef4444;text-align:center;">Connection error: ' + err.message + '</p>';
+    } finally {
+      searching = false;
+    }
+  }
+
+  // ─── Render Result ───
+  function renderResult(data) {
+    const { domain, available, pricing, suggestions, checkout_url } = data;
+    const mainEl = document.getElementById('dm-result-main');
+    const cls = available === true ? 'available' : available === false ? 'taken' : '';
+
+    mainEl.innerHTML =
+      '<div class="dm-result-main ' + cls + '">' +
+        '<div class="dm-result-row">' +
+          '<div>' +
+            '<div class="dm-result-domain">' + esc(domain) + '</div>' +
+            '<div class="dm-result-status ' + (available ? 'avail' : 'unavail') + '">' +
+              (available === true
+                ? '<i class="fas fa-check-circle"></i> Available'
+                : available === false
+                  ? '<i class="fas fa-exclamation-circle"></i> Already Registered'
+                  : '<i class="fas fa-question-circle"></i> Unconfirmed') +
+            '</div>' +
+          '</div>' +
+          '<div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">' +
+            '<div class="dm-result-price">' +
+              '<span class="price">$' + pricing.register.toFixed(2) + '</span>' +
+              '<span class="period">/1st yr</span>' +
+              (pricing.renew > pricing.register ? '<span class="renew">Renews $' + pricing.renew.toFixed(2) + '/yr</span>' : '') +
+            '</div>' +
+            '<a href="' + (checkout_url || '#') + '" class="dm-result-btn">' +
+              '<i class="fas fa-shopping-cart"></i> ' + (available ? 'Register Now' : 'Try to Register') +
+            '</a>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+
+    // Render suggestions directly from API response (no extra requests)
+    const sugEl = document.getElementById('dm-suggestions');
+    if (!sugEl) return;
+
+    if (suggestions && suggestions.length > 0) {
+      let items = suggestions.map(function(s) {
+        const sPrice = s.price || s.pricing?.register || 0;
+        const sCheckout = 'https://pro.nutro.cloud/checkout?pay=domain&domain=' + encodeURIComponent(s.domain);
+        return '<div class="dm-sug-item">' +
+          '<div class="dm-sug-left">' +
+            '<span class="dm-sug-name">' + esc(s.domain) + '</span>' +
+            '<span class="dm-sug-badge">Available</span>' +
+          '</div>' +
+          '<div class="dm-sug-right">' +
+            '<div class="dm-sug-price">' +
+              '<div class="now">$' + parseFloat(sPrice).toFixed(2) + '<span style="font-size:11px;font-weight:400;color:#64748b;">/yr</span></div>' +
+            '</div>' +
+            '<a href="' + sCheckout + '" class="dm-sug-btn"><i class="fas fa-cart-plus"></i> Get</a>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+
+      sugEl.innerHTML =
+        '<div class="dm-sug-title"><i class="fas fa-globe" style="color:#0774FF;"></i> More options</div>' +
+        '<div class="dm-sug-grid">' + items + '</div>';
+    } else {
+      sugEl.innerHTML = '';
+    }
+
+    setTimeout(function() {
+      var el = document.getElementById('dm-results');
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 150);
+  }
+
+  // ─── Escape HTML ───
+  function esc(str) {
+    if (!str) return '';
+    var d = document.createElement('div');
+    d.appendChild(document.createTextNode(str));
+    return d.innerHTML;
+  }
+
+  // ─── Init ───
+  document.addEventListener('DOMContentLoaded', function() {
     updateHeroTLDs();
     loadPricing();
+
+    // Auto-search from URL
+    var params = new URLSearchParams(window.location.search);
+    var q = params.get('search') || params.get('domain');
+    if (q) {
+      document.getElementById('domain-input').value = q;
+      searchDomain(null);
+    }
+
+    // Video rotation
+    var videos = document.querySelectorAll('.dm-hero-video video');
+    if (videos.length > 1) {
+      var current = 0;
+      videos.forEach(function(v) { v.play().catch(function(){}); });
+      setInterval(function() {
+        videos[current].classList.remove('active');
+        current = (current + 1) % videos.length;
+        videos[current].classList.add('active');
+      }, 4000);
+    }
   });
 
-  var urlParams = new URLSearchParams(window.location.search);
-  var searchParam = urlParams.get('search');
-  if (searchParam) {
-    document.getElementById('domain-input').value = searchParam;
-    searchDomain(new Event('submit'));
-  }
-
-  const videos = document.querySelectorAll('.dm-hero-video video');
-  if (videos.length > 1) {
-    let current = 0;
-    videos.forEach(function(v) { v.play().catch(function(){}); });
-    setInterval(function() {
-      videos[current].classList.remove('active');
-      current = (current + 1) % videos.length;
-      videos[current].classList.add('active');
-    }, 4000);
-  }
-});
+  // Expose searchDomain globally for form onsubmit
+  window.searchDomain = searchDomain;
+})();
 </script>
 </body>
 </html>
